@@ -14,7 +14,7 @@ public class PrefabUIManager : MonoBehaviour
     public GameObject DraggableObject;
     public List<OptionContainer> OptionHolders;
     public List<DropHandler> dropHandlers;
-    [SerializeField] private GameObject center;
+    //[SerializeField] private GameObject center;
     private CMSGameEventManager eventManager;
 
     [Inject]
@@ -60,7 +60,7 @@ public class PrefabUIManager : MonoBehaviour
 
     private void ResetUI()
     {
-        DraggableObject.transform.position = center.transform.position;
+        //DraggableObject.transform.position = center.transform.position;
         QuestionUIHelper.ResetImage(LearningImageData.image);
         QuestionUIHelper.ResetText(LearningImageData.optionText);
         QuestionUIHelper.ResetText(SubLevelText);
