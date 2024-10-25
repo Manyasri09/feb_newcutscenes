@@ -1915,7 +1915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUI: 1
   originalPos: {fileID: 2735329940613177043}
-  toPop: 0
+  toPop: 1
   targetScale: {x: 1.02, y: 1.02, z: 1.02}
   pulseSpeed: 0.2
 --- !u!1 &5427633791519236101

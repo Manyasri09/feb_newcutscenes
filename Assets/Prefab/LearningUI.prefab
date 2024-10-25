@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 3304290501486015252}
   - component: {fileID: 8611076011371941992}
   m_Layer: 5
-  m_Name: WordPanel
+  m_Name: ImagePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 8536670112622691911}
   - component: {fileID: 4455345980321744842}
   m_Layer: 5
-  m_Name: ImagePanel
+  m_Name: WordPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUI: 1
   originalPos: {fileID: 7236172779406181280}
-  toPop: 0
+  toPop: 1
   targetScale: {x: 1.02, y: 1.02, z: 1.02}
   pulseSpeed: 0.5
 --- !u!1 &5556510876904993818
