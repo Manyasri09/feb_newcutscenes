@@ -9,6 +9,7 @@ namespace IdlePromptSystem
         [Header("References")]
 
         public Image handPromptImage;
+        //public GameObject textPrompt;
 
         [SerializeField] private float idleTimeThreshold = 3f;      // Time before showing prompt
         [SerializeField] private float animationDuration = 1.5f;    // Duration of single animation
@@ -87,7 +88,7 @@ namespace IdlePromptSystem
         private void StartAnimation()
         {
             if (isAnimating) return;
-
+            //textPrompt.SetActive(true);
             isAnimating = true;
             SetPromptVisibility(true);
             AnimatePrompt();
@@ -96,7 +97,7 @@ namespace IdlePromptSystem
         private void StopAnimation()
         {
             if (!isAnimating) return;
-
+            //textPrompt.SetActive(false);
             LeanTween.cancel(handRectTransform.gameObject);
             SetPromptVisibility(false);
             isAnimating = false;

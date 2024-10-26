@@ -8,18 +8,21 @@ public class CorrectDisplayHelper : MonoBehaviour
     [SerializeField] private GameObject previousUI;
     [SerializeField] private Image correctImage;
     [SerializeField] private Text subLevelText;
+    [SerializeField] private Text hindiText;
     [SerializeField] private GameObject correctAnswerGroup;
     [SerializeField] private GameObject acknowledgePanel;
     [SerializeField] private GameObject confettiEffect;
 
     [SerializeField] private Image imageHolder;
-    [SerializeField] private Text textHolder;
+    [SerializeField] private Text englishTextHolder;
+    [SerializeField] private Text hindiTextHolder;
 
 
     public void DisplayCorrectUI()
     {
         imageHolder.sprite = correctImage.sprite;
-        textHolder.text = subLevelText.text;
+        englishTextHolder.text = subLevelText.text;
+        hindiTextHolder.text = hindiText.text;
         
         Debug.Log("displaying correct UI");
         previousUI.SetActive(false);

@@ -45,7 +45,7 @@ namespace ezygamers.dragndropv1
                          .setLoopPingPong((int)(0.5f / 0.05f))
                          .setOnComplete(() => transform.position = transform.position);
 
-                eventManager.OptionSelected(OptionID); //triggering the event -rohan37kumar
+                eventManager.OptionSelected(this.OptionID); //triggering the event -rohan37kumar
                 //Debug.Log(OptionID);
                 //Debug.Log("action called");
             }

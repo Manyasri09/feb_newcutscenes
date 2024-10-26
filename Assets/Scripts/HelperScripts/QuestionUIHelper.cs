@@ -28,6 +28,11 @@ public class QuestionUIHelper
             }
         }
     }
+
+    public static void SetDraggableID(DropHandler dropHandler, string id)
+    {
+        dropHandler.OptionID = id;
+    }
     
     public static void SetImage(Image uiImageComponent, Sprite imageSprite)
     {
