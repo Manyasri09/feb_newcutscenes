@@ -1,6 +1,7 @@
 using UnityEngine;
 using VContainer;
 using ezygamers.cmsv1;
+using ezygamers.dragndropv1;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -29,12 +30,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        CMSGameEventManager.OnAnswerSelected += OnAnswerSelected;
+        //CMSGameEventManager.OnAnswerSelected += OnAnswerSelected;
+        Actions.onItemDropped+=OnAnswerSelected;
     }
 
     private void OnDisable()
     {
-        CMSGameEventManager.OnAnswerSelected -= OnAnswerSelected;
+        //CMSGameEventManager.OnAnswerSelected -= OnAnswerSelected;
+        Actions.onItemDropped-=OnAnswerSelected;
     }
 
     private void Start()
@@ -60,26 +63,27 @@ public class GameManager : MonoBehaviour
     }
 
     //Methods for Level Progression -rohan37kumar
-    private void OnAnswerSelected(string selectedAnswer)
+    private void OnAnswerSelected(GameObject selectedOption)
     {
-        bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], selectedAnswer);
+
+        bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], selectedOption.GetComponent<DropHandler>().OptionID);
 
         if(isCorrect)
         {
             CorrectAnswerSelected();
             return;
         }
-        WrongAnswerSelected();
+        WrongAnswerSelected(selectedOption);
     }
 
     
-    private void WrongAnswerSelected()
+    private void WrongAnswerSelected(GameObject selectedOption)
     {
         if (isProcessing) return;
         isProcessing = true;
         //nudge or red logic
         audioManager.PlayWrongAudio();
-        uiManager.LoadWrongUI();
+        uiManager.LoadWrongUI(selectedOption);
         Debug.Log("Wrong Answer");
         StartCoroutine(WaitAndReload());
     }
@@ -139,8 +143,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Ended");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-
-
-  
+    
 }

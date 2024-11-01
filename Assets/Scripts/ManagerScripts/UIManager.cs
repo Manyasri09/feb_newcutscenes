@@ -113,10 +113,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void LoadWrongUI()
+    public void LoadWrongUI(GameObject selectedOption)
     {
         //currently working on this -rohan37kumar
-        
+        AnimationHelper.MakeNudge(selectedOption);
     }
     public void LoadCorrectUI()
     {

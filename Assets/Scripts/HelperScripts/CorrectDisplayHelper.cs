@@ -14,15 +14,13 @@ public class CorrectDisplayHelper : MonoBehaviour
     [SerializeField] private GameObject confettiEffect;
 
     [SerializeField] private Image imageHolder;
-    [SerializeField] private Text englishTextHolder;
-    [SerializeField] private Text hindiTextHolder;
+    [SerializeField] private Text wordPair;
 
 
     public void DisplayCorrectUI()
     {
         imageHolder.sprite = correctImage.sprite;
-        englishTextHolder.text = subLevelText.text;
-        hindiTextHolder.text = hindiText.text;
+        wordPair.text = subLevelText.text +" - "+ hindiText.text;
         
         Debug.Log("displaying correct UI");
         previousUI.SetActive(false);
