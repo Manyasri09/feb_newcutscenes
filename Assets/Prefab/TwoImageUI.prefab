@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 2387826281204362214}
   - component: {fileID: 5486928695530993276}
   - component: {fileID: 7387907861459423267}
+  - component: {fileID: 6364459197223506468}
   m_Layer: 5
   m_Name: ShadowImage
   m_TagString: Untagged
@@ -183,6 +184,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6364459197223506468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938897991176141337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f306b6c8d16244eaa8096b021e81b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUI: 1
 --- !u!1 &1149201730482127901
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +300,7 @@ GameObject:
   - component: {fileID: 5623260650131793706}
   - component: {fileID: 7395358352026784432}
   - component: {fileID: 2873582890292496200}
+  - component: {fileID: 39395322619236540}
   m_Layer: 5
   m_Name: ShadowImage
   m_TagString: Untagged
@@ -352,6 +367,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &39395322619236540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418070044136165286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f306b6c8d16244eaa8096b021e81b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUI: 1
 --- !u!1 &1468270378532285742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1043,7 @@ MonoBehaviour:
   dropHandlers:
   - {fileID: 2761537276490091791}
   - {fileID: 3304290501486015252}
+  QuestionDropHandler: {fileID: 8180312616560915791}
 --- !u!114 &9111665013483226573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,6 +1153,8 @@ GameObject:
   - component: {fileID: 241148664093576862}
   - component: {fileID: 8536670112622691911}
   - component: {fileID: 4455345980321744842}
+  - component: {fileID: 8180312616560915791}
+  - component: {fileID: 5819067091711004197}
   m_Layer: 5
   m_Name: QuestionPanel
   m_TagString: Untagged
@@ -1202,6 +1233,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUI: 1
+--- !u!114 &8180312616560915791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276555450264682499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 275ec71b57cdb3543a942ea8837a7bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OptionID: 
+  originalPos: {fileID: 6271958240427954479}
+--- !u!114 &5819067091711004197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276555450264682499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba1b312f12094d438d4635feca032b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPanelImage: {fileID: 8536670112622691911}
+  highlightColor: {r: 0.42352942, g: 1, b: 0.4, a: 0.5882353}
 --- !u!1 &5556510876904993818
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class PrefabUIManager : MonoBehaviour
     public GameObject DraggableObject;
     public List<OptionContainer> OptionHolders;
     public List<DropHandler> dropHandlers;
-    //public DropHandler QuestionDropHandler;
+    public DropHandler QuestionDropHandler;
     //[SerializeField] private GameObject center;
     private CMSGameEventManager eventManager;
 
@@ -56,7 +56,7 @@ public class PrefabUIManager : MonoBehaviour
     {
         QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
         QuestionUIHelper.SetOptionsData(questionData.imageOptions, OptionHolders, dropHandlers);
-        //QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
+        QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
         QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
     }
 
