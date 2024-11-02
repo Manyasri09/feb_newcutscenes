@@ -13,11 +13,71 @@ public static class AnimationHelper
             .setLoopPingPong();
     }
 
+    //ripple effect animation
+    public static void CreateRipple(GameObject target, float maxScale, float animationDuration)
+    {
+        if (target == null) return; //safety checks
+
+        // Cancel any existing tweens on this object to prevent conflicts
+        LeanTween.cancel(target);
+
+        // Store the original scale
+        Vector3 originalScale = target.transform.localScale;
+
+        // Ensure we have a CanvasGroup for alpha manipulation
+        CanvasGroup canvasGroup = target.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = target.AddComponent<CanvasGroup>();
+        }
+
+        // Function to start a single animation cycle
+        void StartRippleAnimation()
+        {
+            if (target == null || !target.activeInHierarchy) return;
+
+            // Reset to initial state
+            target.transform.localScale = originalScale;
+            canvasGroup.alpha = 1f;
+
+            // Scale up quickly (using 1/3 of the total duration)
+            LeanTween.scale(target, Vector3.one * maxScale, animationDuration)
+                .setEase(LeanTweenType.easeOutExpo); // Changed to easeOutExpo for faster initial movement
+
+            // Fade out over the full duration
+            LeanTween.alphaCanvas(canvasGroup, 0f, animationDuration)
+                .setEase(LeanTweenType.easeOutQuad)
+                .setOnComplete(StartRippleAnimation);
+        }
+
+        // Start the first animation cycle
+        StartRippleAnimation();
+    }
+
     public static void StopAnimating(GameObject target)
     {
-        // Cancel any tweens on this object
+        if (target == null) return;
+
+        // Cancel all tweens
         LeanTween.cancel(target);
-        target.transform.localScale = Vector3.one;
+
+        // Try to reset the object if it still exists
+        try
+        {
+            // Reset scale
+            target.transform.localScale = Vector3.one;
+
+            // Reset alpha if CanvasGroup exists
+            var canvasGroup = target.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 1f;
+            }
+        }
+        catch (MissingReferenceException)
+        {
+            // Object was already destroyed, nothing to do
+        }
     }
 
     public static void MakeNudge(GameObject selectedOption)
@@ -62,13 +122,13 @@ public static class AnimationHelper
             .setOnComplete(() => onComplete?.Invoke());
     }
 
-/*
-    // Utility function for delayed calls
-    public static int DelayedCall(float delay, System.Action action)
-    {
-        return LeanTween.delayedCall(delay, action).id;
-    }
-*/
+    /*
+        // Utility function for delayed calls
+        public static int DelayedCall(float delay, System.Action action)
+        {
+            return LeanTween.delayedCall(delay, action).id;
+        }
+    */
     // Cancel a specific delayed call
     public static void CancelDelayedCall(int id)
     {
