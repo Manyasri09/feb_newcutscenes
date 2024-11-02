@@ -11,11 +11,10 @@ public class PrefabUIManager : MonoBehaviour
     public OptionContainer LearningImageData;
     public Text SubLevelText;
     public AudioSource SubLevelAudioSource;
+    [SerializeField] private AudioSource correctAudio;
     public GameObject DraggableObject;
     public List<OptionContainer> OptionHolders;
     public List<DropHandler> dropHandlers;
-    public DropHandler QuestionDropHandler;
-    //[SerializeField] private GameObject center;
     private CMSGameEventManager eventManager;
 
     [Inject]
@@ -49,15 +48,15 @@ public class PrefabUIManager : MonoBehaviour
         QuestionUIHelper.SetImage(LearningImageData.image, questionData.learningImage.image);
         QuestionUIHelper.SetText(LearningImageData.optionText, questionData.questionText.text);
         QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
-        QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
+        QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
     }
 
     private void LoadQuestionContent(QuestionBaseSO questionData)
     {
         QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
         QuestionUIHelper.SetOptionsData(questionData.imageOptions, OptionHolders, dropHandlers);
-        QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
-        QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
+        //QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
+        QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
     }
 
     private void ResetUI()

@@ -30,7 +30,14 @@ public class CorrectDisplayHelper : MonoBehaviour
         {
             confettiEffect.SetActive(true);
         }
-        
+        StartCoroutine(WaitAndPlayAudio());
+    }
+
+    private IEnumerator WaitAndPlayAudio()
+    {
+        yield return new WaitForSeconds(0.5f);
+        //playing correct audio
+        acknowledgePanel.GetComponent<AudioSource>().Play();
     }
     
 

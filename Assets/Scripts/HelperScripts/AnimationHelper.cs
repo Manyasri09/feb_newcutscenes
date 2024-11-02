@@ -13,7 +13,7 @@ public static class AnimationHelper
             .setLoopPingPong();
     }
 
-    public static void StopPulse(GameObject target)
+    public static void StopAnimating(GameObject target)
     {
         // Cancel any tweens on this object
         LeanTween.cancel(target);
@@ -62,12 +62,13 @@ public static class AnimationHelper
             .setOnComplete(() => onComplete?.Invoke());
     }
 
+/*
     // Utility function for delayed calls
     public static int DelayedCall(float delay, System.Action action)
     {
         return LeanTween.delayedCall(delay, action).id;
     }
-
+*/
     // Cancel a specific delayed call
     public static void CancelDelayedCall(int id)
     {

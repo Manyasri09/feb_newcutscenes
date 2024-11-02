@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
-public class DragObjectPrompt : MonoBehaviour
+public class ObjectMovementHelper : MonoBehaviour
 {
     [Header("Prompt Settings")]
     [SerializeField] private bool enableAutoPrompt = true;
+    [SerializeField] private float totalAnimationDuration = -1f;  // -1 for infinite loop
 
     [Header("References")]
     [SerializeField] private Image handPromptImage;
 
+    [Header("Animation Settings")]
     [SerializeField] private float idleTimeThreshold = 5f;      // Time before showing prompt
     [SerializeField] private float animationDuration = 1.5f;    // Duration of single animation
     [SerializeField] private float verticalDistance = 1000f;    // Distance to move down
@@ -18,7 +21,9 @@ public class DragObjectPrompt : MonoBehaviour
     private Vector2 startPosition;
     private Vector2 endPosition;
     private bool isAnimating;
-    private int? currentDelayCallId;
+    private float currentAnimationTime;
+    private Coroutine idleCheckCoroutine;
+    private Coroutine animationCoroutine;
 
     private void Awake()
     {
@@ -33,6 +38,7 @@ public class DragObjectPrompt : MonoBehaviour
         {
             ScheduleAnimation();
         }
+        Actions.onDrag += disableAnimating;
     }
 
     private void OnDestroy()
@@ -66,22 +72,27 @@ public class DragObjectPrompt : MonoBehaviour
     {
         handPromptImage.enabled = false;
         isAnimating = false;
+        currentAnimationTime = 0f;
     }
 
     private void ScheduleAnimation()
     {
-        if (currentDelayCallId.HasValue)
+        if (idleCheckCoroutine != null)
         {
-            AnimationHelper.CancelDelayedCall(currentDelayCallId.Value);
+            StopCoroutine(idleCheckCoroutine);
         }
 
-        currentDelayCallId = AnimationHelper.DelayedCall(idleTimeThreshold, () =>
+        idleCheckCoroutine = StartCoroutine(IdleCheckRoutine());
+    }
+
+    private IEnumerator IdleCheckRoutine()
+    {
+        yield return new WaitForSeconds(idleTimeThreshold);
+        
+        if (enableAutoPrompt && !isAnimating)
         {
-            if (enableAutoPrompt && !isAnimating)
-            {
-                StartAnimation();
-            }
-        });
+            StartAnimation();
+        }
     }
 
     public void CallObjectMovement()
@@ -120,53 +131,104 @@ public class DragObjectPrompt : MonoBehaviour
     {
         isAnimating = true;
         handPromptImage.enabled = true;
+        currentAnimationTime = 0f;
 
         // Reset position and make fully visible
         handRectTransform.anchoredPosition = startPosition;
         handPromptImage.color = new Color(1f, 1f, 1f, 1f);
 
-        // Start the curved movement animation
-        AnimationHelper.AnimateCurvedUIMovement(
-            handRectTransform,
-            startPosition,
-            endPosition,
-            curveOffset,
-            animationDuration,
-            () =>
+        if (animationCoroutine != null)
+        {
+            StopCoroutine(animationCoroutine);
+        }
+        animationCoroutine = StartCoroutine(AnimatePromptRoutine());
+    }
+
+    private IEnumerator AnimatePromptRoutine()
+    {
+        while (true)
+        {
+            // Curved movement animation
+            float elapsedTime = 0f;
+            Vector2 controlPoint = new Vector2(
+                startPosition.x + curveOffset,
+                startPosition.y + (endPosition.y - startPosition.y) * 0.5f
+            );
+
+            while (elapsedTime < animationDuration)
             {
-                // On complete, fade out
-                AnimationHelper.FadeUIElement(
-                    handRectTransform,
-                    1f,
-                    0f,
-                    0.3f,
-                    () =>
-                    {
-                        if (enableAutoPrompt)
-                        {
-                            // Reset and restart
-                            handRectTransform.anchoredPosition = startPosition;
-                            handPromptImage.color = new Color(1f, 1f, 1f, 1f);
-                            StartAnimation();
-                        }
-                    }
+                elapsedTime += Time.deltaTime;
+                float normalizedTime = elapsedTime / animationDuration;
+
+                // Quadratic Bezier curve
+                Vector2 position = Vector2.Lerp(
+                    Vector2.Lerp(startPosition, controlPoint, normalizedTime),
+                    Vector2.Lerp(controlPoint, endPosition, normalizedTime),
+                    normalizedTime
                 );
+
+                handRectTransform.anchoredPosition = position;
+                yield return null;
             }
-        );
+
+            // Fade out animation
+            elapsedTime = 0f;
+            float fadeDuration = 0.3f;
+            Color startColor = handPromptImage.color;
+            Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+            while (elapsedTime < fadeDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float normalizedTime = elapsedTime / fadeDuration;
+                handPromptImage.color = Color.Lerp(startColor, endColor, normalizedTime);
+                yield return null;
+            }
+
+            currentAnimationTime += animationDuration + fadeDuration;
+            bool shouldContinue = totalAnimationDuration < 0 || currentAnimationTime < totalAnimationDuration;
+
+            if (!enableAutoPrompt || !shouldContinue)
+            {
+                StopAnimation();
+                yield break;
+            }
+
+            // Reset for next cycle
+            handRectTransform.anchoredPosition = startPosition;
+            handPromptImage.color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 
     private void StopAnimation()
     {
         if (!isAnimating) return;
 
-        AnimationHelper.CancelAllAnimationsForObject(gameObject);
-        if (currentDelayCallId.HasValue)
+        if (idleCheckCoroutine != null)
         {
-            AnimationHelper.CancelDelayedCall(currentDelayCallId.Value);
-            currentDelayCallId = null;
+            StopCoroutine(idleCheckCoroutine);
+            idleCheckCoroutine = null;
+        }
+
+        if (animationCoroutine != null)
+        {
+            StopCoroutine(animationCoroutine);
+            animationCoroutine = null;
         }
 
         handPromptImage.enabled = false;
         isAnimating = false;
+        currentAnimationTime = 0f;
+    }
+
+    private void enableAnimating()
+    {
+        enableAutoPrompt = true;
+    }
+
+    private void disableAnimating()
+    {
+        StopAnimation();
+        enableAutoPrompt = false;
     }
 }
