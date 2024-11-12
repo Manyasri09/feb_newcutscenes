@@ -9,31 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcdc2b11efba46478f2700781d8b2d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 974a3fea09b54ca4db5280152347b33e, type: 3}
   m_Name: QuestionThankyou
   m_EditorClassIdentifier: 
-  questionNo: 3
+  questionNo: 0
   questionText:
-    text: Thank you
+    text: Thank You
   hindiText:
     text: "\u0927\u0928\u094D\u092F\u0935\u093E\u0926"
   learningImage:
     image: {fileID: 0}
   questionAudio:
     audioClip: {fileID: 8300000, guid: 18aa6f2dcc2158541b31ca24a2424145, type: 3}
-  imageOptions:
+  options:
   - optionID: 0
-    sprite: {fileID: 21300000, guid: 321ad5f0f97ef3645968344d9d599e40, type: 3}
-    text: Eat
-  - optionID: 1
     sprite: {fileID: 21300000, guid: c28d6048fc58e4949960885654171d9a, type: 3}
     text: Hello
-  - optionID: 2
-    sprite: {fileID: 21300000, guid: 0f04552a347bc674cb5863ceb403df8b, type: 3}
-    text: Run
-  - optionID: 3
+    audio: {fileID: 0}
+  - optionID: 1
     sprite: {fileID: 21300000, guid: 335ce03f42990914c862be2da27e6105, type: 3}
-    text: Thank You
-  correctOptionID: 3
-  optionType: 2
+    text: ThankYou
+    audio: {fileID: 0}
+  correctOptionID: 1
+  optionType: 1
   difficultyLevel: 0

@@ -6,15 +6,18 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioClip correctClip;
     [SerializeField] private AudioClip wrongClip;
+    [SerializeField] private AudioClip bkgClip;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource musicSource;
 
     private void OnEnable()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        //audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.playOnAwake = false;  // Don't play on start
         audioSource.loop = false;
         audioSource.volume = 1.0f;
+        musicSource.volume = 0.65f;
     }
 
     public void PlayCorrectAudio()
@@ -27,6 +30,12 @@ public class AudioManager : MonoBehaviour
     {
         audioSource.clip = wrongClip;
         audioSource.Play();
+    }
+
+    public void PlayBkgMusic()
+    {
+        musicSource.clip = bkgClip;
+        musicSource.Play();
     }
 
 

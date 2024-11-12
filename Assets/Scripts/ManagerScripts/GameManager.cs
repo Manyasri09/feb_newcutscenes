@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private CMSGameEventManager eventManager;  // Reference to CMSGameEventManager
-    private  UIManager uiManager;               // Reference to UIManager
+    private UIManager uiManager;               // Reference to UIManager
     private AudioManager audioManager;          //Reference to AudioManager
 
     [SerializeField]
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private Slider ProgressBar; //ProgressBar for each level -rohan37kumar
     private bool isProcessing = false;
     public static int CurrentIndex; //value for the Current Index of Question Loaded.
-    
+
 
     [Inject]
     public void Construct(CMSGameEventManager eventManager, UIManager uiManager, AudioManager audioManager)
@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         //CMSGameEventManager.OnAnswerSelected += OnAnswerSelected;
-        Actions.onItemDropped+=OnAnswerSelected;
+        Actions.onItemDropped += OnAnswerSelected;
     }
 
     private void OnDisable()
     {
         //CMSGameEventManager.OnAnswerSelected -= OnAnswerSelected;
-        Actions.onItemDropped-=OnAnswerSelected;
+        Actions.onItemDropped -= OnAnswerSelected;
     }
 
     private void Start()
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-
+        audioManager.PlayBkgMusic();
         Debug.Log(uiManager);
         Debug.Log("Game Started");
         // Load the first level's UI and questions
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], selectedOption.GetComponent<DropHandler>().OptionID);
 
-        if(isCorrect)
+        if (isCorrect)
         {
             CorrectAnswerSelected();
             return;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         WrongAnswerSelected(selectedOption);
     }
 
-    
+
     private void WrongAnswerSelected(GameObject selectedOption)
     {
         if (isProcessing) return;
@@ -143,5 +143,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Ended");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
 }

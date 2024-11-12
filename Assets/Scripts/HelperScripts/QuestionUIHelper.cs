@@ -15,7 +15,7 @@ public class QuestionUIHelper
         }
     }
 
-    public static void SetOptionsData(List<ImageOption> imageOptions, List<OptionContainer> OptionHolders, List<DropHandler> dropHandlers)
+    public static void SetOptionsData(List<OptionGeneric> imageOptions, List<OptionContainer> OptionHolders, List<DropHandler> dropHandlers)
     {
         if (imageOptions != null && OptionHolders != null)
         {

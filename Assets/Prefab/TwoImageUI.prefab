@@ -1054,7 +1054,7 @@ MonoBehaviour:
   correctImage: {fileID: 1327830443742643923}
   subLevelText: {fileID: 5938426171483613848}
   hindiText: {fileID: 1460052075902275402}
-  correctAnswerGroup: {fileID: 8779575843627237236}
+  correctAnswerPanel: {fileID: 7825507995612965278}
   acknowledgePanel: {fileID: 189669662872017369}
   confettiEffect: {fileID: 3314185389057772937}
   imageHolder: {fileID: 6969579430355198378}
@@ -2089,11 +2089,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 454339345515709782, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Name
       value: CorrectUIPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4619793156901818956, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Pivot.x
@@ -2217,9 +2221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8779575843627237236 stripped
+--- !u!1 &7825507995612965278 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 454339345515709782, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
   m_PrefabInstance: {fileID: 9194506063883467298}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &8782737615899195308 stripped

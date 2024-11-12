@@ -1463,7 +1463,7 @@ MonoBehaviour:
   correctImage: {fileID: 524230442187525386}
   subLevelText: {fileID: 1460052075902275402}
   hindiText: {fileID: 5202959006930710328}
-  correctAnswerGroup: {fileID: 887002419836211635}
+  correctAnswerPanel: {fileID: 1801967313503831897}
   acknowledgePanel: {fileID: 8591111324104668958}
   confettiEffect: {fileID: 6369866390386221902}
   imageHolder: {fileID: 1522496114271407981}
@@ -2949,11 +2949,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 454339345515709782, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Name
       value: CorrectUIPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4619793156901818956, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Pivot.x
@@ -3040,11 +3044,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
---- !u!1 &887002419836211635 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 454339345515709782, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
-  m_PrefabInstance: {fileID: 720970914527532261}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &899199175736842603 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 467248292927049102, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
@@ -3061,6 +3060,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1801967313503831897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+  m_PrefabInstance: {fileID: 720970914527532261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4681288280264926800 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5401542021010600629, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}

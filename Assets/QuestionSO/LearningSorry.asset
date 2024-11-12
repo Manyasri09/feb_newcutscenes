@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcdc2b11efba46478f2700781d8b2d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 974a3fea09b54ca4db5280152347b33e, type: 3}
   m_Name: LearningSorry
   m_EditorClassIdentifier: 
-  questionNo: 4
+  questionNo: 0
   questionText:
     text: Sorry
   hindiText:
-    text: "\u092E\u093E\u095E\u0940"
+    text: "\u092E\u093E\u092B\u093C\u0940"
   learningImage:
     image: {fileID: 21300000, guid: 688fe2f10b97d404288198997e45bd7f, type: 3}
   questionAudio:
     audioClip: {fileID: 8300000, guid: 821c6a6d144c6414faaacfd7dc26e106, type: 3}
-  imageOptions: []
-  correctOptionID: 
+  options: []
+  correctOptionID: 0
   optionType: 0
   difficultyLevel: 0

@@ -9,7 +9,7 @@ public class CorrectDisplayHelper : MonoBehaviour
     [SerializeField] private Image correctImage;
     [SerializeField] private Text subLevelText;
     [SerializeField] private Text hindiText;
-    [SerializeField] private GameObject correctAnswerGroup;
+    [SerializeField] private GameObject correctAnswerPanel;
     [SerializeField] private GameObject acknowledgePanel;
     [SerializeField] private GameObject confettiEffect;
 
@@ -24,7 +24,7 @@ public class CorrectDisplayHelper : MonoBehaviour
         
         Debug.Log("displaying correct UI");
         previousUI.SetActive(false);
-        correctAnswerGroup.SetActive(true);
+        correctAnswerPanel.SetActive(true);
         acknowledgePanel.LeanMoveLocalY(-1580, 0.5f).setEaseOutExpo().delay = 0.1f;
         if(confettiEffect != null)
         {

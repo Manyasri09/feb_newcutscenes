@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974a3fea09b54ca4db5280152347b33e, type: 3}
+  m_Name: LearningPlease
+  m_EditorClassIdentifier: 
+  questionNo: 0
+  questionText:
+    text: Please
+  hindiText:
+    text: "\u0915\u0943\u092A\u092F\u093E"
+  learningImage:
+    image: {fileID: 21300000, guid: b002202ab79f1d243bd8c96da6657df4, type: 3}
+  questionAudio:
+    audioClip: {fileID: 0}
+  options: []
+  correctOptionID: 0
+  optionType: 0
+  difficultyLevel: 0

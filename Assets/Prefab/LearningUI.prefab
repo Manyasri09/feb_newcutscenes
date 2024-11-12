@@ -976,7 +976,7 @@ MonoBehaviour:
   correctImage: {fileID: 6598542155037400613}
   subLevelText: {fileID: 8377768315872313747}
   hindiText: {fileID: 1460052075902275402}
-  correctAnswerGroup: {fileID: 2816245098047359709}
+  correctAnswerPanel: {fileID: 3628727330394954807}
   acknowledgePanel: {fileID: 6657386525412273264}
   confettiEffect: {fileID: 0}
   imageHolder: {fileID: 4502181088654578691}
@@ -2185,7 +2185,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 454339345515709782, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 926513254483453538, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_SortingLayer
@@ -2203,21 +2203,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: CorrectUIPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3980400067265608384, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4048593499557368533, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4048593499557368533, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Color.b
-      value: 0.76862746
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4048593499557368533, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Color.g
-      value: 0.9764706
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4048593499557368533, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
       propertyPath: m_Color.r
@@ -2328,14 +2332,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
---- !u!1 &2816245098047359709 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 454339345515709782, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
-  m_PrefabInstance: {fileID: 2403634417844014987}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &2819415116622971397 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 467248292927049102, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+  m_PrefabInstance: {fileID: 2403634417844014987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3628727330394954807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1369297161238320060, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
   m_PrefabInstance: {fileID: 2403634417844014987}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4502181088654578691 stripped

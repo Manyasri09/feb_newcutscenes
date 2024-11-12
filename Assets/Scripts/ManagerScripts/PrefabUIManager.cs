@@ -54,7 +54,7 @@ public class PrefabUIManager : MonoBehaviour
     private void LoadQuestionContent(QuestionBaseSO questionData)
     {
         QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
-        QuestionUIHelper.SetOptionsData(questionData.imageOptions, OptionHolders, dropHandlers);
+        QuestionUIHelper.SetOptionsData(questionData.options, OptionHolders, dropHandlers);
         //QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
         QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
     }
