@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.adityababar08.line_dragging_plugin": {
+      "version": "https://github.com/AdityaBabar08/LineDrawUPM.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "061155e7f9cce42094fa216fdb16dcd41be0127a"
+    },
     "com.ezygamers.cmsv1": {
       "version": "https://github.com/rohan37kumar/EzyGamers_CMS_v1.git",
       "depth": 0,
@@ -28,7 +35,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.aseprite": {
-      "version": "1.1.4",
+      "version": "1.1.6",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -40,7 +47,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.common": {
-      "version": "8.0.2",
+      "version": "8.0.3",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -77,11 +84,11 @@
       "dependencies": {}
     },
     "com.unity.2d.spriteshape": {
-      "version": "9.0.3",
+      "version": "9.0.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "8.0.2",
+        "com.unity.2d.common": "8.0.3",
         "com.unity.mathematics": "1.1.0",
         "com.unity.modules.physics2d": "1.0.0"
       },
@@ -109,7 +116,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.15",
+      "version": "1.8.17",
       "depth": 3,
       "source": "registry",
       "dependencies": {
@@ -151,14 +158,14 @@
         "com.unity.2d.pixel-perfect": "5.0.3",
         "com.unity.2d.psdimporter": "8.0.5",
         "com.unity.2d.sprite": "1.0.0",
-        "com.unity.2d.spriteshape": "9.0.3",
+        "com.unity.2d.spriteshape": "9.0.4",
         "com.unity.2d.tilemap": "1.0.0",
         "com.unity.2d.tilemap.extras": "3.1.2",
-        "com.unity.2d.aseprite": "1.1.4"
+        "com.unity.2d.aseprite": "1.1.6"
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.28",
+      "version": "3.0.31",
       "depth": 0,
       "source": "registry",
       "dependencies": {
