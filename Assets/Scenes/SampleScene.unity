@@ -1285,6 +1285,7 @@ MonoBehaviour:
   TwoImagePrefab: {fileID: 4841250932979668625, guid: 42be42c9fab07bb4590c23532f6c8f21, type: 3}
   FourImagePrefab: {fileID: 4841250932979668625, guid: 7ce58820f7cfd6e4fbf4926e4ed025a6, type: 3}
   TwoWordPrefab: {fileID: 4841250932979668625, guid: f24ea16377409af4e87393e12a9656f9, type: 3}
+  ThreeWordLineDrag: {fileID: 695483322419301462, guid: 765832c540111f34eadad1d4ce8de09f, type: 3}
 --- !u!1 &1810945962
 GameObject:
   m_ObjectHideFlags: 0

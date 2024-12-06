@@ -8,7 +8,7 @@ using VContainer;
 
 public class LineDragPrefabManager : MonoBehaviour
 {
-    public TMP_Text question;
+    public Text question;
     public List<LineDrawNode> drawNodes;
 
 
@@ -46,7 +46,7 @@ public class LineDragPrefabManager : MonoBehaviour
     {
         if (questionData.questionText.text != null && question != null)
         {
-            question.text = questionData.questionText.text;
+            QuestionUIHelper.SetText(question, questionData.questionText.text);
         }
 
         for (int i = 0; i < questionData.options.Count; i++)
@@ -54,7 +54,7 @@ public class LineDragPrefabManager : MonoBehaviour
             if (drawNodes[i].GetComponentInChildren<Text>() != null && questionData.options[i] != null)
             {
                 drawNodes[i].GetComponent<LineDrawNode>().nodeValue = questionData.options[i].text;
-                drawNodes[i].GetComponentInChildren<Text>().text = questionData.options[i].text;
+                QuestionUIHelper.SetText(drawNodes[i].GetComponentInChildren<Text>(), questionData.options[i].text);
             }
         }
     }

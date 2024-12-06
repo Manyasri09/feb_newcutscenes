@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public GameObject TwoImagePrefab;  // Prefab reference
     public GameObject FourImagePrefab;
     public GameObject TwoWordPrefab;
+    public GameObject ThreeWordLineDrag;
 
     private LevelConfiggSO levelSO;     //private LevelSO to hold data -rohan37kumar
     private GameObject currentPrefab;
@@ -98,7 +99,8 @@ public class UIManager : MonoBehaviour
             { OptionType.Learning, LearningUIPrefab },
             { OptionType.TwoImageOpt, TwoImagePrefab },
             { OptionType.FourImageOpt, FourImagePrefab },
-            { OptionType.TwoWordOpt, TwoWordPrefab }
+            { OptionType.TwoWordOpt, TwoWordPrefab },
+            {OptionType.LineQuestion, ThreeWordLineDrag }
         };
 
         // Try to get the prefab from the dictionary based on content type
