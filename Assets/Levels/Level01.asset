@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Level01
   m_EditorClassIdentifier: 
   LevelNumber: 1
-  noOfSubLevel: 4
+  noOfSubLevel: 2
   question:
   - {fileID: 11400000, guid: 1a35d5e02f2baa441a24d66e4b809a52, type: 2}
-  - {fileID: 11400000, guid: c782985032b9c584dac9e6b443475197, type: 2}
-  - {fileID: 11400000, guid: 58a54564cbf2c2d4db994692333c558c, type: 2}
-  - {fileID: 11400000, guid: 2324e511aaa43eb4781e10c17a5d4dd2, type: 2}
+  - {fileID: 11400000, guid: a1509629013a4c9439c283e68f8f438a, type: 2}

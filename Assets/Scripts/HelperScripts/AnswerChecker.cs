@@ -1,4 +1,5 @@
 using ezygamers.cmsv1;
+using System.Diagnostics;
 
 public class AnswerChecker
 {
@@ -10,6 +11,11 @@ public class AnswerChecker
         }
 
         if (question.correctOptionID.Equals(selectedAnswer))
+        {
+            return true;
+        }
+
+        if (question.optionType == OptionType.LineQuestion && selectedAnswer.Equals(question.questionText.text))
         {
             return true;
         }

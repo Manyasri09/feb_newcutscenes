@@ -14,6 +14,7 @@ public class PrefabUIManager : MonoBehaviour
     [SerializeField] private AudioSource correctAudio;
     public GameObject DraggableObject;
     public List<OptionContainer> OptionHolders;
+    public List<LineDrawNode> nodeContainers;
     public List<DropHandler> dropHandlers;
     private CMSGameEventManager eventManager;
 
@@ -40,7 +41,11 @@ public class PrefabUIManager : MonoBehaviour
         {
             LoadQuestionContent(questionData);
         }
-        
+        else if (questionData.optionType == OptionType.LineQuestion)
+        {
+             LoadLineQuestionContent(questionData);
+        }
+
     }
 
     private void LoadLearningContent(QuestionBaseSO questionData)
@@ -57,6 +62,27 @@ public class PrefabUIManager : MonoBehaviour
         QuestionUIHelper.SetOptionsData(questionData.options, OptionHolders, dropHandlers);
         //QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
         QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
+    }
+
+    private void LoadLineQuestionContent(QuestionBaseSO questionData)
+    {
+        //Debug.Log("LoadLineDragContent function called");
+        if (questionData.questionText.text != null && SubLevelText != null)
+        {
+            //Debug.Log("LoadLineDragContent function if statement called");
+            QuestionUIHelper.SetText(SubLevelText, questionData.questionText.text);
+        }
+
+        for (int i = 0; i < questionData.options.Count; i++)
+        {
+            //Debug.Log("LoadLineDragContent function for statement called");
+            if (nodeContainers[i].GetComponentInChildren<Text>() != null && questionData.options[i] != null)
+            {
+                //Debug.Log("LoadLineDragContent function if statement inside for called");
+                nodeContainers[i].GetComponent<LineDrawNode>().nodeValue = questionData.options[i].text;
+                QuestionUIHelper.SetText(nodeContainers[i].GetComponentInChildren<Text>(), questionData.options[i].text);
+            }
+        }
     }
 
     private void ResetUI()

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6793745169053857366}
   - component: {fileID: -8031696757593769295}
+  - component: {fileID: 3720288183076624262}
+  - component: {fileID: -3925900649604729162}
   m_Layer: 0
   m_Name: ThreeWordLineDrag
   m_TagString: Untagged
@@ -57,6 +59,52 @@ MonoBehaviour:
   - {fileID: 3114988936217692438}
   - {fileID: 2529637919169704113}
   - {fileID: 1987737723300804745}
+--- !u!114 &3720288183076624262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695483322419301462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3422230fa6576d42be192c6025179ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LearningImageData:
+    image: {fileID: 0}
+    optionText: {fileID: 0}
+  SubLevelText: {fileID: 8483046968217478330}
+  SubLevelAudioSource: {fileID: 0}
+  correctAudio: {fileID: 0}
+  DraggableObject: {fileID: 0}
+  OptionHolders: []
+  nodeContainers:
+  - {fileID: 3114988936217692438}
+  - {fileID: 2529637919169704113}
+  - {fileID: 1987737723300804745}
+  dropHandlers: []
+--- !u!114 &-3925900649604729162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695483322419301462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9278baf6572fc3443821134d7b8166ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousUI: {fileID: 0}
+  correctImage: {fileID: 0}
+  subLevelText: {fileID: 0}
+  hindiText: {fileID: 0}
+  correctAnswerPanel: {fileID: 0}
+  acknowledgePanel: {fileID: 0}
+  confettiEffect: {fileID: 0}
+  imageHolder: {fileID: 0}
+  wordPair: {fileID: 0}
 --- !u!1 &2099635195222991825
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private CMSGameEventManager eventManager;  // Reference to CMSGameEventManager
     private UIManager uiManager;               // Reference to UIManager
     private AudioManager audioManager;          //Reference to AudioManager
+    //private DraggingLine draggingLine;
 
     [SerializeField]
     private LevelConfiggSO currentLevel;  // ScriptableObject containing level data
@@ -26,18 +27,23 @@ public class GameManager : MonoBehaviour
         this.eventManager = eventManager;
         this.uiManager = uiManager;
         this.audioManager = audioManager;
+        //this.draggingLine = draggingLine;
     }
 
     private void OnEnable()
     {
         //CMSGameEventManager.OnAnswerSelected += OnAnswerSelected;
         Actions.onItemDropped += OnAnswerSelected;
+        LineActions.OnLineEnded += DraggingLine_OnLineEnded;
+
     }
+
 
     private void OnDisable()
     {
         //CMSGameEventManager.OnAnswerSelected -= OnAnswerSelected;
         Actions.onItemDropped -= OnAnswerSelected;
+        LineActions.OnLineEnded -= DraggingLine_OnLineEnded;
     }
 
     private void Start()
@@ -75,7 +81,26 @@ public class GameManager : MonoBehaviour
         }
         WrongAnswerSelected(selectedOption);
     }
+    private void DraggingLine_OnLineEnded(string outputText)
+    {
+        bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
+        if (isCorrect)
+        {
+            //Debug.Log("Correct answer");
+            //Debug.Log(currentLevel.question[CurrentIndex].questionText);
+            //Debug.Log(outputText);
+            CorrectAnswerSelected();
+            return;
 
+        }
+        else
+        {
+            //Debug.Log(currentLevel.question[CurrentIndex].questionText.text);
+            //Debug.Log(outputText);
+            Debug.Log("Wrong answer");
+        }
+        //WrongAnswerSelected(outputText);
+    }
 
     private void WrongAnswerSelected(GameObject selectedOption)
     {

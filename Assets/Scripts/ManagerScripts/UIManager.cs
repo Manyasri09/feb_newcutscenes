@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
             { OptionType.TwoImageOpt, TwoImagePrefab },
             { OptionType.FourImageOpt, FourImagePrefab },
             { OptionType.TwoWordOpt, TwoWordPrefab },
-            {OptionType.LineQuestion, ThreeWordLineDrag }
+            { OptionType.LineQuestion, ThreeWordLineDrag }
         };
 
         // Try to get the prefab from the dictionary based on content type
