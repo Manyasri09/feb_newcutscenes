@@ -1442,6 +1442,7 @@ MonoBehaviour:
     optionText: {fileID: 4571010322680076285}
   - image: {fileID: 524230442187525386}
     optionText: {fileID: 5202959006930710328}
+  nodeContainers: []
   dropHandlers:
   - {fileID: 2761537276490091791}
   - {fileID: 2480113260329769674}

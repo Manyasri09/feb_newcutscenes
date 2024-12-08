@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "641ece3fcd732f9361ee522246da632600eb70b6"
+      "hash": "71f34a5a600bafe3e6804ce562650ed9c656bbf2"
     },
     "com.ezygamers.cmsv1": {
       "version": "https://github.com/rohan37kumar/EzyGamers_CMS_v1.git",
@@ -20,12 +20,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "46bc0c5eca571abb7c6aaacbe723e3380cf58f0c"
-    },
-    "com.merry-yellow.code-assist": {
-      "version": "file:com.merry-yellow.code-assist",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
     },
     "com.unity.2d.animation": {
       "version": "9.1.1",
