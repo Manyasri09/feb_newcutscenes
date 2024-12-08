@@ -5,6 +5,7 @@ using ezygamers.dragndropv1;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     private Slider ProgressBar; //ProgressBar for each level -rohan37kumar
     private bool isProcessing = false;
     public static int CurrentIndex; //value for the Current Index of Question Loaded.
+
+    public static event Action<bool> OnQuestionResult;
 
 
     [Inject]
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
     private void DraggingLine_OnLineEnded(string outputText)
     {
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
+        OnQuestionResult?.Invoke(isCorrect);
         if (isCorrect)
         {
             //Debug.Log("Correct answer");
