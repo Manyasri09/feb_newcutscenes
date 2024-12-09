@@ -15,5 +15,4 @@ MonoBehaviour:
   LevelNumber: 1
   noOfSubLevel: 2
   question:
-  - {fileID: 11400000, guid: 1a35d5e02f2baa441a24d66e4b809a52, type: 2}
   - {fileID: 11400000, guid: a1509629013a4c9439c283e68f8f438a, type: 2}
