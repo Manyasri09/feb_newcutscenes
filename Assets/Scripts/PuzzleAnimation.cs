@@ -9,6 +9,8 @@ public class PuzzleAnimation : MonoBehaviour
     [SerializeField] private GameObject sadDoodle;
     [SerializeField] private GameObject idleDoodle;
     [SerializeField] private GameObject happyDoodle;
+    [SerializeField] private GameObject correctAcknowledgement;
+    [SerializeField] private GameObject mistakeAcknowledgement;
 
     // GameObject references
     [SerializeField] private Image questionImageHolder;
@@ -63,6 +65,8 @@ public class PuzzleAnimation : MonoBehaviour
         idleDoodle.SetActive(true);
         sadDoodle.SetActive(false);
         happyDoodle.SetActive(false);
+        correctAcknowledgement.SetActive(false);
+        mistakeAcknowledgement.SetActive(false);
     }
 
     private void ShowSadDoodle()
@@ -70,6 +74,8 @@ public class PuzzleAnimation : MonoBehaviour
         idleDoodle.SetActive(false);
         sadDoodle.SetActive(true);
         happyDoodle.SetActive(false);
+        correctAcknowledgement.SetActive(false);
+        mistakeAcknowledgement.SetActive(true);
     }
 
     private void ShowHappyDoodle()
@@ -77,6 +83,8 @@ public class PuzzleAnimation : MonoBehaviour
         idleDoodle.SetActive(false);
         sadDoodle.SetActive(false);
         happyDoodle.SetActive(true);
+        correctAcknowledgement.SetActive(true);
+        mistakeAcknowledgement.SetActive(false);
     }
 
     public void QuestionSolved()

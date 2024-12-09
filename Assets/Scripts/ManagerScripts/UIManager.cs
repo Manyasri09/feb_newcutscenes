@@ -122,6 +122,10 @@ public class UIManager : MonoBehaviour
     }
     public void LoadCorrectUI()
     {
+        if (dropsUIInstance.GetComponent<CorrectDisplayHelper>() == null)
+        {
+            return;
+        }
         dropsUIInstance.GetComponent<CorrectDisplayHelper>().DisplayCorrectUI();
     }
 
