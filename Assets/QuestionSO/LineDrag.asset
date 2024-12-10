@@ -17,7 +17,8 @@ MonoBehaviour:
   questionText:
     text: Please Help Me
   hindiText:
-    text: 
+    text: "\u0928\u092E\u0938\u094D\u0924\u0947 \u092E\u0948\u0902 \u0930\u093E\u091C\u0942
+      \u0939\u0942\u0902"
   learningImage:
     image: {fileID: 0}
   questionAudio:
