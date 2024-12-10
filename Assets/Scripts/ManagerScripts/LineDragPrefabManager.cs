@@ -36,7 +36,7 @@ public class LineDragPrefabManager : MonoBehaviour
         if (questionData.questionText.text != null && question != null)
         {
             Debug.Log("LoadLineDragContent function if statement called");
-            QuestionUIHelper.SetText(question, questionData.questionText.text);
+            QuestionUIHelper.SetText(question, questionData.hindiText.ToString());
         }
 
         for (int i = 0; i < questionData.options.Count; i++)

@@ -66,19 +66,17 @@ public class PrefabUIManager : MonoBehaviour
 
     private void LoadLineQuestionContent(QuestionBaseSO questionData)
     {
-        //Debug.Log("LoadLineDragContent function called");
+        
         if (questionData.questionText.text != null && SubLevelText != null)
         {
-            //Debug.Log("LoadLineDragContent function if statement called");
-            QuestionUIHelper.SetText(SubLevelText, questionData.questionText.text);
+            
+            QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
         }
 
         for (int i = 0; i < questionData.options.Count; i++)
         {
-            //Debug.Log("LoadLineDragContent function for statement called");
             if (nodeContainers[i].GetComponentInChildren<Text>() != null && questionData.options[i] != null)
             {
-                //Debug.Log("LoadLineDragContent function if statement inside for called");
                 nodeContainers[i].GetComponent<LineDrawNode>().nodeValue = questionData.options[i].text;
                 QuestionUIHelper.SetText(nodeContainers[i].GetComponentInChildren<Text>(), questionData.options[i].text);
             }

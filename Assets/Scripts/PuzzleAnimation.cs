@@ -8,12 +8,13 @@ public class PuzzleAnimation : MonoBehaviour
     [SerializeField] private Sprite solvedImage;
     [SerializeField] private GameObject sadDoodle;
     [SerializeField] private GameObject idleDoodle;
+    [SerializeField] private GameObject questionDoodle;
     [SerializeField] private GameObject happyDoodle;
     [SerializeField] private GameObject correctAcknowledgement;
     [SerializeField] private GameObject mistakeAcknowledgement;
 
     // GameObject references
-    [SerializeField] private Image questionImageHolder;
+    //[SerializeField] private Image questionImageHolder;
     //[SerializeField] private GameObject answerImageHolder;
     //[SerializeField] private GameObject targetPlace;
 
@@ -35,7 +36,7 @@ public class PuzzleAnimation : MonoBehaviour
         happyAnimator = happyDoodle.GetComponent<Animator>();
 
         // Ensure only idleDoodle is visible initially
-        ShowIdleDoodle();
+        StartCoroutine(ShowIdleDoodleCoroutine());
     }
 
     private void OnEnable()
@@ -72,6 +73,7 @@ public class PuzzleAnimation : MonoBehaviour
     private void ShowSadDoodle()
     {
         idleDoodle.SetActive(false);
+        questionDoodle.SetActive(false);
         sadDoodle.SetActive(true);
         happyDoodle.SetActive(false);
         correctAcknowledgement.SetActive(false);
@@ -82,6 +84,7 @@ public class PuzzleAnimation : MonoBehaviour
     {
         idleDoodle.SetActive(false);
         sadDoodle.SetActive(false);
+        questionDoodle.SetActive(false);
         happyDoodle.SetActive(true);
         correctAcknowledgement.SetActive(true);
         mistakeAcknowledgement.SetActive(false);
@@ -90,7 +93,7 @@ public class PuzzleAnimation : MonoBehaviour
     public void QuestionSolved()
     {
         // Update UI to solved state
-        questionImageHolder.sprite = solvedImage;
+        //questionImageHolder.sprite = solvedImage;
 
         // Show happy doodle and play animations
         ShowHappyDoodle();
@@ -106,8 +109,23 @@ public class PuzzleAnimation : MonoBehaviour
     public void ReloadPuzzle()
     {
         // Reset visuals and animations to initial state
-        questionImageHolder.sprite = questionImage;
+        //questionImageHolder.sprite = questionImage;
         //answerImageHolder.transform.position = originalAnswerPosition;
+        StartCoroutine(ShowIdleDoodleCoroutine());
+    }
+
+    private IEnumerator ShowIdleDoodleCoroutine()
+    {
         ShowIdleDoodle();
+        yield return new WaitForSeconds(3f);
+        ShowQuestionDoodle();
+    }
+
+    private void ShowQuestionDoodle()
+    {
+        idleDoodle.SetActive(false);
+        sadDoodle.SetActive(false);
+        happyDoodle.SetActive(false);
+        questionDoodle.SetActive(true);
     }
 }

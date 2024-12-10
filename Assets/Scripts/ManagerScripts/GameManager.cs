@@ -90,20 +90,17 @@ public class GameManager : MonoBehaviour
         OnQuestionResult?.Invoke(isCorrect);
         if (isCorrect)
         {
-            //Debug.Log("Correct answer");
-            //Debug.Log(currentLevel.question[CurrentIndex].questionText);
-            //Debug.Log(outputText);
+            
             CorrectAnswerSelected();
             return;
 
         }
         else
         {
-            //Debug.Log(currentLevel.question[CurrentIndex].questionText.text);
-            //Debug.Log(outputText);
+            StartCoroutine(WaitAndReload());
             Debug.Log("Wrong answer");
         }
-        //WrongAnswerSelected(outputText);
+        
     }
 
     private void WrongAnswerSelected(GameObject selectedOption)
@@ -139,7 +136,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator WaitAndReload()
     {
         Debug.Log("Waiting to reload the sublevel");
-        yield return new WaitForSeconds(0.85f);
+        yield return new WaitForSeconds(2f);
 
         //called LoadNextLevelQuestion without incrementing the index...hence we reload the same level
         eventManager.LoadNextQuestion(currentLevel.question[CurrentIndex]);
@@ -150,7 +147,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentIndex++;
         ProgressBar.value++;
-        if (CurrentIndex < currentLevel.noOfSubLevel)
+
+        Debug.Log("CurrentIndex: " + CurrentIndex);
+        Debug.Log("Total Questions: " + currentLevel.question.Count);
+
+        if (CurrentIndex < currentLevel.question.Count)
         {
             eventManager.LoadNextQuestion(currentLevel.question[CurrentIndex]);
         }

@@ -35,6 +35,7 @@ public class HandDraggingPrompt : MonoBehaviour
         {
             ScheduleAnimation();
         }
+        LineActions.OnLineStarted += EndAnimation;
     }
 
     private void OnDestroy()
@@ -172,5 +173,11 @@ public class HandDraggingPrompt : MonoBehaviour
 
         handPromptImage.enabled = false;
         isAnimating = false;
+    }
+
+    private void EndAnimation()
+    {
+        StopAnimation();
+        enableAutoPrompt = false;
     }
 }
