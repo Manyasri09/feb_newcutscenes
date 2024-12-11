@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     {
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
-
+        StartCoroutine(WaitAndMoveToNext());
     }
 
     private void WrongAnswerSelected(GameObject selectedOption)
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("Game Ended");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Scene 3");
     }
 
 }
