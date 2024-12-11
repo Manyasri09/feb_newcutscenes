@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974a3fea09b54ca4db5280152347b33e, type: 3}
   m_Name: QuestionHello
   m_EditorClassIdentifier: 
-  questionNo: 0
+  questionNo: 1
+  questionInfo: 
   questionText:
     text: Hello
   hindiText:

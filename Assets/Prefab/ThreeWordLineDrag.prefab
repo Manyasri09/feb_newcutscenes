@@ -804,7 +804,6 @@ MonoBehaviour:
   happyDoodle: {fileID: 3186368043241768172}
   correctAcknowledgement: {fileID: 3850725258150633743}
   mistakeAcknowledgement: {fileID: 8923498544604375361}
-  questionImageHolder: {fileID: 0}
 --- !u!1 &6429680332222657706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,6 +1966,22 @@ PrefabInstance:
       propertyPath: outputText
       value: 
       objectReference: {fileID: 1651099140113281113}
+    - target: {fileID: 5427866971209722761, guid: ce8bfb069150b5a43b11270dfe83e217, type: 3}
+      propertyPath: outputText.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427866971209722761, guid: ce8bfb069150b5a43b11270dfe83e217, type: 3}
+      propertyPath: outputText.Array.data[0]
+      value: 
+      objectReference: {fileID: 8194311808620162187}
+    - target: {fileID: 5427866971209722761, guid: ce8bfb069150b5a43b11270dfe83e217, type: 3}
+      propertyPath: outputText.Array.data[1]
+      value: 
+      objectReference: {fileID: 2265959284708124690}
+    - target: {fileID: 5427866971209722761, guid: ce8bfb069150b5a43b11270dfe83e217, type: 3}
+      propertyPath: outputText.Array.data[2]
+      value: 
+      objectReference: {fileID: 1718132962306257112}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -862,7 +862,7 @@ MonoBehaviour:
   LearningImageData:
     image: {fileID: 6598542155037400613}
     optionText: {fileID: 8377768315872313747}
-  SubLevelText: {fileID: 0}
+  SubLevelText: {fileID: 5323493171157116566}
   SubLevelAudioSource: {fileID: 0}
   correctAudio: {fileID: 2819415116622971397}
   DraggableObject: {fileID: 0}
@@ -1321,7 +1321,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 0.75
-  m_Text: Hello
+  m_Text: 
 --- !u!114 &2095003039117784610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c28d6048fc58e4949960885654171d9a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1614,6 +1614,10 @@ PrefabInstance:
     - target: {fileID: 3084878771693150594, guid: 4cefcca3c64f94443a3271db13c8362e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524156375318465048, guid: 4cefcca3c64f94443a3271db13c8362e, type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

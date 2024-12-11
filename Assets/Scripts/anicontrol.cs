@@ -1,68 +1,118 @@
 using System.Collections;
 using UnityEngine;
 
-public class SequentialAnimatorController : MonoBehaviour
+public class AnimationController : MonoBehaviour // Renamed from AnimationSequenceController
 {
-    public GameObject[] animationObjects; // Array of GameObjects with animations
-
-    private void Start()
+    [System.Serializable]
+    public class AnimationStep
     {
-        StartCoroutine(PlayAnimationsSequentially());
+        public GameObject animatedObject; // Object with Animator
+        public string animationName; // Name of the animation
     }
 
-    private IEnumerator PlayAnimationsSequentially()
+    public AnimationStep[] animationSequence; // Sequence of animations
+    public GameObject thinkingDoodle; // Object for the thinking doodle animation
+    private Animator[] animators; // Array of animators
+    private Animator thinkingDoodleAnimator; // Animator for the thinking doodle
+
+    void Start()
     {
-        for (int i = 0; i < animationObjects.Length; i++)
+        InitializeAnimators();
+        StartCoroutine(PlayAnimationSequence());
+    }
+
+    private void InitializeAnimators()
+    {
+        // Initialize animators for each object in the animation sequence
+        animators = new Animator[animationSequence.Length];
+        for (int i = 0; i < animationSequence.Length; i++)
         {
-            GameObject obj = animationObjects[i];
-
-            // Activate the current object
-            obj.SetActive(true);
-
-            // Get the Animator component
-            Animator animator = obj.GetComponent<Animator>();
-            if (animator == null)
+            if (animationSequence[i].animatedObject != null)
             {
-                Debug.LogWarning($"GameObject {obj.name} does not have an Animator component!");
-                continue;
+                animators[i] = animationSequence[i].animatedObject.GetComponent<Animator>();
+                if (animators[i] == null)
+                {
+                    Debug.LogError($"Animator component missing on {animationSequence[i].animatedObject.name}");
+                }
+                else if (animators[i].runtimeAnimatorController == null)
+                {
+                    Debug.LogError($"AnimatorController missing on {animationSequence[i].animatedObject.name}");
+                }
+                else
+                {
+                    animators[i].speed = 0; // Pause animations at the start
+                }
             }
+        }
 
-            // Play the animation and get the length of the clip
-            float clipLength = GetCurrentAnimationClipLength(animator);
-
-            // Wait for the animation to complete
-            yield return new WaitForSeconds(clipLength);
-
-            if (i == 3) // For animation 4 (index 3)
+        // Initialize the thinking doodle's animator
+        if (thinkingDoodle != null)
+        {
+            thinkingDoodleAnimator = thinkingDoodle.GetComponent<Animator>();
+            if (thinkingDoodleAnimator == null || thinkingDoodleAnimator.runtimeAnimatorController == null)
             {
-                // For animation 4, stop the Animator to freeze at its last frame
-                animator.enabled = false;
-            }
-            else if (i < 3)
-            {
-                // Deactivate objects for animations 1, 2, and 3 after they finish
-                obj.SetActive(false);
+                Debug.LogError("Thinking doodle is missing an Animator or AnimatorController.");
             }
             else
             {
-                // For animation 5 onward, stop the Animator and keep the last frame
-                animator.enabled = false;
+                thinkingDoodle.SetActive(false); // Hide thinking doodle at start
             }
         }
-
-        Debug.Log("All animations have finished playing in sequence.");
     }
 
-    private float GetCurrentAnimationClipLength(Animator animator)
+    private IEnumerator PlayAnimationSequence()
     {
-        if (animator.runtimeAnimatorController == null || 
-            animator.runtimeAnimatorController.animationClips.Length == 0)
+        // Sequentially play animations based on the animation sequence
+        for (int i = 0; i < animationSequence.Length; i++)
         {
-            Debug.LogWarning($"Animator on {animator.gameObject.name} has no animation clips!");
-            return 0;
+            if (i == 1 && thinkingDoodle != null) // Special case for thinking doodle
+            {
+                thinkingDoodle.SetActive(true);
+                thinkingDoodleAnimator.Play("ThinkingAnimation"); // Replace with your doodle animation name
+                yield return WaitForAnimationToFinish(thinkingDoodleAnimator);
+                thinkingDoodle.SetActive(false);
+            }
+            else
+            {
+                yield return PlayAndPauseOnLastFrame(i);
+            }
+        }
+    }
+
+    private IEnumerator PlayAndPauseOnLastFrame(int index)
+    {
+        if (index < 0 || index >= animators.Length || animators[index] == null)
+        {
+            Debug.LogError($"Animator at index {index} is not configured correctly.");
+            yield break;
         }
 
-        // Get the first animation clip length (assuming one clip per object)
-        return animator.runtimeAnimatorController.animationClips[0].length;
+        Animator animator = animators[index];
+        if (animator.runtimeAnimatorController == null)
+        {
+            Debug.LogError($"Animator at index {index} is missing an AnimatorController.");
+            yield break;
+        }
+
+        Debug.Log($"Playing animation '{animationSequence[index].animationName}' on '{animationSequence[index].animatedObject.name}'");
+
+        animator.speed = 1; // Start animation
+        animator.Play(animationSequence[index].animationName); // Play animation
+
+        // Wait for animation to finish
+        yield return new WaitUntil(() =>
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 &&
+            !animator.IsInTransition(0));
+
+        Debug.Log($"Animation '{animationSequence[index].animationName}' completed on '{animationSequence[index].animatedObject.name}'");
+
+        animator.speed = 0; // Pause on the last frame
+    }
+
+    private IEnumerator WaitForAnimationToFinish(Animator animator)
+    {
+        yield return new WaitUntil(() =>
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 &&
+            !animator.IsInTransition(0));
     }
 }
