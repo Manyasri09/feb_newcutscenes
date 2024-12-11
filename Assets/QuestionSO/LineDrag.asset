@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974a3fea09b54ca4db5280152347b33e, type: 3}
   m_Name: LineDrag
   m_EditorClassIdentifier: 
-  questionNo: 0
-  questionInfo: 
+  questionNo: 4
+  questionInfo: "\u0905\u0902\u0917\u094D\u0947\u091C\u0940 \u092E\u0947 \u0905\u0928\u0941\u0935\u093E\u0926
+    \u0915\u0930\u094B"
   questionText:
-    text: Please Help Me
+    text: Hello I am Raju
   hindiText:
     text: "\u0928\u092E\u0938\u094D\u0924\u0947 \u092E\u0948\u0902 \u0930\u093E\u091C\u0942
       \u0939\u0942\u0902"
@@ -26,15 +27,15 @@ MonoBehaviour:
   options:
   - optionID: 0
     sprite: {fileID: 0}
-    text: Please
+    text: Hello
     audio: {fileID: 0}
   - optionID: 1
     sprite: {fileID: 0}
-    text: Help
+    text: I am
     audio: {fileID: 0}
   - optionID: 2
     sprite: {fileID: 0}
-    text: Me
+    text: Raju
     audio: {fileID: 0}
   correctOptionID: 
   optionType: 6

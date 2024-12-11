@@ -890,6 +890,7 @@ MonoBehaviour:
   confettiEffect: {fileID: 8303586876663019552}
   imageHolder: {fileID: 4502181088654578691}
   wordPair: {fileID: 7758942523817491774}
+  isLearingQuestion: 1
 --- !u!1 &4938104107864223168
 GameObject:
   m_ObjectHideFlags: 0

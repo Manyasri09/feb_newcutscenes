@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
 
+
 public class GameManager : MonoBehaviour
 {
     private CMSGameEventManager eventManager;  // Reference to CMSGameEventManager
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     private Slider ProgressBar; //ProgressBar for each level -rohan37kumar
     private bool isProcessing = false;
     public static int CurrentIndex; //value for the Current Index of Question Loaded.
+
 
     public static event Action<bool> OnQuestionResult;
 
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
 
         if (isCorrect)
         {
-            CorrectAnswerSelected();
+            CorrectAnswerSelected(currentLevel.question[CurrentIndex]);
             return;
         }
         WrongAnswerSelected(selectedOption);
@@ -88,19 +90,7 @@ public class GameManager : MonoBehaviour
     {
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
-        if (isCorrect)
-        {
-            
-            CorrectAnswerSelected();
-            return;
 
-        }
-        else
-        {
-            StartCoroutine(WaitAndReload());
-            Debug.Log("Wrong answer");
-        }
-        
     }
 
     private void WrongAnswerSelected(GameObject selectedOption)
@@ -114,13 +104,13 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitAndReload());
     }
 
-    private void CorrectAnswerSelected()
+    private void CorrectAnswerSelected(QuestionBaseSO questionData)
     {
         if (isProcessing) return;
         isProcessing = true;
         //acknowledge the user
         audioManager.PlayCorrectAudio();
-        uiManager.LoadCorrectUI();
+        uiManager.LoadCorrectUI(questionData);
         Debug.Log("Correct Answer");
         StartCoroutine(WaitAndMoveToNext());
     }

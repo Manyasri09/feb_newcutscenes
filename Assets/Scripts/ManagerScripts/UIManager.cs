@@ -120,13 +120,13 @@ public class UIManager : MonoBehaviour
         //currently working on this -rohan37kumar
         AnimationHelper.MakeNudge(selectedOption);
     }
-    public void LoadCorrectUI()
+    public void LoadCorrectUI(QuestionBaseSO questionData)
     {
         if (dropsUIInstance.GetComponent<CorrectDisplayHelper>() == null)
         {
             return;
         }
-        dropsUIInstance.GetComponent<CorrectDisplayHelper>().DisplayCorrectUI();
+        dropsUIInstance.GetComponent<CorrectDisplayHelper>().DisplayCorrectUI(questionData);
     }
 
     void StartVibration(GameObject gameObject)

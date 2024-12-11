@@ -17,6 +17,7 @@ public class PrefabUIManager : MonoBehaviour
     public List<LineDrawNode> nodeContainers;
     public List<DropHandler> dropHandlers;
     private CMSGameEventManager eventManager;
+    public Text questionHeading;
 
     [Inject]
     public void Construct(CMSGameEventManager eventManager)
@@ -69,8 +70,8 @@ public class PrefabUIManager : MonoBehaviour
         
         if (questionData.questionText.text != null && SubLevelText != null)
         {
-            
             QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
+            QuestionUIHelper.SetText(questionHeading, questionData.questionInfo);
         }
 
         for (int i = 0; i < questionData.options.Count; i++)

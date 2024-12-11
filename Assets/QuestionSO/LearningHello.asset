@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LearningHello
   m_EditorClassIdentifier: 
   questionNo: 0
+  questionInfo: 
   questionText:
     text: Hello
   hindiText:

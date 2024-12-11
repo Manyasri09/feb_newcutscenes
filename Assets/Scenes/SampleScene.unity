@@ -746,11 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961b5e5828b7f3149a88c48f1df632ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cutsceneAnimators:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  nextSceneName: []
+  nextSceneName: 
 --- !u!1 &1213579226
 GameObject:
   m_ObjectHideFlags: 0
