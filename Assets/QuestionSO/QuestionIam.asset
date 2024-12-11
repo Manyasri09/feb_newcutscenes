@@ -24,13 +24,13 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   options:
   - optionID: 0
-    sprite: {fileID: 21300000, guid: 0f04552a347bc674cb5863ceb403df8b, type: 3}
-    text: Run
-    audio: {fileID: 0}
-  - optionID: 1
     sprite: {fileID: 21300000, guid: c37cdd3e77488ae499a0a784423b9ff9, type: 3}
     text: I am
     audio: {fileID: 0}
-  correctOptionID: 1
+  - optionID: 1
+    sprite: {fileID: 21300000, guid: 0f04552a347bc674cb5863ceb403df8b, type: 3}
+    text: Run
+    audio: {fileID: 0}
+  correctOptionID: 0
   optionType: 1
   difficultyLevel: 0

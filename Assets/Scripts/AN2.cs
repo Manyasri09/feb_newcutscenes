@@ -20,7 +20,7 @@ public class AnimationSequenceController : MonoBehaviour
         animator2.SetTrigger("Play");
         yield return new WaitForSeconds(GetAnimationLength(animator2));
 
-        animator3.SetTrigger("Play");
+        //animator3.SetTrigger("Play");
     }
 
     private float GetAnimationLength(Animator animator)
