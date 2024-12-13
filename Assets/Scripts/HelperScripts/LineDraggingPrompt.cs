@@ -147,11 +147,13 @@ public class HandDraggingPrompt : MonoBehaviour
             handRectTransform.position = endNode.position + handOffset;
         }
 
+        // End of animation routine
+        handPromptImage.enabled = false; // Hide hand prompt at the last node
         isAnimating = false;
 
         if (enableAutoPrompt && totalAnimationDuration < 0)
         {
-            ScheduleAnimation();
+            ScheduleAnimation(); // Reschedule animation if in infinite loop mode
         }
     }
 

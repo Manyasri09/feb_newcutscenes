@@ -88,9 +88,18 @@ public class GameManager : MonoBehaviour
     }
     private void DraggingLine_OnLineEnded(string outputText)
     {
+        if (string.IsNullOrWhiteSpace(outputText))
+        {
+            Debug.LogWarning("Invalid outputText received. Skipping validation.");
+            return;
+        }
+
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
-        StartCoroutine(WaitAndMoveToNext());
+        if (isCorrect)
+            StartCoroutine(WaitAndMoveToNext());
+        else
+            StartCoroutine(WaitAndReload());
     }
 
     private void WrongAnswerSelected(GameObject selectedOption)

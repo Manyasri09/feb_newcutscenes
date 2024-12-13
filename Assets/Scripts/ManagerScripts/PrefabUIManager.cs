@@ -17,7 +17,7 @@ public class PrefabUIManager : MonoBehaviour
     public List<LineDrawNode> nodeContainers;
     public List<DropHandler> dropHandlers;
     private CMSGameEventManager eventManager;
-    public Text questionHeading;
+   
 
     [Inject]
     public void Construct(CMSGameEventManager eventManager)
@@ -55,6 +55,7 @@ public class PrefabUIManager : MonoBehaviour
         QuestionUIHelper.SetText(LearningImageData.optionText, questionData.questionText.text);
         QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
         QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
+        QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
     }
 
     private void LoadQuestionContent(QuestionBaseSO questionData)
@@ -63,6 +64,7 @@ public class PrefabUIManager : MonoBehaviour
         QuestionUIHelper.SetOptionsData(questionData.options, OptionHolders, dropHandlers);
         //QuestionUIHelper.SetDraggableID(QuestionDropHandler, questionData.correctOptionID);
         QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
+        //QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
     }
 
     private void LoadLineQuestionContent(QuestionBaseSO questionData)
@@ -71,7 +73,7 @@ public class PrefabUIManager : MonoBehaviour
         if (questionData.questionText.text != null && SubLevelText != null)
         {
             QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
-            QuestionUIHelper.SetText(questionHeading, questionData.questionInfo);
+            
         }
 
         for (int i = 0; i < questionData.options.Count; i++)
@@ -82,6 +84,7 @@ public class PrefabUIManager : MonoBehaviour
                 QuestionUIHelper.SetText(nodeContainers[i].GetComponentInChildren<Text>(), questionData.options[i].text);
             }
         }
+        QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
     }
 
     private void ResetUI()

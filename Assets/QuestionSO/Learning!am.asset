@@ -21,8 +21,8 @@ MonoBehaviour:
   learningImage:
     image: {fileID: 21300000, guid: c37cdd3e77488ae499a0a784423b9ff9, type: 3}
   questionAudio:
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 661ecb140e413c141bb6b30dffe36e42, type: 3}
   options: []
-  correctOptionID: 
+  correctOptionID: 0
   optionType: 0
   difficultyLevel: 0

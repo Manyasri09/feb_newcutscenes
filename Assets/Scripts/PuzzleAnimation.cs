@@ -103,7 +103,9 @@ public class PuzzleAnimation : MonoBehaviour
     public void QuestionNotSolved()
     {
         // Show sad doodle
-        ShowSadDoodle();
+        //ShowSadDoodle();
+        StartCoroutine(ResetPuzzleCoroutine());
+        
     }
 
     public void ReloadPuzzle()
@@ -112,6 +114,13 @@ public class PuzzleAnimation : MonoBehaviour
         //questionImageHolder.sprite = questionImage;
         //answerImageHolder.transform.position = originalAnswerPosition;
         StartCoroutine(ShowIdleDoodleCoroutine());
+    }
+
+    private IEnumerator ResetPuzzleCoroutine()
+    {
+        ShowSadDoodle();
+        yield return new WaitForSeconds(3f);
+        ReloadPuzzle();
     }
 
     private IEnumerator ShowIdleDoodleCoroutine()
