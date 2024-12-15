@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     private void OnAnswerSelected(GameObject selectedOption)
     {
 
+        PlayerProgressManager.CompleteLevel(currentLevel.question[CurrentIndex].questionNo.ToString(), currentLevel.question[CurrentIndex].optionType.ToString());
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], selectedOption.GetComponent<DropHandler>().OptionID);
 
         if (isCorrect)
@@ -93,6 +94,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Invalid outputText received. Skipping validation.");
             return;
         }
+        PlayerProgressManager.CompleteLevel(currentLevel.question[CurrentIndex].questionNo.ToString(), currentLevel.question[CurrentIndex].optionType.ToString());
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        PlayerProgressManager.ResetProgress();
         Debug.Log("Game Ended");
         SceneManager.LoadScene("Scene 3");
     }

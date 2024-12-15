@@ -7,6 +7,7 @@ public class ObjectMovementHelper : MonoBehaviour
     [Header("Prompt Settings")]
     [SerializeField] private bool enableAutoPrompt = true;
     [SerializeField] private float totalAnimationDuration = -1f;  // -1 for infinite loop
+    [SerializeField] private string levelType;
 
     [Header("References")]
     [SerializeField] private Image handPromptImage;
@@ -34,6 +35,11 @@ public class ObjectMovementHelper : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerProgressManager.GetLevelTypeCount(levelType) > 0)
+        {
+            enableAutoPrompt = false;
+        }
+
         if (enableAutoPrompt)
         {
             ScheduleAnimation();

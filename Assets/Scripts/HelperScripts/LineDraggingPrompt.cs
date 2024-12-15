@@ -8,6 +8,7 @@ public class HandDraggingPrompt : MonoBehaviour
     [Header("Prompt Settings")]
     [SerializeField] private bool enableAutoPrompt = true;
     [SerializeField] private float totalAnimationDuration = -1f; // -1 for infinite loop
+    [SerializeField] private string levelType = "Line Question";
 
     [Header("References")]
     [SerializeField] private Image handPromptImage;
@@ -31,6 +32,11 @@ public class HandDraggingPrompt : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerProgressManager.GetLevelTypeCount(levelType) > 0)
+        {
+            enableAutoPrompt = false;
+        }
+
         if (enableAutoPrompt)
         {
             ScheduleAnimation();
