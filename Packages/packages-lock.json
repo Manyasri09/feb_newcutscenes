@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "27da29e2a9679f6c388157e0a6cfe1dbd9be1eda"
+      "hash": "2abf3f6b022cafb6a873909b469ea89b8ab89758"
     },
     "com.ezygamers.cmsv1": {
       "version": "https://github.com/rohan37kumar/EzyGamers_CMS_v1.git",
@@ -20,6 +20,12 @@
       "source": "git",
       "dependencies": {},
       "hash": "46bc0c5eca571abb7c6aaacbe723e3380cf58f0c"
+    },
+    "com.merry-yellow.code-assist": {
+      "version": "file:com.merry-yellow.code-assist",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.unity.2d.animation": {
       "version": "9.1.1",
@@ -140,6 +146,13 @@
         "com.unity.burst": "1.6.6",
         "com.unity.test-framework": "1.1.31"
       },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.device-simulator.devices": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {

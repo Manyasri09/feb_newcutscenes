@@ -708,6 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableAutoPrompt: 1
   totalAnimationDuration: 5
+  levelType: TwoImageOpt
   handPromptImage: {fileID: 7577160623412762089}
   idleTimeThreshold: 3
   animationDuration: 1.5
@@ -1035,6 +1036,7 @@ MonoBehaviour:
     optionText: {fileID: 555536593099312057}
   - image: {fileID: 1327830443742643923}
     optionText: {fileID: 5938426171483613848}
+  nodeContainers: []
   dropHandlers:
   - {fileID: 2761537276490091791}
   - {fileID: 3304290501486015252}

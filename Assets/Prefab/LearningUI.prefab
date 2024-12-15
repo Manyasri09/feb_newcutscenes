@@ -618,6 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableAutoPrompt: 1
   totalAnimationDuration: -1
+  levelType: Learning
   handPromptImage: {fileID: 3489128551624869029}
   idleTimeThreshold: 3
   animationDuration: 1.5
