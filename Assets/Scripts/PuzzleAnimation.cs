@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PuzzleAnimation : MonoBehaviour
 {
@@ -13,30 +12,23 @@ public class PuzzleAnimation : MonoBehaviour
     [SerializeField] private GameObject correctAcknowledgement;
     [SerializeField] private GameObject mistakeAcknowledgement;
 
-    // GameObject references
-    //[SerializeField] private Image questionImageHolder;
-    //[SerializeField] private GameObject answerImageHolder;
-    //[SerializeField] private GameObject targetPlace;
+    [SerializeField] private AudioSource happyDoodleAudioSource;
+    [SerializeField] private AudioClip happySoundClip;
 
-    private Vector3 originalAnswerPosition;
-    private Vector3 targetPosition;
     private Animator idleAnimator;
     private Animator sadAnimator;
     private Animator happyAnimator;
 
+    private Coroutine idleDoodleCoroutine;
+    private bool isCorrectAnswerTriggered = false;
+
     private void Start()
     {
-        // Set initial positions
-        //originalAnswerPosition = answerImageHolder.transform.position;
-        //targetPosition = targetPlace.transform.position;
-
-        // Get animators
         idleAnimator = idleDoodle.GetComponent<Animator>();
         sadAnimator = sadDoodle.GetComponent<Animator>();
         happyAnimator = happyDoodle.GetComponent<Animator>();
 
-        // Ensure only idleDoodle is visible initially
-        StartCoroutine(ShowIdleDoodleCoroutine());
+        StartIdleDoodle();
     }
 
     private void OnEnable()
@@ -51,6 +43,9 @@ public class PuzzleAnimation : MonoBehaviour
 
     private void HandleQuestionResult(bool isCorrect)
     {
+        StopIdleDoodle(); // Stop any idle doodle animation
+        isCorrectAnswerTriggered = isCorrect;
+
         if (isCorrect)
         {
             QuestionSolved();
@@ -63,6 +58,8 @@ public class PuzzleAnimation : MonoBehaviour
 
     private void ShowIdleDoodle()
     {
+        if (isCorrectAnswerTriggered) return;
+
         idleDoodle.SetActive(true);
         sadDoodle.SetActive(false);
         happyDoodle.SetActive(false);
@@ -88,38 +85,49 @@ public class PuzzleAnimation : MonoBehaviour
         happyDoodle.SetActive(true);
         correctAcknowledgement.SetActive(true);
         mistakeAcknowledgement.SetActive(false);
+
+        PlayHappyDoodleSound(); // Trigger sound directly here
     }
 
     public void QuestionSolved()
     {
-        // Update UI to solved state
-        //questionImageHolder.sprite = solvedImage;
-
-        // Show happy doodle and play animations
+        isCorrectAnswerTriggered = true;
         ShowHappyDoodle();
-        //LeanTween.move(answerImageHolder.gameObject, targetPosition, 2f).setEase(LeanTweenType.easeInOutQuad);
     }
 
     public void QuestionNotSolved()
     {
-        // Show sad doodle
-        //ShowSadDoodle();
         StartCoroutine(ResetPuzzleCoroutine());
-        
     }
 
     public void ReloadPuzzle()
     {
-        // Reset visuals and animations to initial state
-        //questionImageHolder.sprite = questionImage;
-        //answerImageHolder.transform.position = originalAnswerPosition;
-        StartCoroutine(ShowIdleDoodleCoroutine());
+        StartIdleDoodle();
+    }
+
+    private void StartIdleDoodle()
+    {
+        if (idleDoodleCoroutine != null)
+        {
+            StopCoroutine(idleDoodleCoroutine);
+        }
+        idleDoodleCoroutine = StartCoroutine(ShowIdleDoodleCoroutine());
+    }
+
+    private void StopIdleDoodle()
+    {
+        if (idleDoodleCoroutine != null)
+        {
+            StopCoroutine(idleDoodleCoroutine);
+            idleDoodleCoroutine = null;
+        }
     }
 
     private IEnumerator ResetPuzzleCoroutine()
     {
         ShowSadDoodle();
         yield return new WaitForSeconds(3f);
+        isCorrectAnswerTriggered = false;
         ReloadPuzzle();
     }
 
@@ -127,7 +135,11 @@ public class PuzzleAnimation : MonoBehaviour
     {
         ShowIdleDoodle();
         yield return new WaitForSeconds(3f);
-        ShowQuestionDoodle();
+
+        if (!isCorrectAnswerTriggered) // Ensure no transition if the correct answer is triggered
+        {
+            ShowQuestionDoodle();
+        }
     }
 
     private void ShowQuestionDoodle()
@@ -136,5 +148,19 @@ public class PuzzleAnimation : MonoBehaviour
         sadDoodle.SetActive(false);
         happyDoodle.SetActive(false);
         questionDoodle.SetActive(true);
+    }
+
+    private void PlayHappyDoodleSound()
+    {
+        if (happyDoodleAudioSource != null && happySoundClip != null)
+        {
+            happyDoodleAudioSource.clip = happySoundClip;
+            happyDoodleAudioSource.Play();
+            Debug.Log("Happy doodle sound played!");
+        }
+        else
+        {
+            Debug.LogWarning("Happy doodle audio source or clip is missing!");
+        }
     }
 }

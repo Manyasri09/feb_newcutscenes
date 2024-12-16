@@ -99,9 +99,15 @@ public class GameManager : MonoBehaviour
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
         if (isCorrect)
-            StartCoroutine(WaitAndMoveToNext());
+        { 
+            audioManager.PlayCorrectAudio(); 
+            StartCoroutine(WaitAndMoveToNext()); 
+        }
         else
+        {
+            audioManager.PlayWrongAudio();
             StartCoroutine(WaitAndReload());
+        }
     }
 
     private void WrongAnswerSelected(GameObject selectedOption)
