@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using PlayerProgressSystem;
 
 public class ObjectMovementHelper : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class ObjectMovementHelper : MonoBehaviour
     [SerializeField] private float verticalDistance = 1000f;    // Distance to move down
     [SerializeField] private float curveOffset = 50f;           // How much the curve bends to the right
 
+
+    //private PlayerProgressManager progressManager;
+
     private RectTransform handRectTransform;
     private Vector2 startPosition;
     private Vector2 endPosition;
@@ -31,14 +35,15 @@ public class ObjectMovementHelper : MonoBehaviour
         if (!ValidateComponents()) return;
         SetupPromptPositions();
         InitializePrompt();
+
     }
 
     private void Start()
     {
-        if (PlayerProgressManager.GetLevelTypeCount(levelType) > 0)
-        {
-            enableAutoPrompt = false;
-        }
+        //if (progressManager.HasCompletedSubLevel(levelType))
+        //{
+        //    enableAutoPrompt = false;
+        //}
 
         if (enableAutoPrompt)
         {

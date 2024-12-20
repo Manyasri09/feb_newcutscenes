@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
+using PlayerProgressSystem;
+using RewardSystem;
 
 
 public class GameManager : MonoBehaviour
@@ -13,7 +15,8 @@ public class GameManager : MonoBehaviour
     private CMSGameEventManager eventManager;  // Reference to CMSGameEventManager
     private UIManager uiManager;               // Reference to UIManager
     private AudioManager audioManager;          //Reference to AudioManager
-    //private DraggingLine draggingLine;
+    private PlayerProgressManager playerProgressManager; // Reference to PlayerProgressManager
+    private IRewardManager defaultRewardManager;  // Reference to Reward Manager
 
     [SerializeField]
     private LevelConfiggSO currentLevel;  // ScriptableObject containing level data
@@ -27,12 +30,19 @@ public class GameManager : MonoBehaviour
 
 
     [Inject]
-    public void Construct(CMSGameEventManager eventManager, UIManager uiManager, AudioManager audioManager)
+    public void Construct(
+        CMSGameEventManager eventManager, 
+        UIManager uiManager, 
+        AudioManager audioManager, 
+        PlayerProgressManager playerProgressManager,
+        IRewardManager defaultRewardManager
+        )
     {
         this.eventManager = eventManager;
         this.uiManager = uiManager;
         this.audioManager = audioManager;
-        //this.draggingLine = draggingLine;
+        this.playerProgressManager = playerProgressManager;
+        this.defaultRewardManager = defaultRewardManager;
     }
 
     private void OnEnable()
@@ -40,7 +50,13 @@ public class GameManager : MonoBehaviour
         //CMSGameEventManager.OnAnswerSelected += OnAnswerSelected;
         Actions.onItemDropped += OnAnswerSelected;
         LineActions.OnLineEnded += DraggingLine_OnLineEnded;
+        defaultRewardManager.OnLevelRewardClaimed += DefaultRewardManager_OnLevelRewardClaimed;
 
+    }
+
+    private void DefaultRewardManager_OnLevelRewardClaimed(int level, IReward reward)
+    {
+        Debug.Log($"<color=yellow>Level = {level}, Reward = {reward.Type} X {reward.Quantity}</color>");
     }
 
 
@@ -76,13 +92,15 @@ public class GameManager : MonoBehaviour
     //Methods for Level Progression -rohan37kumar
     private void OnAnswerSelected(GameObject selectedOption)
     {
-
-        PlayerProgressManager.CompleteLevel(currentLevel.question[CurrentIndex].questionNo.ToString(), currentLevel.question[CurrentIndex].optionType.ToString());
+        
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], selectedOption.GetComponent<DropHandler>().OptionID);
 
         if (isCorrect)
         {
             CorrectAnswerSelected(currentLevel.question[CurrentIndex]);
+            playerProgressManager.CompleteSubLevel(currentLevel.question[CurrentIndex].questionNo.ToString());
+            playerProgressManager.SubLevelCompletedType(currentLevel.question[CurrentIndex].optionType.ToString());
+            defaultRewardManager.ClaimLevelReward(currentLevel.question[CurrentIndex].questionNo);
             return;
         }
         WrongAnswerSelected(selectedOption);
@@ -94,12 +112,15 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Invalid outputText received. Skipping validation.");
             return;
         }
-        PlayerProgressManager.CompleteLevel(currentLevel.question[CurrentIndex].questionNo.ToString(), currentLevel.question[CurrentIndex].optionType.ToString());
+        
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
         if (isCorrect)
-        { 
+        {
+            playerProgressManager.CompleteSubLevel(currentLevel.question[CurrentIndex].questionNo.ToString());
+            playerProgressManager.SubLevelCompletedType(currentLevel.question[CurrentIndex].optionType.ToString());
+            defaultRewardManager.ClaimLevelReward(currentLevel.question[CurrentIndex].questionNo);
             audioManager.PlayCorrectAudio(); 
             StartCoroutine(WaitAndMoveToNext()); 
         }
@@ -177,7 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        PlayerProgressManager.ResetProgress();
+        playerProgressManager.DeleteAllRecords();
         Debug.Log("Game Ended");
         SceneManager.LoadScene("Scene 3");
     }
