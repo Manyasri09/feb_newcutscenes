@@ -1,0 +1,14 @@
+{
+    "name": "com.ezygamers.cmsv1",
+    "rootNamespace": "com.ezygamers.cmsv1",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
