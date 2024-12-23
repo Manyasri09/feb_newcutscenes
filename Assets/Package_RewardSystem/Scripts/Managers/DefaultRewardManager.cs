@@ -114,6 +114,12 @@ namespace RewardSystem
         }
         #endregion
 
+        public RewardConfig GetRewardConfig()
+        {
+            return _repository.GetRewardConfig();
+        }
+
+
         public void ResetAllRewards()
         {
             _stateService.ResetAllRewards();

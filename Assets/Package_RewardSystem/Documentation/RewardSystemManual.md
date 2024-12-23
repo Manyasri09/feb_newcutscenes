@@ -1,204 +1,188 @@
-Here’s the revised version of the manual with instructions on how to use the `DefaultRewardDeliveryService` integrated seamlessly:
 
-```markdown
-# Reward System Manual
+# Reward System Manual  
 
-The **Reward System Plugin** is a Unity package designed to streamline the process of managing and distributing rewards in your game. This manual provides detailed instructions on how to integrate and configure the plugin effectively.
+The **Reward System Plugin** is a Unity package designed to streamline the process of managing and distributing rewards in your game. This manual provides detailed instructions for integrating, configuring, and customizing the plugin effectively.  
 
----
+---  
 
-## Table of Contents
+## Table of Contents  
 
-1. [Overview](#overview)
-2. [Installation](#installation)
-3. [Getting Started](#getting-started)
-4. [Using DefaultRewardDeliveryService](#using-defaultrewarddeliveryservice)
-5. [Customizing Reward Delivery](#customizing-reward-delivery)
-6. [Using Dependency Injection with VContainer](#using-dependency-injection-with-vcontainer)
-7. [Advanced Configuration](#advanced-configuration)
-8. [Debugging and Troubleshooting](#debugging-and-troubleshooting)
+1. [Overview](#overview)  
+2. [Installation](#installation)  
+3. [Getting Started](#getting-started)  
+4. [DefaultRewardDeliveryService](#defaultrewarddeliveryservice)  
+5. [Customizing Reward Delivery](#customizing-reward-delivery)  
+6. [Dependency Injection with VContainer](#dependency-injection-with-vcontainer)  
+7. [Advanced Configuration](#advanced-configuration)  
+8. [Troubleshooting](#troubleshooting)  
 
----
+---  
 
-## Overview
+## Overview  
 
-The Reward System Plugin simplifies the reward logic in Unity games, offering built-in support for:
+The Reward System Plugin simplifies reward management in Unity games with built-in support for:  
 
-- **Daily Rewards**
-- **Level-Based Rewards**
-- **Custom Reward Types**
+- **Daily Rewards**  
+- **Weekly Rewards**  
+- **Level-Based Rewards**  
+- **Custom Reward Types**  
 
-The system is modular and easily integrates into projects of any complexity, including those using dependency injection frameworks like **VContainer**.
+The modular design allows seamless integration into projects of any complexity, including support for dependency injection using **VContainer**.  
 
----
+---  
 
-## Installation
+## Installation  
 
-1. Download the plugin as a `.unitypackage` or copy the `RewardSystem` folder into your Unity project.
-2. Ensure your Unity project has the following dependencies:
-   - **UnityEngine.UI**
-   - **UnityEventSystem**
-3. (Optional) For projects using VContainer, install the VContainer package via Unity Package Manager.
+1. Clone or download the plugin and copy the `RewardSystem` folder into your Unity project.  
+2. Ensure your Unity project includes the following dependencies:  
+   - **UnityEngine.UI**  
+   - **UnityEventSystem**  
+3. (Optional) For projects using VContainer, install the VContainer package via the Unity Package Manager.  
 
----
+---  
 
-## Getting Started
+## Getting Started  
 
-### Step 1: Setting Up the Reward Manager
+### Step 1: Configure Rewards  
 
-1. Add the `RewardManager` component to a GameObject in your scene.
-2. Assign a `RewardConfig` ScriptableObject to the `RewardManager`.
-3. Configure your rewards in the `RewardConfig` file.
+1. Navigate to `Assets > Create > RewardSystem > Reward` to create individual rewards.  
+2. Configure the reward properties in the Inspector:  
+   - **Reward ID**: Unique identifier for the reward.  
+   - **Type**: Select from `Daily`, `Weekly`, or `LevelCompletion`.  
+   - **Quantity**: Value of the reward (e.g., coins, XP, gems).  
+   - **Description**: Optional description for UI purposes.  
+   - **Icon**: Optional image for UI representation.  
 
-### Step 2: Creating Rewards
+3. Use a `RewardConfig` ScriptableObject to group rewards for daily, weekly, or level-based delivery.  
 
-1. Navigate to `Assets > Create > RewardSystem > Reward` to create a new reward.
-2. Configure the reward:
-   - **Name**: A descriptive name for the reward.
-   - **Type**: Choose between `Daily` or `LevelCompletion`.
-   - **Quantity**: Numeric value of the reward (e.g., coins, gems).
-   - **Icon**: Optional icon for UI representation.
+### Step 2: Add the Reward Manager  
 
----
+1. Add the `RewardManager` component to a GameObject in your scene.  
+2. Assign the `RewardConfig` ScriptableObject to the `RewardManager`.  
 
-## Using DefaultRewardDeliveryService
+---  
 
-The `DefaultRewardDeliveryService` provides a ready-to-use implementation for delivering rewards without requiring any custom setup. To use it:
+## DefaultRewardDeliveryService  
 
-1. **Setup with VContainer (Recommended)**:
-   - Register the `DefaultRewardDeliveryService` in your custom `LifetimeScope`:
+The `DefaultRewardDeliveryService` is a ready-to-use implementation for delivering rewards without requiring custom logic.  
 
-   ```csharp
-   using VContainer;
-   using VContainer.Unity;
+### Integration  
 
-   public class RewardSystemLifetimeScope : LifetimeScope
-   {
-       protected override void Configure(IContainerBuilder builder)
-       {
-           builder.Register<IRewardDeliveryService, DefaultRewardDeliveryService>().AsImplementedInterfaces();
-           builder.RegisterComponentInHierarchy<RewardManager>().AsSelf();
-       }
-   }
-   ```
+1. Add a `LifetimeScope` to your project, registering the `DefaultRewardDeliveryService`:  
 
-2. **Reward Delivery Logic**:
-   - The `DefaultRewardDeliveryService` handles common reward types like coins, gems, and experience automatically:
+   ```csharp  
+   using VContainer;  
+   using VContainer.Unity;  
+   using RewardSystem;  
 
-   ```csharp
-   public class DefaultRewardDeliveryService : IRewardDeliveryService
-   {
-       public void DeliverCoins(int quantity) => Debug.Log($"Default Logic: Delivered {quantity} Coins");
-       public void DeliverGems(int quantity) => Debug.Log($"Default Logic: Delivered {quantity} Gems");
-       public void DeliverExperience(int quantity) => Debug.Log($"Default Logic: Delivered {quantity} Experience");
-       public void DeliverCustomReward(Reward reward) => Debug.Log($"Default Logic: Delivered {reward.rewardName}");
-   }
-   ```
+   public class RewardSystemLifetimeScope : LifetimeScope  
+   {  
+       [SerializeField] private RewardConfig rewardConfig;  
 
-3. **No Custom Code Needed**:
-   - Simply use the `RewardManager`, and the rewards will be delivered automatically using the default implementation.
+       protected override void Configure(IContainerBuilder builder)  
+       {  
+           builder.Register<IRewardRepository>(c => new ScriptableObjectRewardRepository(rewardConfig), Lifetime.Singleton);  
+           builder.Register<IRewardDeliveryService, DefaultRewardDeliveryService>(Lifetime.Singleton);  
+           builder.Register<IRewardManager, DefaultRewardManager>(Lifetime.Singleton);  
+           builder.RegisterComponentInHierarchy<RewardManager>();  
+       }  
+   }  
+   ```  
 
----
+2. Attach the `RewardSystemLifetimeScope` to a GameObject in your scene.  
 
-## Customizing Reward Delivery
+### Reward Delivery Logic  
 
-If you need custom reward logic, you can implement the `IRewardDeliveryService` interface. For example:
+The `DefaultRewardDeliveryService` automatically handles common reward types, such as:  
 
-```csharp
-public class CustomRewardDeliveryService : IRewardDeliveryService
-{
-    public void DeliverCoins(int quantity) => Debug.Log($"Delivered {quantity} coins");
-    public void DeliverGems(int quantity) => Debug.Log($"Delivered {quantity} gems");
-    public void DeliverExperience(int quantity) => Debug.Log($"Delivered {quantity} experience");
-    public void DeliverCustomReward(Reward reward) => Debug.Log($"Delivered custom reward: {reward.rewardName}");
-}
-```
+- **Coins**: Adds coins to the player’s account.  
+- **Gems**: Grants premium currency.  
+- **Experience**: Awards XP to the player.  
 
-Register this custom implementation in your `LifetimeScope` as shown in the [Dependency Injection](#using-dependency-injection-with-vcontainer) section.
+```csharp  
+public class DefaultRewardDeliveryService : IRewardDeliveryService  
+{  
+    public void DeliverCoins(int quantity) => Debug.Log($"Delivered {quantity} Coins.");  
+    public void DeliverGems(int quantity) => Debug.Log($"Delivered {quantity} Gems.");  
+    public void DeliverExperience(int quantity) => Debug.Log($"Delivered {quantity} XP.");  
+}  
+```  
 
----
+No additional configuration is needed when using `DefaultRewardDeliveryService`.  
 
-## Using Dependency Injection with VContainer
+---  
 
-To integrate the reward system with VContainer:
+## Customizing Reward Delivery  
 
-1. Add a custom `LifetimeScope` to your project:
+To implement custom logic, create a new class that implements the `IRewardDeliveryService` interface:  
 
-   ```csharp
-   using VContainer;
-   using VContainer.Unity;
+```csharp  
+public class CustomRewardDeliveryService : IRewardDeliveryService  
+{  
+    public void DeliverCoins(int quantity) => Debug.Log($"Custom: Delivered {quantity} Coins!");  
+    public void DeliverGems(int quantity) => Debug.Log($"Custom: Delivered {quantity} Gems!");  
+    public void DeliverExperience(int quantity) => Debug.Log($"Custom: Delivered {quantity} XP!");  
+    public void DeliverCustomReward(Reward reward) => Debug.Log($"Custom Reward Delivered: {reward.rewardName}");  
+}  
+```  
 
-   public class RewardSystemLifetimeScope : LifetimeScope
-   {
-       protected override void Configure(IContainerBuilder builder)
-       {
-           builder.Register<IRewardDeliveryService, DefaultRewardDeliveryService>().AsImplementedInterfaces();
-           builder.RegisterComponentInHierarchy<RewardManager>().AsSelf();
-       }
-   }
-   ```
+Register the custom service in the `LifetimeScope`:  
 
-2. Ensure that the `RewardSystemLifetimeScope` is added to your scene hierarchy.
+```csharp  
+builder.Register<IRewardDeliveryService, CustomRewardDeliveryService>(Lifetime.Singleton);  
+```  
 
-3. The `RewardManager` will automatically resolve the `IRewardDeliveryService` dependency using VContainer.
+---  
 
----
+## Dependency Injection with VContainer  
 
-## Advanced Configuration
+The plugin integrates seamlessly with VContainer for dependency injection. To set up:  
 
-### Adding Custom Reward Types
+1. Add a custom `LifetimeScope` as shown above.  
+2. Ensure that the `RewardManager` is registered in the container.  
+3. Use the `LifetimeScope` to resolve dependencies for reward delivery and management.  
 
-1. Extend the `RewardType` enum in `Reward.cs` to define your new reward type:
+---  
 
-   ```csharp
-   public enum RewardType
-   {
-       Coins,
-       Gems,
-       Experience,
-       CustomType
-   }
-   ```
+## Advanced Configuration  
 
-2. Update the `RewardManager` logic to handle the new reward type.
+### Adding New Reward Types  
 
-   ```csharp
-   public void DeliverRewardToPlayer(Reward reward)
-   {
-       switch (reward.type)
-       {
-           case RewardType.Coins:
-               _rewardDeliveryService.DeliverCoins(reward.quantity);
-               break;
-           case RewardType.CustomType:
-               // Custom delivery logic
-               break;
-       }
-   }
-   ```
+1. Extend the `RewardType` enum in `Reward.cs`:  
 
-### Extending RewardManager Events
+   ```csharp  
+   public enum RewardType  
+   {  
+       Coins,  
+       Gems,  
+       Experience,  
+       CustomReward  
+   }  
+   ```  
 
-Hook into the `OnRewardClaimed` event to implement custom logic when rewards are claimed:
+2. Implement custom delivery logic for the new type in your `IRewardDeliveryService`.  
 
-```csharp
-RewardManager.OnRewardClaimed += (level, reward) => Debug.Log($"Level {level} reward claimed: {reward.rewardName}");
-```
+### Listening to Reward Events  
 
----
+Subscribe to `RewardManager` events to handle reward claims:  
 
-## Debugging and Troubleshooting
+```csharp  
+rewardManager.OnRewardClaimed += (reward) => Debug.Log($"Claimed: {reward.rewardName} - {reward.quantity}");  
+```  
 
-- **Issue**: Rewards are not delivered.
-  - **Solution**: Check if the `IRewardDeliveryService` implementation is correctly registered.
+---  
 
-- **Issue**: Daily rewards are unavailable.
-  - **Solution**: Verify the `rewardDelay` setting in the `RewardConfig` ScriptableObject.
+## Troubleshooting  
 
-- **Issue**: Custom reward types are not working.
-  - **Solution**: Ensure the `RewardManager` logic is updated to handle the new type.
+- **Rewards Not Delivered**:  
+  - Ensure `IRewardDeliveryService` is correctly registered in the container.  
 
----
+- **Daily Rewards Unavailable**:  
+  - Verify `RewardConfig` is assigned to the `RewardManager`.  
 
-For further assistance, contact the plugin author or check the GitHub repository for updates and documentation.
-```
+- **Custom Rewards Not Working**:  
+  - Check if the `RewardType` enum and delivery logic are updated.  
+
+For further assistance, consult the documentation or contact the support team.  
+```  
+

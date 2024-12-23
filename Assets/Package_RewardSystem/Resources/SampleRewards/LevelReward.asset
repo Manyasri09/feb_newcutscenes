@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e452647ebb2488a4286ffb83dcea8eb6, type: 3}
   m_Name: LevelReward
   m_EditorClassIdentifier: 
-  rewardID: 0
+  rewardID: 2
   description: 
   quantity: 200
   icon: {fileID: 0}

@@ -18,6 +18,7 @@ namespace RewardSystem
         bool IsWeeklyRewardAvailable();
         void ClaimWeeklyReward();
 
+        RewardConfig GetRewardConfig();
         void ResetAllRewards();
     }
 }
