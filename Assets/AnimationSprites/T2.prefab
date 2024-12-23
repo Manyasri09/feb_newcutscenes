@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5251051152767133584}
   - component: {fileID: 4182737583604081355}
   - component: {fileID: 6940149794060946762}
-  - component: {fileID: 4709382886813767634}
   m_Layer: 0
   m_Name: T2
   m_TagString: Untagged
@@ -107,16 +106,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4709382886813767634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3389782478442237061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c9040c0ffed2e4aab3118e62a7b809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: SampleScene

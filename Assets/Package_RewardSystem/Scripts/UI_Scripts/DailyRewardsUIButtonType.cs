@@ -8,10 +8,10 @@ public class DailyRewardsUIButtonType : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject panel;             // The main panel for daily rewards
-    [SerializeField] private Image notificationImage;      // The notification Icon
-    [SerializeField] private Button claimButton;           // The Claim button
-    [SerializeField] private Button closeButton;           // Close/X button
-    [SerializeField] private Button openButton;            // Open button
+    //[SerializeField] private Image notificationImage;      // The notification Icon
+    public Button claimButton;           // The Claim button
+    //[SerializeField] private Button closeButton;           // Close/X button
+    //[SerializeField] private Button openButton;            // Open button
     [SerializeField] private List<DailyRewardSlotUI> slots; // Pre-created slot references in the scene
 
     // The manager that actually knows if a reward is available, etc.
@@ -30,14 +30,14 @@ public class DailyRewardsUIButtonType : MonoBehaviour
             panel.SetActive(false);
 
         // Wire up buttons
-        if (claimButton != null)
-            claimButton.onClick.AddListener(OnClaimButtonClicked);
+        //if (claimButton != null)
+        //    claimButton.onClick.AddListener(OnClaimButtonClicked);
 
-        if (closeButton != null)
-            closeButton.onClick.AddListener(OnCloseButtonClicked);
+        //if (closeButton != null)
+        //    closeButton.onClick.AddListener(OnCloseButtonClicked);
 
-        if (openButton != null)
-            openButton.onClick.AddListener(OnOpenButtonClicked);
+        //if (openButton != null)
+        //    openButton.onClick.AddListener(OnOpenButtonClicked);
     }
 
     private void OnEnable()
@@ -45,7 +45,7 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         RefreshUI();
     }
 
-    private void OnClaimButtonClicked()
+    public void OnClaimButtonClicked()
     {
         if (rewardManager == null)
         {
@@ -57,6 +57,7 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         {
             rewardManager.ClaimDailyReward();
             RefreshUI();
+            
         }
         else
         {

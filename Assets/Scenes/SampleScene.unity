@@ -189,6 +189,17 @@ RectTransform:
   m_AnchoredPosition: {x: -29.799988, y: 0}
   m_SizeDelta: {x: 566.8, y: 30}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &459924929 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6620694377184993192, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+  m_PrefabInstance: {fileID: 968331924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +600,10 @@ PrefabInstance:
     - target: {fileID: 1220790107003797944, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744730526980466139, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_Name
+      value: Coins_Amoint
       objectReference: {fileID: 0}
     - target: {fileID: 7794907492078750865, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_Name
@@ -1392,6 +1407,7 @@ MonoBehaviour:
   ThreeWordLineDrag: {fileID: 695483322419301462, guid: 765832c540111f34eadad1d4ce8de09f, type: 3}
   dailyRewardsPanel: {fileID: 8914290421586533410, guid: 263863f5727a8ed45a3c15b9624eb8be, type: 3}
   playButtonPanel: {fileID: 6452674537366484393, guid: c5a95626a8378ca42b10db54e852ca55, type: 3}
+  coinsAmount: {fileID: 459924929}
 --- !u!1 &1810945962
 GameObject:
   m_ObjectHideFlags: 0

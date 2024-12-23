@@ -37,8 +37,18 @@ public class MyCustomRewardStateService : IRewardStateService
     public bool IsDailyRewardAvailable(double requiredDelay)
     {
         string lastClaimDate = playerProgressManager.GetLastRewardClaimedDateTime();
-        DateTime lastClaimedRewardDateTime = DateTime.Parse(lastClaimDate, CultureInfo.CurrentCulture);
+        Debug.Log(lastClaimDate);
+
+        if (string.IsNullOrEmpty(lastClaimDate))
+        {
+            Debug.LogWarning("Last claim date is null or empty. Defaulting to reward available.");
+            return true; // If no date is stored, assume the reward is available
+        }
+
+        DateTime lastClaimedRewardDateTime = DateTime.Parse(lastClaimDate);
         DateTime currentDateTime = DateTime.Now;
+
+        //Debug.Log(currentDateTime);
 
         double elapsedTime = (lastClaimedRewardDateTime - currentDateTime).TotalDays;
 
