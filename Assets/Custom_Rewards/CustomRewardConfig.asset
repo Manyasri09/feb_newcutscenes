@@ -24,6 +24,13 @@ MonoBehaviour:
   - level: 4
     reward: {fileID: 11400000, guid: f89c48734cb79be4c91433589cb9cbca, type: 2}
   dailyRewardDelay: 1
-  dailyRewards: []
+  dailyRewards:
+  - {fileID: 11400000, guid: 2383c2c87eaaf4c4ab4c1863faa045a6, type: 2}
+  - {fileID: 11400000, guid: 098aab80c57658f46bbde92c05feb65b, type: 2}
+  - {fileID: 11400000, guid: 35e2a8fd03c101348b2a8a8ca5aac8fa, type: 2}
+  - {fileID: 11400000, guid: 89a33302f1b361448a89410b29be0037, type: 2}
+  - {fileID: 11400000, guid: 8a52d027decf4b4419feb5bf81b28001, type: 2}
+  - {fileID: 11400000, guid: e0af58949c215f845aa1d55d094dd206, type: 2}
+  - {fileID: 11400000, guid: 5f564c718785c784d870497f6622607d, type: 2}
   weeklyRewardDelay: 0
   weeklyRewards: []
