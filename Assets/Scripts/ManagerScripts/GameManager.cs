@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System;
 using PlayerProgressSystem;
 using RewardSystem;
+using Unity.VisualScripting;
 
 
 public class GameManager : MonoBehaviour
@@ -24,9 +25,12 @@ public class GameManager : MonoBehaviour
     private Slider ProgressBar; //ProgressBar for each level -rohan37kumar
     private bool isProcessing = false;
     public static int CurrentIndex; //value for the Current Index of Question Loaded.
-
     
+    private GameObject playButtonPanel;
+    private GameObject dailyRewardsInstance;
 
+    private Button playButton;
+    private Button claimButton;
 
     public static event Action<bool> OnQuestionResult;
 
@@ -53,11 +57,19 @@ public class GameManager : MonoBehaviour
         Actions.onItemDropped += OnAnswerSelected;
         LineActions.OnLineEnded += DraggingLine_OnLineEnded;
         defaultRewardManager.OnLevelRewardClaimed += DefaultRewardManager_OnLevelRewardClaimed;
+        defaultRewardManager.OnDailyRewardClaimed += DefaultRewardManager_OnDailyRewardClaimed;
+    }
+
+    private void DefaultRewardManager_OnDailyRewardClaimed(int Day, IReward reward)
+    {
+        Debug.Log($"<color=yellow>Day = {Day}, Reward = {reward.Type} X {reward.Quantity}</color>");
+        uiManager.SetCoinsAmount( reward.Quantity );
     }
 
     private void DefaultRewardManager_OnLevelRewardClaimed(int level, IReward reward)
     {
         Debug.Log($"<color=yellow>Level = {level}, Reward = {reward.Type} X {reward.Quantity}</color>");
+        uiManager.SetCoinsAmount(reward.Quantity);
     }
 
 
@@ -88,8 +100,18 @@ public class GameManager : MonoBehaviour
        
         // Load the first level's UI and questions
         ProgressBarSet();
-        uiManager.LoadLevel(currentLevel);
-        //uiManager.LoadPlayButtonPanel();
+        //uiManager.LoadLevel(currentLevel);
+        playButtonPanel = uiManager.LoadPlayButtonPanel();
+        playButton = playButtonPanel.GetComponentInChildren<Button>();
+
+        if (playButton != null)
+        {
+            playButton.onClick.AddListener(OnPlayButtonClicked);
+        }
+        else
+        {
+            Debug.LogError("PlayButton not found in PlayButtonPanel.");
+        }
     }
 
     //Methods for Level Progression -rohan37kumar
@@ -205,5 +227,41 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Ended");
         SceneManager.LoadScene("Scene 3");
     }
+
+    public void OnPlayButtonClicked()
+    {
+        if (!defaultRewardManager.IsDailyRewardAvailable())
+        {
+            Destroy(playButtonPanel);
+            uiManager.LoadLevel(currentLevel);
+        }
+        else
+        {
+            
+            dailyRewardsInstance = uiManager.LoadDailyRewardsPanel();
+            DailyRewardsUIButtonType rewardPane = dailyRewardsInstance.GetComponentInChildren<DailyRewardsUIButtonType>();
+            
+            if (rewardPane != null)
+            {
+                rewardPane.claimButton.onClick.AddListener(ClaimDailyReward);
+                rewardPane.ShowPanel();
+            }
+            else
+            {
+                Debug.LogError("Reward Image not found in Daily Rewards Panel.");
+            }
+        }
+
+    }
+
+    public void ClaimDailyReward()
+    {
+        DailyRewardsUIButtonType rewardPane = dailyRewardsInstance.GetComponentInChildren<DailyRewardsUIButtonType>();
+        rewardPane.OnClaimButtonClicked();
+        Destroy(playButtonPanel);
+        Destroy(dailyRewardsInstance);
+        uiManager.LoadLevel(currentLevel);
+    }
+   
 
 }

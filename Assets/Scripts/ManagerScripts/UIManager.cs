@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
+using RewardSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -35,10 +36,7 @@ public class UIManager : MonoBehaviour
     private GameObject dailyRewardsInstance;
     private GameObject playButtonInstance;
 
-    private Button playButton;
-
-
-
+    public Text coinsAmount;
 
     //implemented all the logic for Question progression  -rohan37kumar
     private void OnEnable()
@@ -140,38 +138,27 @@ public class UIManager : MonoBehaviour
         dropsUIInstance.GetComponent<CorrectDisplayHelper>().DisplayCorrectUI(questionData);
     }
 
-    /// <summary>
-    /// Dynamically loads the PlayButtonPanel and injects its dependencies.
-    /// </summary>
-    public void LoadPlayButtonPanel()
+    public GameObject LoadPlayButtonPanel()
     {
         if (playButtonInstance == null)
         {
             playButtonInstance = Instantiate(playButtonPanel, transform);
             container.InjectGameObject(playButtonInstance);
-
-            playButton = playButtonInstance.GetComponentInChildren<Button>();
-            if (playButton != null)
-            {
-                playButton.onClick.AddListener(OnPlayButtonClicked);
-            }
-            else
-            {
-                Debug.LogError("PlayButton not found in PlayButtonPanel.");
-            }
         }
+        return playButtonInstance; // Return the instantiated PlayButtonPanel
     }
 
     /// <summary>
     /// Dynamically loads the DailyRewardsPanel and injects its dependencies.
     /// </summary>
-    public void LoadDailyRewardsPanel()
+    public GameObject LoadDailyRewardsPanel()
     {
         if (dailyRewardsInstance == null)
         {
             dailyRewardsInstance = Instantiate(dailyRewardsPanel, transform);
             container.InjectGameObject(dailyRewardsInstance);
         }
+       return dailyRewardsInstance;
     }
 
     /// <summary>
@@ -182,5 +169,13 @@ public class UIManager : MonoBehaviour
         LoadDailyRewardsPanel();
         Debug.Log("Play Button clicked!");
         // Add your logic for handling the play button click
+    }
+
+    public void SetCoinsAmount(int amount)
+    {
+        int coins_Amount = int.Parse(coinsAmount.text);
+        coins_Amount += amount;
+        coinsAmount.text = coins_Amount.ToString();
+
     }
 }
