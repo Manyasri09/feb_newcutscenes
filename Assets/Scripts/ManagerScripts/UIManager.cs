@@ -28,6 +28,17 @@ public class UIManager : MonoBehaviour
     private GameObject currentPrefab;
     private GameObject dropsUIInstance;
 
+    [SerializeField]
+    private GameObject dailyRewardsPanel; // Reference to DailyRewardsPanel prefab
+    [SerializeField]
+    private GameObject playButtonPanel; // Reference to PlayButtonPanel prefab
+    private GameObject dailyRewardsInstance;
+    private GameObject playButtonInstance;
+
+    private Button playButton;
+
+
+
 
     //implemented all the logic for Question progression  -rohan37kumar
     private void OnEnable()
@@ -129,10 +140,47 @@ public class UIManager : MonoBehaviour
         dropsUIInstance.GetComponent<CorrectDisplayHelper>().DisplayCorrectUI(questionData);
     }
 
-    void StartVibration(GameObject gameObject)
+    /// <summary>
+    /// Dynamically loads the PlayButtonPanel and injects its dependencies.
+    /// </summary>
+    public void LoadPlayButtonPanel()
     {
-        // Move the object left and right for the vibration effect
-        
+        if (playButtonInstance == null)
+        {
+            playButtonInstance = Instantiate(playButtonPanel, transform);
+            container.InjectGameObject(playButtonInstance);
+
+            playButton = playButtonInstance.GetComponentInChildren<Button>();
+            if (playButton != null)
+            {
+                playButton.onClick.AddListener(OnPlayButtonClicked);
+            }
+            else
+            {
+                Debug.LogError("PlayButton not found in PlayButtonPanel.");
+            }
+        }
     }
 
+    /// <summary>
+    /// Dynamically loads the DailyRewardsPanel and injects its dependencies.
+    /// </summary>
+    public void LoadDailyRewardsPanel()
+    {
+        if (dailyRewardsInstance == null)
+        {
+            dailyRewardsInstance = Instantiate(dailyRewardsPanel, transform);
+            container.InjectGameObject(dailyRewardsInstance);
+        }
+    }
+
+    /// <summary>
+    /// Callback for the Play Button click event.
+    /// </summary>
+    private void OnPlayButtonClicked()
+    {
+        LoadDailyRewardsPanel();
+        Debug.Log("Play Button clicked!");
+        // Add your logic for handling the play button click
+    }
 }

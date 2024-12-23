@@ -5,6 +5,7 @@ using RewardSystem;
 using PlayerProgressSystem;
 using System;
 using JetBrains.Annotations;
+using System.Globalization;
 
 public class MyCustomRewardStateService : IRewardStateService
 {
@@ -35,7 +36,8 @@ public class MyCustomRewardStateService : IRewardStateService
 
     public bool IsDailyRewardAvailable(double requiredDelay)
     {
-        DateTime lastClaimedRewardDateTime = DateTime.Parse(playerProgressManager.GetLastRewardClaimedDateTime());
+        string lastClaimDate = playerProgressManager.GetLastRewardClaimedDateTime();
+        DateTime lastClaimedRewardDateTime = DateTime.Parse(lastClaimDate, CultureInfo.CurrentCulture);
         DateTime currentDateTime = DateTime.Now;
 
         double elapsedTime = (lastClaimedRewardDateTime - currentDateTime).TotalDays;

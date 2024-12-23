@@ -14,12 +14,6 @@
       "dependencies": {},
       "hash": "46bc0c5eca571abb7c6aaacbe723e3380cf58f0c"
     },
-    "com.merry-yellow.code-assist": {
-      "version": "file:com.merry-yellow.code-assist",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.unity.2d.animation": {
       "version": "9.1.3",
       "depth": 1,

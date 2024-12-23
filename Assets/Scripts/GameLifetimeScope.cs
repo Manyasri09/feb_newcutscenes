@@ -7,6 +7,7 @@ using VContainer.Unity;
 public class GameLifetimeScope : LifetimeScope
 {
     [SerializeField] private RewardConfig rewardConfig; // Assign via inspector
+    //[SerializeField] private GameObject DailyRewardsUI; // Assign via inspector
     protected override void Configure(IContainerBuilder builder)
     {
         // Register CMSGameEventManager as a singleton
@@ -34,6 +35,8 @@ public class GameLifetimeScope : LifetimeScope
 
         // Register the reward manager
         builder.Register<IRewardManager, DefaultRewardManager>(Lifetime.Singleton);
+
+        builder.Register<DailyRewardsUI>(Lifetime.Singleton);
 
     }
 }

@@ -13,12 +13,19 @@ namespace PlayerProgressSystem
         private const string MainLevelKeyPrefix = "MainLevel_";
         private const string MainLevelRetryKey = "MainLevelRetry";
         private const string MainLevelTypePrefix = "MainLevelType_";
+
+
         private const string SubLevelKeyPrefix = "SubLevel_";
         private const string SubLevelRetryKey = "SubLevelRetry";
         private const string SubLevelTypePrefix = "SubLevelType_";
+        private const string LastSubLevelCompleted= "LastCompletedSubLevel";
+
+
         private const string UsernameKey = "Username";
         private const string LastLoginKey = "LastLogin";
         private const string LatestLoginKey = "LatestLogin";
+
+
         private const string ExperienceKey = "Xp_";
         private const string CoinsKey = "Coins_";
         private const string GemsKey = "Gems_";
@@ -99,6 +106,7 @@ namespace PlayerProgressSystem
         }
 
 
+
         #endregion
 
         #region Sub Levels
@@ -110,6 +118,7 @@ namespace PlayerProgressSystem
         {
             string subLevelKey = SubLevelKeyPrefix + subLevelID;
             _storage.SetInt(subLevelKey, 1);
+            _storage.SetString(LastSubLevelCompleted, subLevelID);
             _storage.Save();
         }
         /// <summary>
@@ -132,6 +141,12 @@ namespace PlayerProgressSystem
             string subLevelTypeKey = SubLevelTypePrefix + type;
             _storage.SetString(subLevelTypeKey, type);
         }
+
+        public string GetLastCompletedSubLevel()
+        {
+            return _storage.GetString("LastCompletedSubLevel", "No sub-levels completed yet.");
+        }
+
 
         #endregion
 

@@ -9,7 +9,7 @@ Library: C:\Users\babar\Desktop\Learning Gaming\Ezy_Gamer_AssemblerProject\Temp\
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\babar\Desktop\Learning Gaming\Ezy_Gamer_AssemblerProject\Temp\Burst
---key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.46f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.54f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\babar\Desktop\Learning Gaming\Ezy_Gamer_AssemblerProject\Library\Burst
 --output=C:\Users\babar\Desktop\Learning Gaming\Ezy_Gamer_AssemblerProject\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/

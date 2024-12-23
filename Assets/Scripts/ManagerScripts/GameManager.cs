@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private bool isProcessing = false;
     public static int CurrentIndex; //value for the Current Index of Question Loaded.
 
+    
+
 
     public static event Action<bool> OnQuestionResult;
 
@@ -51,7 +53,6 @@ public class GameManager : MonoBehaviour
         Actions.onItemDropped += OnAnswerSelected;
         LineActions.OnLineEnded += DraggingLine_OnLineEnded;
         defaultRewardManager.OnLevelRewardClaimed += DefaultRewardManager_OnLevelRewardClaimed;
-
     }
 
     private void DefaultRewardManager_OnLevelRewardClaimed(int level, IReward reward)
@@ -84,9 +85,11 @@ public class GameManager : MonoBehaviour
         audioManager.PlayBkgMusic();
         Debug.Log(uiManager);
         Debug.Log("Game Started");
+       
         // Load the first level's UI and questions
         ProgressBarSet();
         uiManager.LoadLevel(currentLevel);
+        //uiManager.LoadPlayButtonPanel();
     }
 
     //Methods for Level Progression -rohan37kumar
