@@ -243,6 +243,7 @@ public class GameManager : MonoBehaviour
             
             if (rewardPane != null)
             {
+                Destroy(playButtonPanel);
                 rewardPane.claimButton.onClick.AddListener(ClaimDailyReward);
                 rewardPane.ShowPanel();
             }

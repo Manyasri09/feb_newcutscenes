@@ -8,6 +8,7 @@ public class DailyRewardSlotUI : MonoBehaviour
     [SerializeField] private TMP_Text dayLabel;
     [SerializeField] private Image rewardIcon;
     [SerializeField] private TMP_Text quantityLabel;
+    
 
     public void SetupSlot(int dayNumber, Reward reward)
     {
