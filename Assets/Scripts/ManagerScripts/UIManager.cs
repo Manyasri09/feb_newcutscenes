@@ -33,8 +33,10 @@ public class UIManager : MonoBehaviour
     private GameObject dailyRewardsPanel; // Reference to DailyRewardsPanel prefab
     [SerializeField]
     private GameObject playButtonPanel; // Reference to PlayButtonPanel prefab
+    [SerializeField] private GameObject optionPanel;
     private GameObject dailyRewardsInstance;
     private GameObject playButtonInstance;
+    private GameObject optionsInstance;
 
     public Text coinsAmount;
 
@@ -160,18 +162,30 @@ public class UIManager : MonoBehaviour
         }
        return dailyRewardsInstance;
     }
-
-    /// <summary>
-    /// Callback for the Play Button click event.
-    /// </summary>
-    private void OnPlayButtonClicked()
+    public GameObject LoadOptionsPanel()
     {
-        LoadDailyRewardsPanel();
-        Debug.Log("Play Button clicked!");
-        // Add your logic for handling the play button click
+        if (optionsInstance == null)
+        {
+            optionsInstance = Instantiate(optionPanel, transform);
+            container.InjectGameObject(optionsInstance);
+        }
+        return optionsInstance;
     }
 
-    public void SetCoinsAmount(int amount)
+
+    ///// <summary>
+    ///// Callback for the Play Button click event.
+    ///// </summary>
+    //private void OnPlayButtonClicked()
+    //{
+    //    LoadDailyRewardsPanel();
+    //    Debug.Log("Play Button clicked!");
+    //    // Add your logic for handling the play button click
+    //}
+
+    //public void 
+
+    public void SetCoinsAmount(int amount, int savedCoins)
     {
         int coins_Amount = int.Parse(coinsAmount.text);
         coins_Amount += amount;

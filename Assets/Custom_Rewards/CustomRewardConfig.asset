@@ -23,7 +23,7 @@ MonoBehaviour:
     reward: {fileID: 11400000, guid: 1161d521a805bb040b3705adfe90e575, type: 2}
   - level: 4
     reward: {fileID: 11400000, guid: f89c48734cb79be4c91433589cb9cbca, type: 2}
-  dailyRewardDelay: 1
+  dailyRewardDelay: 5
   dailyRewards:
   - {fileID: 11400000, guid: 2383c2c87eaaf4c4ab4c1863faa045a6, type: 2}
   - {fileID: 11400000, guid: 098aab80c57658f46bbde92c05feb65b, type: 2}

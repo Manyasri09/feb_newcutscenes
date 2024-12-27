@@ -9,6 +9,7 @@ using System;
 using PlayerProgressSystem;
 using RewardSystem;
 using Unity.VisualScripting;
+using CoinAnimationPackage;
 
 
 public class GameManager : MonoBehaviour
@@ -31,6 +32,11 @@ public class GameManager : MonoBehaviour
 
     private Button playButton;
     private Button claimButton;
+
+    [SerializeField] private AnimationManager animationManager;
+
+    public Button settingsButton;
+
 
     public static event Action<bool> OnQuestionResult;
 
@@ -63,13 +69,14 @@ public class GameManager : MonoBehaviour
     private void DefaultRewardManager_OnDailyRewardClaimed(int Day, IReward reward)
     {
         Debug.Log($"<color=yellow>Day = {Day}, Reward = {reward.Type} X {reward.Quantity}</color>");
-        uiManager.SetCoinsAmount( reward.Quantity );
+        
+        uiManager.SetCoinsAmount( reward.Quantity, playerProgressManager.GetCoins());
     }
 
     private void DefaultRewardManager_OnLevelRewardClaimed(int level, IReward reward)
     {
         Debug.Log($"<color=yellow>Level = {level}, Reward = {reward.Type} X {reward.Quantity}</color>");
-        uiManager.SetCoinsAmount(reward.Quantity);
+        uiManager.SetCoinsAmount(reward.Quantity, playerProgressManager.GetCoins());
     }
 
 
@@ -259,6 +266,7 @@ public class GameManager : MonoBehaviour
     {
         DailyRewardsUIButtonType rewardPane = dailyRewardsInstance.GetComponentInChildren<DailyRewardsUIButtonType>();
         rewardPane.OnClaimButtonClicked();
+        animationManager.RewardPileOfCoins(10);
         Destroy(playButtonPanel);
         Destroy(dailyRewardsInstance);
         uiManager.LoadLevel(currentLevel);
