@@ -50,8 +50,9 @@ public class MyCustomRewardStateService : IRewardStateService
 
         //Debug.Log(currentDateTime);
 
-        double elapsedTime = (lastClaimedRewardDateTime - currentDateTime).TotalDays;
-
+        double elapsedTime = (currentDateTime - lastClaimedRewardDateTime).TotalSeconds;
+        Debug.Log($"elapsed = {elapsedTime}");
+        Debug.Log($"requried = {requiredDelay}");
         if (elapsedTime >= requiredDelay)
         {
             return true;
