@@ -185,11 +185,15 @@ public class UIManager : MonoBehaviour
 
     //public void 
 
-    public void SetCoinsAmount(int amount, int savedCoins)
+    public void SetCoinsAmount(int amount)
     {
+        Debug.Log($"$<color=yellow>Amount = {amount}</color>");
         int coins_Amount = int.Parse(coinsAmount.text);
         coins_Amount += amount;
         coinsAmount.text = coins_Amount.ToString();
+
+        Text coinText = playButtonPanel.GetComponentInChildren<Text>();
+        coinText.text = coins_Amount.ToString();
 
     }
 }

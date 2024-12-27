@@ -171,7 +171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableAutoPrompt: 1
   totalAnimationDuration: -1
-  levelType: Line Question
   handPromptImage: {fileID: 6886303469831004390}
   nodes:
   - {fileID: 6967696337338797232}
@@ -190,7 +189,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8138244886395691700}
   - component: {fileID: 1935692379163651927}
-  - component: {fileID: 8658407786417852722}
   - component: {fileID: 1182118195297709872}
   m_Layer: 0
   m_Name: PuzzleCanvas
@@ -249,29 +247,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &8658407786417852722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099635195222991825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!114 &1182118195297709872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,8 +685,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.01001, y: 211.1}
-  m_SizeDelta: {x: 1440, y: 937.7}
+  m_AnchoredPosition: {x: 0.01001, y: 197.8}
+  m_SizeDelta: {x: 1440, y: 911.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7680764441573145063
 MonoBehaviour:
@@ -959,7 +934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f904b43f8b08d5c4289fa35167cc9dc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17014abb607f97644aab787f912af29d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1392,6 +1367,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3068567065284942948}
     m_Modifications:
+    - target: {fileID: 766181607893157560, guid: af3852ce0b95e9c4fbff73a4d1f11e93, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1843761044784732464, guid: af3852ce0b95e9c4fbff73a4d1f11e93, type: 3}
       propertyPath: m_LocalScale.x
       value: 179.8443
@@ -2556,7 +2535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1446881734621359207, guid: d08676c455fa0fd4aac40d0147084990, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -350
+      value: -441.8
       objectReference: {fileID: 0}
     - target: {fileID: 1446881734621359207, guid: d08676c455fa0fd4aac40d0147084990, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

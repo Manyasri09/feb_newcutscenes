@@ -11,7 +11,6 @@ namespace CoinAnimationPackage
     {
         [Header("Animation References")]
         [SerializeField] private GameObject coinPile; // Parent GameObject holding coin prefabs
-        [SerializeField] private TextMeshProUGUI counter; // Optional: Counter to update coin count
         [SerializeField] private RectTransform targetRectTransform; // The target RectTransform (e.g., UI element)
 
         [Header("Animation Settings")]
@@ -21,6 +20,9 @@ namespace CoinAnimationPackage
         [SerializeField] private float moveDelay = 0.5f; // Delay before moving coins
         [SerializeField] private float scaleDownDelay = 0.8f; // Delay before scaling down coins
         [SerializeField] private float staggerDelay = 0.1f; // Delay between animations of each coin
+
+        [Header("Audio")]
+        [SerializeField] private AudioSource audioSource;
 
         private List<Vector3> initialPositions = new List<Vector3>();
         private List<Quaternion> initialRotations = new List<Quaternion>();
@@ -92,6 +94,8 @@ namespace CoinAnimationPackage
 
             Vector3 targetWorldPosition = GetTargetWorldPosition();
 
+            audioSource.Play();
+
             for (int i = 0; i < coinPile.transform.childCount; i++)
             {
                 GameObject coin = coinPile.transform.GetChild(i).gameObject;
@@ -112,6 +116,18 @@ namespace CoinAnimationPackage
                     .setEase(LeanTweenType.easeOutBack);
 
                 delay += staggerDelay;
+            }
+
+            // Optionally, stop audio after a delay matching its duration
+            float audioDuration = 1.5f; // Get the duration of the audio clip
+            Invoke("StopAudio", audioDuration);
+        }
+
+        private void StopAudio()
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
             }
         }
     }

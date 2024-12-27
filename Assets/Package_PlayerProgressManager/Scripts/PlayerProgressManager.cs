@@ -13,6 +13,7 @@ namespace PlayerProgressSystem
         private const string MainLevelKeyPrefix = "MainLevel_";
         private const string MainLevelRetryKey = "MainLevelRetry";
         private const string MainLevelTypePrefix = "MainLevelType_";
+        private const string LastCompletedMainLevel = "LastCompletedMainLevel";
 
 
         private const string SubLevelKeyPrefix = "SubLevel_";
@@ -80,7 +81,8 @@ namespace PlayerProgressSystem
         public void MainLevelCompleted(string mainLevelID)
         {
             string mainLevelKey = MainLevelKeyPrefix + mainLevelID;
-            _storage.SetInt(mainLevelKey, 1);   
+            _storage.SetInt(mainLevelKey, 1);
+            _storage.SetString(LastCompletedMainLevel, mainLevelID);
             _storage.Save();
         }
         /// <summary>
@@ -103,6 +105,11 @@ namespace PlayerProgressSystem
         {
             string mainLevelTypeKey = MainLevelTypePrefix + type;
             _storage.SetString(mainLevelTypeKey, type);
+        }
+
+        public string GetLastCompletedMainLevel()
+        {
+            return _storage.GetString(LastCompletedMainLevel, "0");
         }
 
 
@@ -191,7 +198,9 @@ namespace PlayerProgressSystem
 
         public void UpdateCoins(int coins)
         {
-            _storage.SetInt(CoinsKey, coins);
+            int storedCoins = _storage.GetInt(CoinsKey);
+            storedCoins += coins;
+            _storage.SetInt(CoinsKey, storedCoins);
             _storage.Save();
         }
 

@@ -10,17 +10,21 @@ public class DailyRewardsUIButtonType : MonoBehaviour
     [SerializeField] private GameObject panel;             // The main panel for daily rewards
     //[SerializeField] private Image notificationImage;      // The notification Icon
     public Button claimButton;           // The Claim button
+    public Button closeButton;           // The Close button
     //[SerializeField] private Button closeButton;           // Close/X button
     //[SerializeField] private Button openButton;            // Open button
     [SerializeField] private List<DailyRewardSlotUI> slots; // Pre-created slot references in the scene
+    [SerializeField] public Color highLightColor;
 
     // The manager that actually knows if a reward is available, etc.
     public IRewardManager rewardManager;
+    private IRewardStateService _stateService;
 
     [Inject]
-    public void Construct(IRewardManager rewardManager)
+    public void Construct(IRewardManager rewardManager, IRewardStateService stateService)
     {
         this.rewardManager = rewardManager;
+        _stateService = stateService;
     }
 
     private void Awake()
@@ -98,6 +102,9 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         if (config == null || config.dailyRewards == null || config.dailyRewards.Count == 0)
             return;
 
+        int index = _stateService.GetDailyRewardIndex();
+
+
         // Update each slot with data from the config
         for (int i = 0; i < slots.Count; i++)
         {
@@ -106,6 +113,13 @@ public class DailyRewardsUIButtonType : MonoBehaviour
                 Reward reward = config.dailyRewards[i];
                 slots[i].gameObject.SetActive(true);
                 slots[i].SetupSlot(i + 1, reward);
+
+                if (i == index)
+                {
+                    Image slotBackGround = slots[i].GetComponent<Image>();
+                    slotBackGround.color = highLightColor;
+                }
+                    
             }
             else
             {

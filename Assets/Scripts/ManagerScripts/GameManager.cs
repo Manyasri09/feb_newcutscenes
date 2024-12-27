@@ -10,6 +10,7 @@ using PlayerProgressSystem;
 using RewardSystem;
 using Unity.VisualScripting;
 using CoinAnimationPackage;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour
@@ -21,11 +22,12 @@ public class GameManager : MonoBehaviour
     private IRewardManager defaultRewardManager;  // Reference to Reward Manager
 
     [SerializeField]
-    private LevelConfiggSO currentLevel;  // ScriptableObject containing level data
+    private List<LevelConfiggSO> gameLevels;  // ScriptableObject containing level data
     [SerializeField]
     private Slider ProgressBar; //ProgressBar for each level -rohan37kumar
     private bool isProcessing = false;
     public static int CurrentIndex; //value for the Current Index of Question Loaded.
+    public static int LevelIndex;
     
     private GameObject playButtonPanel;
     private GameObject dailyRewardsInstance;
@@ -70,13 +72,15 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"<color=yellow>Day = {Day}, Reward = {reward.Type} X {reward.Quantity}</color>");
         
-        uiManager.SetCoinsAmount( reward.Quantity, playerProgressManager.GetCoins());
+        //uiManager.SetCoinsAmount( reward.Quantity, playerProgressManager.GetCoins());
+        uiManager.SetCoinsAmount( reward.Quantity);
     }
 
     private void DefaultRewardManager_OnLevelRewardClaimed(int level, IReward reward)
     {
         Debug.Log($"<color=yellow>Level = {level}, Reward = {reward.Type} X {reward.Quantity}</color>");
-        uiManager.SetCoinsAmount(reward.Quantity, playerProgressManager.GetCoins());
+        //uiManager.SetCoinsAmount(reward.Quantity, playerProgressManager.GetCoins());
+        uiManager.SetCoinsAmount(reward.Quantity);
     }
 
 
@@ -94,7 +98,10 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        //playerProgressManager.DeleteAllRecords();
         CurrentIndex = 0;
+        LevelLoader();
+        Debug.Log($"level index {LevelIndex}");
         if (uiManager == null)
         {
             Debug.LogError("UIManager not injected!");
@@ -107,7 +114,8 @@ public class GameManager : MonoBehaviour
        
         // Load the first level's UI and questions
         ProgressBarSet();
-        //uiManager.LoadLevel(currentLevel);
+        uiManager.SetCoinsAmount(playerProgressManager.GetCoins());
+
         playButtonPanel = uiManager.LoadPlayButtonPanel();
         playButton = playButtonPanel.GetComponentInChildren<Button>();
 
@@ -125,14 +133,14 @@ public class GameManager : MonoBehaviour
     private void OnAnswerSelected(GameObject selectedOption)
     {
         
-        bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], selectedOption.GetComponent<DropHandler>().OptionID);
+        bool isCorrect = AnswerChecker.CheckAnswer(gameLevels[LevelIndex].question[CurrentIndex], selectedOption.GetComponent<DropHandler>().OptionID);
 
         if (isCorrect)
         {
-            CorrectAnswerSelected(currentLevel.question[CurrentIndex]);
-            playerProgressManager.CompleteSubLevel(currentLevel.question[CurrentIndex].questionNo.ToString());
-            playerProgressManager.SubLevelCompletedType(currentLevel.question[CurrentIndex].optionType.ToString());
-            defaultRewardManager.ClaimLevelReward(currentLevel.question[CurrentIndex].questionNo);
+            CorrectAnswerSelected(gameLevels[LevelIndex].question[CurrentIndex]);
+            playerProgressManager.CompleteSubLevel(gameLevels[LevelIndex].question[CurrentIndex].questionNo.ToString());
+            playerProgressManager.SubLevelCompletedType(gameLevels[LevelIndex].question[CurrentIndex].optionType.ToString());
+            defaultRewardManager.ClaimLevelReward(gameLevels[LevelIndex].question[CurrentIndex].questionNo);
             return;
         }
         WrongAnswerSelected(selectedOption);
@@ -146,13 +154,13 @@ public class GameManager : MonoBehaviour
         }
         
 
-        bool isCorrect = AnswerChecker.CheckAnswer(currentLevel.question[CurrentIndex], outputText);
+        bool isCorrect = AnswerChecker.CheckAnswer(gameLevels[LevelIndex].question[CurrentIndex], outputText);
         OnQuestionResult?.Invoke(isCorrect);
         if (isCorrect)
         {
-            playerProgressManager.CompleteSubLevel(currentLevel.question[CurrentIndex].questionNo.ToString());
-            playerProgressManager.SubLevelCompletedType(currentLevel.question[CurrentIndex].optionType.ToString());
-            defaultRewardManager.ClaimLevelReward(currentLevel.question[CurrentIndex].questionNo);
+            playerProgressManager.CompleteSubLevel(gameLevels[LevelIndex].question[CurrentIndex].questionNo.ToString());
+            playerProgressManager.SubLevelCompletedType(gameLevels[LevelIndex].question[CurrentIndex].optionType.ToString());
+            defaultRewardManager.ClaimLevelReward(gameLevels[LevelIndex].question[CurrentIndex].questionNo);
             audioManager.PlayCorrectAudio(); 
             StartCoroutine(WaitAndMoveToNext()); 
         }
@@ -199,7 +207,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         //called LoadNextLevelQuestion without incrementing the index...hence we reload the same level
-        eventManager.LoadNextQuestion(currentLevel.question[CurrentIndex]);
+        eventManager.LoadNextQuestion(gameLevels[LevelIndex].question[CurrentIndex]);
         isProcessing = false;
     }
 
@@ -209,30 +217,46 @@ public class GameManager : MonoBehaviour
         ProgressBar.value++;
 
         Debug.Log("CurrentIndex: " + CurrentIndex);
-        Debug.Log("Total Questions: " + currentLevel.question.Count);
+        Debug.Log("Total Questions: " + gameLevels[LevelIndex].question.Count);
 
-        if (CurrentIndex < currentLevel.question.Count)
+        if (CurrentIndex < gameLevels[LevelIndex].question.Count)
         {
-            eventManager.LoadNextQuestion(currentLevel.question[CurrentIndex]);
+            eventManager.LoadNextQuestion(gameLevels[LevelIndex].question[CurrentIndex]);
         }
         else
         {
-            EndGame();
+            // All sub-levels in the current level are completed
+            playerProgressManager.MainLevelCompleted(LevelIndex.ToString());
+
+            if (LevelIndex + 1 < gameLevels.Count)
+            {
+                // Move to the next main level
+                LevelIndex++;
+                CurrentIndex = 0;
+                LevelLoader();
+            }
+            else
+            {
+                // No more levels to play
+                EndGame();
+            }
         }
     }
 
     private void ProgressBarSet()
     {
         //code for Progress Bar Setup -rohan37kumar
-        ProgressBar.maxValue = currentLevel.question.Count + 1;
+        ProgressBar.maxValue = gameLevels[LevelIndex].question.Count + 1;
         ProgressBar.value = 1;
     }
 
     public void EndGame()
     {
-        playerProgressManager.DeleteAllRecords();
+        playerProgressManager.MainLevelCompleted(LevelIndex.ToString());
+        
+        //playerProgressManager.DeleteAllRecords();
         Debug.Log("Game Ended");
-        SceneManager.LoadScene("Scene 3");
+        //SceneManager.LoadScene("Scene 3");
     }
 
     public void OnPlayButtonClicked()
@@ -240,7 +264,7 @@ public class GameManager : MonoBehaviour
         if (!defaultRewardManager.IsDailyRewardAvailable())
         {
             Destroy(playButtonPanel);
-            uiManager.LoadLevel(currentLevel);
+            uiManager.LoadLevel(gameLevels[LevelIndex]);
         }
         else
         {
@@ -252,6 +276,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(playButtonPanel);
                 rewardPane.claimButton.onClick.AddListener(ClaimDailyReward);
+                rewardPane.closeButton.onClick.AddListener(CloseDailyRewardPanel);
                 rewardPane.ShowPanel();
             }
             else
@@ -267,10 +292,32 @@ public class GameManager : MonoBehaviour
         DailyRewardsUIButtonType rewardPane = dailyRewardsInstance.GetComponentInChildren<DailyRewardsUIButtonType>();
         rewardPane.OnClaimButtonClicked();
         animationManager.RewardPileOfCoins(10);
-        Destroy(playButtonPanel);
-        Destroy(dailyRewardsInstance);
-        uiManager.LoadLevel(currentLevel);
+        CloseDailyRewardPanel();
+        uiManager.LoadLevel(gameLevels[LevelIndex]);
     }
    
+    public void CloseDailyRewardPanel()
+    {
+        Destroy(playButtonPanel);
+        Destroy(dailyRewardsInstance);
+    }
+
+    public void LevelLoader()
+    {
+        // Ensure LevelIndex doesn't exceed the available levels
+        if (LevelIndex >= gameLevels.Count)
+        {
+            Debug.LogError("No more levels available to load.");
+            EndGame();
+            return;
+        }
+
+        Debug.Log($"Loading Level {LevelIndex}");
+
+        // Set up the Progress Bar and UI for the new level
+        ProgressBarSet();
+        uiManager.LoadLevel(gameLevels[LevelIndex]);
+        //audioManager.PlayBkgMusic();
+    }
 
 }

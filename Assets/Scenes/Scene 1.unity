@@ -871,7 +871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introSceneName: Scene 1
   introSceneNameTwo: Scene 2
-  gameSceneName: SampleScene
+  gameSceneName: GameScene
 --- !u!4 &1923588802
 Transform:
   m_ObjectHideFlags: 0
