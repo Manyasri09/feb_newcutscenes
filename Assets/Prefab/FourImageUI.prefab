@@ -675,7 +675,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f904b43f8b08d5c4289fa35167cc9dc4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17014abb607f97644aab787f912af29d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   previousUI: {fileID: 9017319246403692659}
   correctImage: {fileID: 524230442187525386}
   subLevelText: {fileID: 1460052075902275402}
-  hindiText: {fileID: 5202959006930710328}
+  hindiText: {fileID: 1460052075902275402}
   correctAnswerPanel: {fileID: 1801967313503831897}
   acknowledgePanel: {fileID: 8591111324104668958}
   confettiEffect: {fileID: 6369866390386221902}
