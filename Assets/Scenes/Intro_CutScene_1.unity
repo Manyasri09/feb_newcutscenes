@@ -807,8 +807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c9040c0ffed2e4aab3118e62a7b809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: Scene 2
-  currentSceneName: Scene 1
+  SceneName: Intro_CutScene_2
+  currentSceneName: Intro_CutScene_1
 --- !u!1 &1803130498
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,8 +869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ce94e55e8fdeb449b9dd5f649e8b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introSceneName: Scene 1
-  introSceneNameTwo: Scene 2
+  introSceneName: Intro_CutScene_1
+  introSceneNameTwo: Intro_CutScene_2
   gameSceneName: GameScene
 --- !u!4 &1923588802
 Transform:

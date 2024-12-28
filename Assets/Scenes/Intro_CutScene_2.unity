@@ -1158,7 +1158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: GameScene
-  currentSceneName: Scene 2
+  currentSceneName: Intro_CutScene_2
 --- !u!1 &2062353839
 GameObject:
   m_ObjectHideFlags: 0
