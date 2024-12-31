@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a333fbf00445e469072e2679bf9715, type: 3}
+  m_Name: Default_TutorialPopUpData
+  m_EditorClassIdentifier: 
+  heading: About This Question
+  tutorialVideo: {fileID: 32900000, guid: f0a54eff11f018e48ab70b82c8184dfc, type: 3}
+  description: This is  how solve this question by connecting various nodes in a
+    correct order
