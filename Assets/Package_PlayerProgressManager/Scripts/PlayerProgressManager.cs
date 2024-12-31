@@ -149,6 +149,12 @@ namespace PlayerProgressSystem
             _storage.SetString(subLevelTypeKey, type);
         }
 
+        public bool HasCompletedSubLevelType(string type)
+        {
+            string subLevelTypeKey = SubLevelTypePrefix + type;
+            return _storage.GetInt(subLevelTypeKey, 0) == 1;
+        }
+
         public string GetLastCompletedSubLevel()
         {
             return _storage.GetString("LastCompletedSubLevel", "No sub-levels completed yet.");
