@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject FourImagePrefab;
     public GameObject TwoWordPrefab;
     public GameObject ThreeWordLineDrag;
+    public GameObject TutorialPopUpWindow;
 
     private LevelConfiggSO levelSO;     //private LevelSO to hold data -rohan37kumar
     private GameObject currentPrefab;
@@ -39,6 +40,8 @@ public class UIManager : MonoBehaviour
     private GameObject optionsInstance;
 
     public Text coinsAmount;
+
+    private bool isTutorialShown = false; // Flag to track if tutorial has been shown
 
     //implemented all the logic for Question progression  -rohan37kumar
     private void OnEnable()
@@ -80,6 +83,12 @@ public class UIManager : MonoBehaviour
         LoadDropsUI();
         var dragDropUI = dropsUIInstance.GetComponent<PrefabUIManager>();
         dragDropUI.LoadQuestionData(questionData);
+        if (questionData.optionType == OptionType.LineQuestion && !isTutorialShown)
+        {
+            ShowTutorialPopUp();
+            isTutorialShown = true;
+        }
+
     }
 
     // Method to load DropsUI dynamically and inject dependencies
@@ -113,6 +122,17 @@ public class UIManager : MonoBehaviour
             { OptionType.TwoWordOpt, TwoWordPrefab },
             { OptionType.LineQuestion, ThreeWordLineDrag }
         };
+
+        ////// Show tutorial and prevent loading the line question UI
+        //if (question.optionType == OptionType.LineQuestion && !isTutorialShown)
+        //{
+            
+        //    ShowTutorialPopUp();
+        //    isTutorialShown = true;
+        //    //currentPrefab = null; // Do not assign a prefab yet
+        //    return;
+        //}
+
 
         // Try to get the prefab from the dictionary based on content type
         if (prefabMapping.TryGetValue(question.optionType, out var prefab))
@@ -160,7 +180,7 @@ public class UIManager : MonoBehaviour
             dailyRewardsInstance = Instantiate(dailyRewardsPanel, transform);
             container.InjectGameObject(dailyRewardsInstance);
         }
-       return dailyRewardsInstance;
+        return dailyRewardsInstance;
     }
     public GameObject LoadOptionsPanel()
     {
@@ -171,19 +191,6 @@ public class UIManager : MonoBehaviour
         }
         return optionsInstance;
     }
-
-
-    ///// <summary>
-    ///// Callback for the Play Button click event.
-    ///// </summary>
-    //private void OnPlayButtonClicked()
-    //{
-    //    LoadDailyRewardsPanel();
-    //    Debug.Log("Play Button clicked!");
-    //    // Add your logic for handling the play button click
-    //}
-
-    //public void 
 
     public void SetCoinsAmount(int amount)
     {
@@ -196,4 +203,29 @@ public class UIManager : MonoBehaviour
         coinText.text = coins_Amount.ToString();
 
     }
+
+    private void ShowTutorialPopUp()
+    {
+        var tutorialPopUpInstance = Instantiate(TutorialPopUpWindow, transform);
+        container.InjectGameObject(tutorialPopUpInstance);
+
+        // Add a CanvasGroup to the root object
+        var canvasGroup = tutorialPopUpInstance.AddComponent<CanvasGroup>();
+
+        // Get all the graphic elements (Image, Text etc.)
+        var graphics = tutorialPopUpInstance.GetComponentsInChildren<Graphic>();
+        foreach (var graphic in graphics)
+        {
+            // Set their sorting order higher than other UI elements
+            graphic.canvas.overrideSorting = true;
+            graphic.canvas.sortingOrder = 10;
+        }
+
+        var closeButton = tutorialPopUpInstance.GetComponentInChildren<Button>();
+        closeButton.onClick.AddListener(() =>
+        {
+            Destroy(tutorialPopUpInstance);
+        });
+    }
+
 }
