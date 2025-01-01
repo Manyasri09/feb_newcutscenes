@@ -1548,7 +1548,7 @@ MonoBehaviour:
   FourImagePrefab: {fileID: 4841250932979668625, guid: 7ce58820f7cfd6e4fbf4926e4ed025a6, type: 3}
   TwoWordPrefab: {fileID: 4841250932979668625, guid: f24ea16377409af4e87393e12a9656f9, type: 3}
   ThreeWordLineDrag: {fileID: 695483322419301462, guid: 765832c540111f34eadad1d4ce8de09f, type: 3}
-  TutorialPopUpWindow: {fileID: 736357014486557553, guid: b2b45f53ca9e3c94ab165e7713862f3d, type: 3}
+  TutorialPopUpWindow: {fileID: 6534379325066624326, guid: dd6a5a057ebc1274ea4a2d281baaa8af, type: 3}
   dailyRewardsPanel: {fileID: 4927496772172467197, guid: 8bd650b8bf3935b4cb9603fe20cc393d, type: 3}
   playButtonPanel: {fileID: 6452674537366484393, guid: c5a95626a8378ca42b10db54e852ca55, type: 3}
   optionPanel: {fileID: 0}

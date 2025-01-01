@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableAutoPrompt: 1
   totalAnimationDuration: -1
-  levelType: Learning
+  levelType: LEARNING
   handPromptImage: {fileID: 3489128551624869029}
   startTarget: {fileID: 8575793250229852617}
   endTarget: {fileID: 3171573671721007999}

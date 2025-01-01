@@ -30,6 +30,16 @@ public class ObjectMovementHelper : MonoBehaviour
     private Coroutine idleCheckCoroutine;                       // Coroutine for idle time checking
     private Coroutine animationCoroutine;                       // Coroutine for animation
 
+
+    private PlayerProgressManager progressManager;
+
+    [Inject]
+    public void Construct(PlayerProgressManager progressManager)
+    {
+        this.progressManager = progressManager;
+        
+    }
+
     /// <summary>
     /// Initialize and validate required components
     /// </summary>
@@ -40,14 +50,45 @@ public class ObjectMovementHelper : MonoBehaviour
     }
 
     /// <summary>
-    /// Start automatic prompt if enabled
+    /// Start automatic prompt if enabled and level hasn't been played before
     /// </summary>
     private void Start()
     {
-        if (enableAutoPrompt)
+        // Only show the prompt if:
+        // 1. Auto prompt is enabled
+        // 2. Player hasn't completed this level type before
+        if (enableAutoPrompt && !HasPlayerCompletedLevelType())
         {
             ScheduleAnimation();
         }
+    }
+
+    /// <summary>
+    /// Checks if the player has already completed this type of level
+    /// </summary>
+    /// <returns>True if the level type has been completed before</returns>
+    private bool HasPlayerCompletedLevelType()
+    {
+        // Ensure levelType is not empty
+        if (string.IsNullOrEmpty(levelType))
+        {
+            Debug.LogWarning("Level type is not set in ObjectMovementHelper");
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(levelType))
+        {
+            Debug.LogWarning("Level type is not set in ObjectMovementHelper");
+            return false;
+        }
+
+        // Convert to match the same format
+        string normalizedType = levelType.ToUpperInvariant(); // or ToLowerInvariant()
+        Debug.Log($"<color=yellow>Checking completion for level type: {normalizedType} </color>");
+
+        bool hasCompleted = progressManager.HasCompletedSubLevelType(normalizedType);
+        Debug.Log($"<color=yellow>Completion status: {hasCompleted}</color>");
+        return hasCompleted;
     }
 
     /// <summary>
@@ -119,11 +160,11 @@ public class ObjectMovementHelper : MonoBehaviour
     }
 
     /// <summary>
-    /// Public method to manually start the prompt animation
+    /// Public method to manually start the prompt animation if level hasn't been completed
     /// </summary>
     public void StartPromptAnimation()
     {
-        if (!enableAutoPrompt) return;
+        if (!enableAutoPrompt || HasPlayerCompletedLevelType()) return;
         StartAnimation();
     }
 
