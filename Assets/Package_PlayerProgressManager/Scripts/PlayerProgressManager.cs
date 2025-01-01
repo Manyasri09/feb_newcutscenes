@@ -145,13 +145,26 @@ namespace PlayerProgressSystem
 
         public void SubLevelCompletedType(string type)
         {
-            string subLevelTypeKey = SubLevelTypePrefix + type;
-            _storage.SetString(subLevelTypeKey, type);
+            // Normalize the type to ensure consistent case handling
+            string normalizedType = type.ToUpperInvariant();
+            Debug.Log($"<color=red>Normalized type: {normalizedType}</color>");
+
+            // Create the storage key
+            string subLevelTypeKey = SubLevelTypePrefix + normalizedType;
+
+            // Store a boolean value as an integer (1 for completed)
+            _storage.SetInt(subLevelTypeKey, 1);
         }
 
         public bool HasCompletedSubLevelType(string type)
         {
-            string subLevelTypeKey = SubLevelTypePrefix + type;
+            // Normalize the type to match the storage format
+            string normalizedType = type.ToUpperInvariant();
+
+            // Use the same key generation pattern
+            string subLevelTypeKey = SubLevelTypePrefix + normalizedType;
+
+            // Read the stored integer value and convert to boolean
             return _storage.GetInt(subLevelTypeKey, 0) == 1;
         }
 
