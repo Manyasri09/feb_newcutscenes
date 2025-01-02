@@ -80,9 +80,13 @@ namespace PlayerProgressSystem
         /// </summary>
         public void MainLevelCompleted(string mainLevelID)
         {
+            // Create a key for the main level
             string mainLevelKey = MainLevelKeyPrefix + mainLevelID;
+            // Set the value of the key to 1
             _storage.SetInt(mainLevelKey, 1);
+            // Set the last completed main level to the current main level
             _storage.SetString(LastCompletedMainLevel, mainLevelID);
+            // Save the changes
             _storage.Save();
         }
         /// <summary>
@@ -90,29 +94,34 @@ namespace PlayerProgressSystem
         /// </summary>
         public bool HasCompletedMainLevel(string mainLevelID)
         {
+            // Create a key for the main level
             string mainLevelKey = MainLevelKeyPrefix + mainLevelID;
+            // Return true if the value of the key is 1, otherwise return false
             return _storage.GetInt(mainLevelKey, 0) == 1;
         }
 
         public void MainLevelRetries(int retryCount)
         {
+            // Set the value of the main level retry key to the current retry count
             _storage.SetInt(MainLevelRetryKey, retryCount);
+            // Save the changes
             _storage.Save();
 
         }
 
         public void MainLevelCompletedType(string type)
         {
+            // Create a key for the main level type
             string mainLevelTypeKey = MainLevelTypePrefix + type;
+            // Set the value of the key to the current type
             _storage.SetString(mainLevelTypeKey, type);
         }
 
         public string GetLastCompletedMainLevel()
         {
+            // Return the last completed main level
             return _storage.GetString(LastCompletedMainLevel, "0");
-        }
-
-
+        }
 
         #endregion
 
@@ -215,71 +224,102 @@ namespace PlayerProgressSystem
 
         #region Currency Management
 
+        // Update the number of coins in the storage
         public void UpdateCoins(int coins)
         {
+            // Get the current number of coins from the storage
             int storedCoins = _storage.GetInt(CoinsKey);
+            // Add the new coins to the current number of coins
             storedCoins += coins;
+            // Set the new number of coins in the storage
             _storage.SetInt(CoinsKey, storedCoins);
+            // Save the changes to the storage
             _storage.Save();
         }
 
+        // Get the number of coins from the storage
         public int GetCoins() => _storage.GetInt(CoinsKey);
 
+        // Update the number of gems in the storage
         public void UpdateGems(int gems)
         {
+            // Set the new number of gems in the storage
             _storage.SetInt(GemsKey, gems);
+            // Save the changes to the storage
             _storage.Save();
         }
 
+        // Get the number of gems from the storage
         public int GetGems() => _storage.GetInt(GemsKey);
 
+        // Update the experience in the storage
         public void UpdateExperience(int xp)
         {
+            // Set the new experience in the storage
             _storage.SetInt(ExperienceKey, xp);
+            // Save the changes to the storage
             _storage.Save();
         }
 
+        // Get the experience from the storage
         public int GetExperience() => _storage.GetInt(ExperienceKey);
 
         #endregion
 
         #region Reward Tracking
 
+        // Check if the level reward has been claimed
         public bool HasLevelRewardClaimed(int level)
         {
+            // Create a key for the level reward
             string levelRewardClaimedKey = LevelRewardPrefix + level.ToString();
+            // Return true if the key exists in the storage
             return _storage.HasKey(levelRewardClaimedKey);
         }
 
+        // Set the level reward as claimed
         public void SetLevelRewardClaimed(int level)
         {
+            // Create a key for the level reward
             string levelRewardClaimedKey = LevelRewardPrefix + level.ToString();
+            // Set the value of the key to 1
             _storage.SetInt(levelRewardClaimedKey, 1);
         }
 
+        // Set the last reward claimed date and time
         public void SetLastRewardClaimedDateTime(DateTime dateTime)
         {
+            // Set the value of the last claimed reward key to the date and time
             _storage.SetString(lastClaimedRewardKey, dateTime.ToString("o"));
         }
 
+        // Get the last reward claimed date and time
         public string GetLastRewardClaimedDateTime()
         {
+            // Return the value of the last claimed reward key
             return _storage.GetString(lastClaimedRewardKey);
         }
 
+        // Set the daily reward index
         public void SetDailyRewardIndex(int index)
         {
+            // Set the value of the daily reward index key to the index
             _storage.SetInt(DailyRewardIndexKey, index);
+            // Save the storage
             _storage.Save();
         }
 
+        // Get the daily reward index
         public int GetDailyRewardIndex()
         {
+            // Return the value of the daily reward index key
             return _storage.GetInt(DailyRewardIndexKey, 0);
         }
 
+        // Check if the last reward claimed date and time exists
         public bool HasLastRewardClaimedDateTime()
         {
+            // Return true if the last claimed reward key exists in the storage
             return _storage.HasKey(lastClaimedRewardKey);
         }
 
