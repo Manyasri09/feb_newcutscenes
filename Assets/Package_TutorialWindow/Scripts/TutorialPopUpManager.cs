@@ -11,7 +11,6 @@ public class TutorialPopUpManager : MonoBehaviour
     [SerializeField] private TMP_Text descriptionText; // UI Text for the description
     [SerializeField] private Button closeButton;   // Close button
     [SerializeField] private VideoPlayer videoPlayer; // VideoPlayer component
-    [SerializeField] private GameObject TutorialPanel; // Tutorial Panel
 
     [Header("Pop-Up Data")]
     [SerializeField] private TutorialPopUpData tutorialData; // ScriptableObject for pop-up data
@@ -46,6 +45,6 @@ public class TutorialPopUpManager : MonoBehaviour
     {
         // Stop the video and hide the pop-up
         videoPlayer.Stop();
-        TutorialPanel.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

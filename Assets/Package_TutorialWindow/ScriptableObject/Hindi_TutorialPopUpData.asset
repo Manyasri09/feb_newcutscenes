@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a333fbf00445e469072e2679bf9715, type: 3}
+  m_Name: Hindi_TutorialPopUpData
+  m_EditorClassIdentifier: 
+  heading: "\u0936\u092C\u094D\u0926 \u091C\u094B\u0921\u093C\u0947 \u0914\u0930
+    \u0935\u093E\u0915\u094D\u092F \u092C\u0928\u093E\u090F"
+  tutorialVideo: {fileID: 32900000, guid: c539f585492306f45af7d1cd64903e0e, type: 3}
+  description: "\u0907\u0938 \u0916\u0947\u0932 \u092E\u0947\u0902, \u0906\u092A\u0915\u094B
+    \u0916\u094B\u091C\u0928\u0947 \u0915\u0940 \u091C\u0930\u0942\u0930\u0924 \u0939\u0948\r\n\u0938\u0902\u092C\u0926\u094D\u0927
+    \u0938\u092E\u0942\u0939\u094B\u0902 \u0938\u0947 \u092C\u093E\u0939\u0930\r\n\u0936\u092C\u094D\u0926
+    \u0914\u0930 \u0915\u094D\u0937\u0947\u0924\u094D\u0930 \u0915\u094B \u0938\u093E\u092B
+    \u0915\u0930\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F\r\n\u0938\u094D\u0924\u0930
+    \u0915\u094B \u092A\u0942\u0930\u093E \u0915\u0930\u0947\u0902\u0964"

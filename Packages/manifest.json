@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.adityababar08.line_dragging_plugin": "https://github.com/AdityaBabar08/LineDrawUPM.git",
     "com.ezygamers.dragndropv1": "https://github.com/rohan37kumar/EzyGamers_DragnDrop_v1.git",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.device-simulator.devices": "1.0.0",

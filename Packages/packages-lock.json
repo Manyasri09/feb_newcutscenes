@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.adityababar08.line_dragging_plugin": {
-      "version": "https://github.com/AdityaBabar08/LineDrawUPM.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "2abf3f6b022cafb6a873909b469ea89b8ab89758"
-    },
     "com.ezygamers.dragndropv1": {
       "version": "https://github.com/rohan37kumar/EzyGamers_DragnDrop_v1.git",
       "depth": 0,
