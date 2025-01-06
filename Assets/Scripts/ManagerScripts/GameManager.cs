@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        playerProgressManager.DeleteAllRecords();
+        //playerProgressManager.DeleteAllRecords();
 
         CurrentIndex = 0;
 
