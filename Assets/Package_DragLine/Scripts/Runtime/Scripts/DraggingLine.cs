@@ -103,7 +103,21 @@ public class DraggingLine : MonoBehaviour
         if (selectedNodes.Count < 2)
         {
             Debug.Log("Only one node selected. Ignoring line.");
-            // ResetLine();
+            ResetLine();
+            return;
+        }
+
+        
+        GameObject nodeUnderMouse = GetNodeUnderMouse(Input.mousePosition);
+        if (nodeUnderMouse == null)
+        {
+            Debug.Log("There is no node under the mouse. Ignore this line.");
+            // Remove only the last position instead of clearing everything
+            if (linePositions.Count > 0)
+            {
+                linePositions.RemoveAt(linePositions.Count - 1);
+                UpdateLineRenderer();
+            }
             return;
         }
         // Check if pattern is complete
@@ -155,11 +169,11 @@ public class DraggingLine : MonoBehaviour
         lineRenderer.positionCount = 0;
         selectedNodes.Clear();
         linePositions.Clear();
-        outputTextCounter = 0;
-        foreach (var item in outputText)
-        {
-            item.text = "";
-        }
+        // outputTextCounter = 0;
+        // foreach (var item in outputText)
+        // {
+        //     item.text = "";
+        // }
     }
 
     private void UpdateLineRenderer()
