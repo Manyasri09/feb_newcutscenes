@@ -6,9 +6,18 @@ using TMPro;
 public class TutorialPopUpManager : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private TMP_Text headingText;      // UI Text for the heading
+    [Header("TMP Text")]
+    [SerializeField] private TMP_Text headingTextTMP;      // UI Text for the heading
+    [SerializeField] private TMP_Text descriptionTextTMP; // UI Text for the description
+
+    [Header("Normal Text")]
+    
+    [SerializeField] private Text headingText; // UI Text for the heading
+    [SerializeField] private Text descriptionText; // UI Text for the description
+
+    [Space(15)]
     [SerializeField] private RawImage videoDisplay; // UI Raw Image for the video
-    [SerializeField] private TMP_Text descriptionText; // UI Text for the description
+    
     [SerializeField] private Button closeButton;   // Close button
     [SerializeField] private VideoPlayer videoPlayer; // VideoPlayer component
 
@@ -30,6 +39,9 @@ public class TutorialPopUpManager : MonoBehaviour
         // Update UI elements with data from the ScriptableObject
         headingText.text = popUpData.heading;
         descriptionText.text = popUpData.description;
+
+        headingTextTMP.text = popUpData.heading;
+        descriptionTextTMP.text = popUpData.description;
 
         if (popUpData.tutorialVideo != null)
         {

@@ -211,6 +211,9 @@ public class UIManager : MonoBehaviour
 
         // Add a CanvasGroup to the root object
         var canvasGroup = tutorialPopUpInstance.AddComponent<CanvasGroup>();
+        // Force the panel to block raycasts
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
 
         // Get all the graphic elements (Image, Text etc.)
         var graphics = tutorialPopUpInstance.GetComponentsInChildren<Graphic>();

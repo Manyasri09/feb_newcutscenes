@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        playerProgressManager.DeleteAllRecords();
+        //playerProgressManager.DeleteAllRecords();
 
         CurrentIndex = 0;
 
@@ -332,16 +332,17 @@ public class GameManager : MonoBehaviour
         rewardPane.OnClaimButtonClicked();
         animationManager.RewardPileOfCoins(10);
         CloseDailyRewardPanel();
-        if (levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
-        {
-            uiManager.LoadLevel(currentLevel);
-        }
+        
     }
    
     public void CloseDailyRewardPanel()
     {
         Destroy(playButtonPanel);
         Destroy(dailyRewardsInstance);
+        if (levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
+        {
+            uiManager.LoadLevel(currentLevel);
+        }
     }
 
     private void TransitionToNextLevel()

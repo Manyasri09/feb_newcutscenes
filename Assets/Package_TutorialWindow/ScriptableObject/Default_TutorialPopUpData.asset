@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a333fbf00445e469072e2679bf9715, type: 3}
   m_Name: Default_TutorialPopUpData
   m_EditorClassIdentifier: 
-  heading: About This Question
-  tutorialVideo: {fileID: 32900000, guid: f0a54eff11f018e48ab70b82c8184dfc, type: 3}
-  description: This is  how solve this question by connecting various nodes in a
-    correct order
+  heading: "How to solve\u0902"
+  tutorialVideo: {fileID: 32900000, guid: c539f585492306f45af7d1cd64903e0e, type: 3}
+  description: 'In this game, you need to SEARCH
+
+    OUT GROUPS OF ASSOCIATED
+
+    WORDS
+    and clear the field to
+
+    complete the level.'
