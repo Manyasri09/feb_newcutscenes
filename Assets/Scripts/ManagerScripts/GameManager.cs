@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 using System;
 using PlayerProgressSystem;
 using RewardSystem;
-using Unity.VisualScripting;
 using CoinAnimationPackage;
 using System.Collections.Generic;
 
@@ -111,7 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        playerProgressManager.DeleteAllRecords();
+        // playerProgressManager.DeleteAllRecords();
 
         CurrentIndex = 0;
 
@@ -154,6 +153,8 @@ public class GameManager : MonoBehaviour
         // Load the first level's UI and questions
         ProgressBarSet();
         uiManager.SetCoinsAmount(playerProgressManager.GetCoins());
+        uiManager.SetCoinsAmountOnPlayButton(playerProgressManager.GetCoins());
+        
 
         playButtonPanel = uiManager.LoadPlayButtonPanel();
         playButton = playButtonPanel.GetComponentInChildren<Button>();
@@ -311,6 +312,8 @@ public class GameManager : MonoBehaviour
             dailyRewardsInstance = uiManager.LoadDailyRewardsPanel();
             DailyRewardsUIButtonType rewardPane = dailyRewardsInstance.GetComponentInChildren<DailyRewardsUIButtonType>();
             
+            DailyRewardsUIButtonType.OnRewardClaimed += ClaimDailyReward;
+
             if (rewardPane != null)
             {
                 Destroy(playButtonPanel);

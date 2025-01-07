@@ -42,12 +42,12 @@ public class UIManager : MonoBehaviour
 
     public Text coinsAmount;
 
-    private bool isTutorialShown = false; // Flag to track if tutorial has been shown
-
+    
     //implemented all the logic for Question progression  -rohan37kumar
     private void OnEnable()
     {
         CMSGameEventManager.OnLoadQuestionData += UpdateUI;
+        GameManager.OnQuestionResult += HandleTutorialPopup;
     }
 
     private void OnDisable()
@@ -84,12 +84,21 @@ public class UIManager : MonoBehaviour
         LoadDropsUI();
         var dragDropUI = dropsUIInstance.GetComponent<PrefabUIManager>();
         dragDropUI.LoadQuestionData(questionData);
-        if (questionData.optionType == OptionType.LineQuestion && !isTutorialShown)
+        if (questionData.optionType == OptionType.LineQuestion && PlayerPrefs.GetInt("TutorialShown") == 0)
         {
             ShowTutorialPopUp(dragDropUI);
-            isTutorialShown = true;
+            
         }
 
+    }
+
+    //If the answer is correct, set Tutorial pop as 1 (as shown)
+    private void HandleTutorialPopup(bool isCorrect)
+    {
+        if (isCorrect)
+        {
+            PlayerPrefs.SetInt("TutorialShown", 1);
+        }
     }
 
     // Method to load DropsUI dynamically and inject dependencies
@@ -193,23 +202,57 @@ public class UIManager : MonoBehaviour
         return optionsInstance;
     }
 
-    //This method sets the amount of coins in the game
+    
+
+    //This method sets the amount of coins on the play button panel
+    public void SetCoinsAmountOnPlayButton(int amount)
+    {
+
+        //Get the text component of the play button panel
+        Text coinText = playButtonPanel.GetComponentInChildren<Text>();
+        //Log the previous text of the play button panel
+        Debug.Log($"<color=yellow>Previous playButtonPanel text = {coinText.text}</color>");
+        //Set the text of the play button panel to the amount of coins
+        coinText.text = amount.ToString();
+        //Log the new text of the play button panel
+        Debug.Log($"<color=yellow>New playButtonPanel text = {coinText.text}</color>");
+    }
+
+       
+
     public void SetCoinsAmount(int amount)
     {
-        //Log the amount of coins to the console
-        Debug.Log($"$<color=yellow>Amount = {amount}</color>");
-        //Parse the text of the coinsAmount text field to an integer
-        int coins_Amount = int.Parse(coinsAmount.text);
-        //Add the amount to the coins amount
-        coins_Amount += amount;
-        //Set the text of the coinsAmount text field to the new amount
-        coinsAmount.text = coins_Amount.ToString();
-
-        //Get the text component of the playButtonPanel
-        Text coinText = playButtonPanel.GetComponentInChildren<Text>();
-        //Set the text of the coinText to the new amount
-        coinText.text = coins_Amount.ToString();
-
+        int startAmount = int.Parse(coinsAmount.text);
+        int targetAmount = startAmount + amount;
+        
+        // Start the coin animation coroutine
+        StartCoroutine(AnimateCoins(startAmount, targetAmount));
+    }
+    private IEnumerator AnimateCoins(int startAmount, int targetAmount)
+    {
+        float animationDuration = 1f; // Animation duration in seconds
+        float elapsedTime = 0f;
+        
+        while (elapsedTime < animationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / animationDuration;
+            
+            // Use smooth interpolation
+            int currentAmount = (int)Mathf.Lerp(startAmount, targetAmount, progress);
+            
+            // Update both UI texts
+            coinsAmount.text = currentAmount.ToString();
+            Text coinText = playButtonPanel.GetComponentInChildren<Text>();
+            coinText.text = currentAmount.ToString();
+            
+            yield return null;
+        }
+        
+        // Ensure we end up with the exact target amount
+        coinsAmount.text = targetAmount.ToString();
+        Text finalCoinText = playButtonPanel.GetComponentInChildren<Text>();
+        finalCoinText.text = targetAmount.ToString();
     }
 
     // This method shows a tutorial pop-up window and hides the dragDropUI
