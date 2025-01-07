@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using RewardSystem;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class UIManager : MonoBehaviour
         dragDropUI.LoadQuestionData(questionData);
         if (questionData.optionType == OptionType.LineQuestion && !isTutorialShown)
         {
-            ShowTutorialPopUp();
+            ShowTutorialPopUp(dragDropUI);
             isTutorialShown = true;
         }
 
@@ -192,42 +193,44 @@ public class UIManager : MonoBehaviour
         return optionsInstance;
     }
 
+    //This method sets the amount of coins in the game
     public void SetCoinsAmount(int amount)
     {
+        //Log the amount of coins to the console
         Debug.Log($"$<color=yellow>Amount = {amount}</color>");
+        //Parse the text of the coinsAmount text field to an integer
         int coins_Amount = int.Parse(coinsAmount.text);
+        //Add the amount to the coins amount
         coins_Amount += amount;
+        //Set the text of the coinsAmount text field to the new amount
         coinsAmount.text = coins_Amount.ToString();
 
+        //Get the text component of the playButtonPanel
         Text coinText = playButtonPanel.GetComponentInChildren<Text>();
+        //Set the text of the coinText to the new amount
         coinText.text = coins_Amount.ToString();
 
     }
 
-    private void ShowTutorialPopUp()
+    // This method shows a tutorial pop-up window and hides the dragDropUI
+    private void ShowTutorialPopUp(PrefabUIManager dragDropUI)
     {
+        // Instantiate the tutorial pop-up window and inject it into the container
         var tutorialPopUpInstance = Instantiate(TutorialPopUpWindow, transform);
         container.InjectGameObject(tutorialPopUpInstance);
 
-        // Add a CanvasGroup to the root object
-        var canvasGroup = tutorialPopUpInstance.AddComponent<CanvasGroup>();
-        // Force the panel to block raycasts
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.interactable = true;
+        // Log the dragDropUI to the console
+        Debug.Log($"<color=yellow>{dragDropUI}</color>");
+        dragDropUI.gameObject.SetActive(false); // Hide the dragDropUI
 
-        // Get all the graphic elements (Image, Text etc.)
-        var graphics = tutorialPopUpInstance.GetComponentsInChildren<Graphic>();
-        foreach (var graphic in graphics)
-        {
-            // Set their sorting order higher than other UI elements
-            graphic.canvas.overrideSorting = true;
-            graphic.canvas.sortingOrder = 10;
-        }
-
+        // Get the close button from the tutorial pop-up window
         var closeButton = tutorialPopUpInstance.GetComponentInChildren<Button>();
+        // Add an event listener to the close button
         closeButton.onClick.AddListener(() =>
         {
+            // Destroy the tutorial pop-up window
             Destroy(tutorialPopUpInstance);
+            dragDropUI.gameObject.SetActive(true); // Show the dragDropUI
         });
     }
 
