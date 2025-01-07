@@ -3007,7 +3007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableAutoPrompt: 1
   totalAnimationDuration: 5
-  levelType: 
+  levelType: FourImageOpt
   handPromptImage: {fileID: 4181918515227818812}
   startTarget: {fileID: 3219925823177195930}
   endTarget: {fileID: 2993968206794340532}
