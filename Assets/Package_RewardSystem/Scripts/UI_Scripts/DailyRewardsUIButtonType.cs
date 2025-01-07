@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using RewardSystem;
 using VContainer;
 using System.Collections.Generic;
+using System.Collections;
+using System;
 
 public class DailyRewardsUIButtonType : MonoBehaviour
 {
@@ -11,10 +13,10 @@ public class DailyRewardsUIButtonType : MonoBehaviour
     //[SerializeField] private Image notificationImage;      // The notification Icon
     public Button claimButton;           // The Claim button
     public Button closeButton;           // The Close button
-    //[SerializeField] private Button closeButton;           // Close/X button
-    //[SerializeField] private Button openButton;            // Open button
     [SerializeField] private List<DailyRewardSlotUI> slots; // Pre-created slot references in the scene
     [SerializeField] public Color highLightColor;
+
+    public static event Action OnRewardClaimed;
 
     // The manager that actually knows if a reward is available, etc.
     public IRewardManager rewardManager;
@@ -33,15 +35,8 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         if (panel != null)
             panel.SetActive(false);
 
-        // Wire up buttons
-        //if (claimButton != null)
-        //    claimButton.onClick.AddListener(OnClaimButtonClicked);
-
-        //if (closeButton != null)
-        //    closeButton.onClick.AddListener(OnCloseButtonClicked);
-
-        //if (openButton != null)
-        //    openButton.onClick.AddListener(OnOpenButtonClicked);
+        SetupSlotClickHandlers();
+        
     }
 
     private void OnEnable()
@@ -49,6 +44,7 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         RefreshUI();
     }
 
+    // This method is called when the claim button is clicked
     public void OnClaimButtonClicked()
     {
         if (rewardManager == null)
@@ -102,7 +98,7 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         if (config == null || config.dailyRewards == null || config.dailyRewards.Count == 0)
             return;
 
-        int index = _stateService.GetDailyRewardIndex();
+        int index = _stateService.GetDailyRewardIndex() % slots.Count;
 
 
         // Update each slot with data from the config
@@ -132,4 +128,39 @@ public class DailyRewardsUIButtonType : MonoBehaviour
         if (claimButton != null)
             claimButton.interactable = rewardManager.IsDailyRewardAvailable();
     }
+
+    // This method sets up click handlers for each slot in the slots list
+    private void SetupSlotClickHandlers()
+    {
+        // Loop through each slot in the slots list
+        for (int i = 0; i < slots.Count; i++)
+        {
+            // Get the current slot
+            var slot = slots[i];
+            // Get the button component of the current slot
+            var button = slot.GetComponent<Button>();
+            // If the button component does not exist, add it to the slot
+            if (button == null)
+            {
+                button = slot.gameObject.AddComponent<Button>();
+            }
+            
+            int index = i; // Capture the index for the lambda
+            button.onClick.AddListener(() => OnSlotClicked(index));
+        }
+    }
+
+    // This method is called when a slot is clicked
+    private void OnSlotClicked(int slotIndex)
+    {
+        // Get the current index of the daily reward
+        int currentIndex = _stateService.GetDailyRewardIndex() % slots.Count;
+        // Check if the clicked slot is the current index and if the daily reward is available
+        if (slotIndex == currentIndex && rewardManager.IsDailyRewardAvailable())
+        {
+            // Invoke the OnRewardClaimed event
+            OnRewardClaimed?.Invoke();
+        }
+    }
+
 }
