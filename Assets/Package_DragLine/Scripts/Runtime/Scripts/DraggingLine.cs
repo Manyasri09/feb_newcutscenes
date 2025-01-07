@@ -99,27 +99,19 @@ public class DraggingLine : MonoBehaviour
         // Finalize the line when the mouse button is released.
         isDragging = false;
 
-        // Check if fewer than two nodes are selected.
-        if (selectedNodes.Count < 2)
-        {
-            Debug.Log("Only one node selected. Ignoring line.");
-            ResetLine();
-            return;
-        }
-
-        
+        // Check if there is a node below mouse pointer
         GameObject nodeUnderMouse = GetNodeUnderMouse(Input.mousePosition);
         if (nodeUnderMouse == null)
         {
             Debug.Log("There is no node under the mouse. Ignore this line.");
-            // Remove only the last position instead of clearing everything
-            if (linePositions.Count > 0)
-            {
-                linePositions.RemoveAt(linePositions.Count - 1);
-                UpdateLineRenderer();
-            }
+            UpdateLineRenderer();
             return;
         }
+        else if (selectedNodes.Contains(nodeUnderMouse))
+        {
+            UpdateLineRenderer();
+        }
+
         // Check if pattern is complete
         if (outputTextCounter >= requiredNodeCount)
         {
@@ -169,11 +161,11 @@ public class DraggingLine : MonoBehaviour
         lineRenderer.positionCount = 0;
         selectedNodes.Clear();
         linePositions.Clear();
-        // outputTextCounter = 0;
-        // foreach (var item in outputText)
-        // {
-        //     item.text = "";
-        // }
+        outputTextCounter = 0;
+        foreach (var item in outputText)
+        {
+            item.text = "";
+        }
     }
 
     private void UpdateLineRenderer()
@@ -222,21 +214,26 @@ public class DraggingLine : MonoBehaviour
     {
         // Log the text of the node
         Debug.Log($"<color=yellow>nodeText: {node.GetComponentInChildren<Text>().text}</color>");
+
         // Check if the outputTextCounter is 0
         if (outputTextCounter == 0)
         {
             // Set the text of the current outputText to the text of the current node
             outputText[outputTextCounter].text = node.GetComponentInChildren<Text>().text;
+
             // Increment the outputTextCounter
             outputTextCounter++;
         }
+
         // Check if the text of the previous node is not equal to the text of the current node
         if (!outputText[outputTextCounter - 1].text.Equals( node.GetComponentInChildren<Text>().text))
         {
             // Log the text of the current node
             Debug.Log($"<color=red>nodeText: {node.GetComponentInChildren<Text>().text}</color>");
+
             // Set the text of the current outputText to the text of the current node
             outputText[outputTextCounter].text = node.GetComponentInChildren<Text>().text;
+
             // Increment the outputTextCounter
             outputTextCounter++;
         }
