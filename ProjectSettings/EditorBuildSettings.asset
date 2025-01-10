@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Package_AnimationCutScene/Animation_CutScenes/NewAnimationScene_1.unity
+    guid: f54f09f9b05154547924ad3d4bde66af
+  - enabled: 1
+    path: Assets/Package_AnimationCutScene/Animation_CutScenes/NewAnimationScene_2.unity
+    guid: 042da3246f73eb14289f8d3036ac8a71
+  - enabled: 0
     path: Assets/Scenes/Intro_CutScene_1.unity
     guid: e5ff7985426596e4d979832ca609d956
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Intro_CutScene_2.unity
     guid: cf6a20980a506ef479b335c828067591
   - enabled: 1
