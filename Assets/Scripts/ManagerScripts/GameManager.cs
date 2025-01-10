@@ -99,6 +99,9 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
+    /// <summary>
+    /// Initializes the levelDictionary by iterating through the gameLevels array and adding each level to the dictionary, using the level number as the key.
+    /// </summary>
     private void InitializeLevelDictionary()
     {
         levelDictionary = new Dictionary<int, LevelConfiggSO>();
@@ -156,20 +159,30 @@ public class GameManager : MonoBehaviour
         uiManager.SetCoinsAmountOnPlayButton(playerProgressManager.GetCoins());
         
 
+        // Load the PlayButtonPanel from the UIManager
         playButtonPanel = uiManager.LoadPlayButtonPanel();
+        // Get the Button component from the PlayButtonPanel
         playButton = playButtonPanel.GetComponentInChildren<Button>();
 
+        // Check if the Button component is not null
         if (playButton != null)
         {
+            // Add a listener to the Button's onClick event
             playButton.onClick.AddListener(OnPlayButtonClicked);
         }
         else
         {
+            // Log an error if the Button component is null
             Debug.LogError("PlayButton not found in PlayButtonPanel.");
         }
     }
 
     //Methods for Level Progression -rohan37kumar
+    /// <summary>
+    /// Handles the logic when an answer is selected by the user.
+    /// Checks if the selected answer is correct or not, and performs the appropriate actions accordingly.
+    /// </summary>
+    /// <param name="selectedOption">The GameObject representing the selected answer option.</param>
     private void OnAnswerSelected(GameObject selectedOption)
     {
         var currentLevel = levelDictionary[CurrentLevelNumber];
@@ -187,6 +200,11 @@ public class GameManager : MonoBehaviour
         }
         WrongAnswerSelected(selectedOption);
     }
+
+    /// <summary>
+    /// Handles the end of a dragging line interaction, validating the output text and performing the appropriate actions based on whether the answer is correct or not.
+    /// </summary>
+    /// <param name="outputText">The text output from the dragging line interaction.</param>
     private void DraggingLine_OnLineEnded(string outputText)
     {
         if (string.IsNullOrWhiteSpace(outputText))
@@ -206,7 +224,7 @@ public class GameManager : MonoBehaviour
             playerProgressManager.SubLevelCompletedType(currentQuestion.optionType.ToString());
             defaultRewardManager.ClaimLevelReward(currentQuestion.questionNo);
             audioManager.PlayCorrectAudio(); 
-            StartCoroutine(WaitAndMoveToNext()); 
+            StartCoroutine(WaitAndMoveToNext());   
         }
         else
         {
@@ -215,6 +233,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the case when the user selects a wrong answer.
+    /// </summary>
+    /// <param name="selectedOption">The GameObject representing the selected option.</param>
     private void WrongAnswerSelected(GameObject selectedOption)
     {
         if (isProcessing) return;
@@ -226,6 +248,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WaitAndReload());
     }
 
+    /// <summary>
+    /// Handles the case when the user selects a correct answer.
+    /// </summary>
+    /// <param name="questionData">The QuestionBaseSO object containing the data for the current question.</param>
     private void CorrectAnswerSelected(QuestionBaseSO questionData)
     {
         if (isProcessing) return;
@@ -255,6 +281,9 @@ public class GameManager : MonoBehaviour
         isProcessing = false;
     }
 
+    /// <summary>
+    /// Moves to the next question in the current level. If all questions in the current level have been answered, it transitions to the next level.
+    /// </summary>
     private void MoveToNextQuestion()
     {
         CurrentIndex++;
@@ -296,8 +325,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Scene 3");
     }
 
+    /// <summary>
+    /// Handles the logic when the play button is clicked in the game. It checks if a daily reward is available, and if so, it loads the daily rewards panel. Otherwise, it loads the current level.
+    /// </summary>
     public void OnPlayButtonClicked()
     {
+        //Register if play button is clicked
+        PlayerPrefs.SetInt("PlayButtonClicked", 1);
+
         if (!defaultRewardManager.IsDailyRewardAvailable())
         {
             Destroy(playButtonPanel);
@@ -329,15 +364,20 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Claims the daily reward and performs the necessary actions, such as triggering the reward animation and closing the daily reward panel.
+    /// </summary>
     public void ClaimDailyReward()
     {
         DailyRewardsUIButtonType rewardPane = dailyRewardsInstance.GetComponentInChildren<DailyRewardsUIButtonType>();
         rewardPane.OnClaimButtonClicked();
         animationManager.RewardPileOfCoins(10);
         CloseDailyRewardPanel();
-        
     }
-   
+
+    /// <summary>
+    /// Closes the daily reward panel and loads the current level.
+    /// </summary>
     public void CloseDailyRewardPanel()
     {
         Destroy(playButtonPanel);
@@ -348,6 +388,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Transitions the game to the next level. This method is responsible for handling the progression of the game, including saving the progress of the current level, incrementing the level number, and loading the next level UI.
+    /// </summary>
     private void TransitionToNextLevel()
     {
         Debug.Log($"Level {CurrentLevelNumber} completed. Transitioning to next level...");
