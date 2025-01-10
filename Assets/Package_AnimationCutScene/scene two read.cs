@@ -8,8 +8,8 @@ public class AnimationEventManager : MonoBehaviour
 {
     public Text eventText; // Assign your TextMeshPro object here
     public AudioSource audioSource; // Assign your AudioSource here
-    public string displayMessage = "रानी की यात्रा में अंग्रेजी के सवाल और चुनौतियां होंगी। उसे आगे बढ़ाने में मदद करें।";
-    public float wordDisplayDelay = 0.5f; // Delay between each word
+    public string displayMessage = "रानी की यात्रा में अंग्रेजी में सवाल और चुनौतियां शामिल होंगी। उसे आगे बढ़ने में मदद करें।";
+    public float wordDisplayDelay = 2f; // Delay between each word
     public float dimVolumeLevel = 0.2f; // Volume level to dim other audio sources
 
     private AudioSource[] allAudioSources; // Store all audio sources in the scene
@@ -31,6 +31,8 @@ public class AnimationEventManager : MonoBehaviour
         {
             originalVolumes[i] = allAudioSources[i].volume;
         }
+
+        Debug.Log(displayMessage);
     }
 
     // Method to be called by Animation Event
@@ -62,6 +64,7 @@ public class AnimationEventManager : MonoBehaviour
         foreach (string word in words)
         {
             eventText.text += word + " "; // Add the next word
+            eventText.text = HindiCorrector.Correct(eventText.text);
             yield return new WaitForSeconds(wordDisplayDelay); // Wait before adding the next word
         }
 

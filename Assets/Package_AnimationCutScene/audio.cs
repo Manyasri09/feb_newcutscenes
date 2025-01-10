@@ -15,9 +15,14 @@ public class GameAudioManager : MonoBehaviour
     [Range(0f, 1f)] public float backgroundNormalVolume = 1f;  // Normal background volume
 
     [Header("Text Display")]
-    public GameObject textObjectPrefab;  // Prefab for the text object
+    public Text DisplayTextField;  // Prefab for the text object
     public Transform textParent;         // Parent transform for the text object
-    public string sentence = "गाँव की खामोशी मे चलते हुए, रानी ने एक रहसयमयी आवाज़ सुनी...";  // The sentence to display
+    private string sentence = "गाँव की खामोशी में चलते हुए, रानी ने एक रहस्यमयी आवाज़ सुनी ....";  // The sentence to display
+
+    public string  sentence2 = "रानी की यात्रा में अंग्रेजी में सवाल और चुनौतियां शामिल होंगी। उसे आगे बढ़ने में मदद करें।";  // The sentence to display
+
+    [Header("Scene Management")]
+    public SceneChanger sceneChanger;  // Reference to the SceneManager
 
     private GameObject currentTextObject; // Reference to the dynamically created text object
 
@@ -25,7 +30,7 @@ public class GameAudioManager : MonoBehaviour
     /// Initializes the background audio and sets up the audio playback.
     /// This method is called when the GameObject is first created.
     /// </summary>
-        private void Start()
+    private void Start()
     {
         // Play background music on loop
         if (backgroundAudio != null)
@@ -33,7 +38,16 @@ public class GameAudioManager : MonoBehaviour
             backgroundAudio.loop = true;
             backgroundAudio.volume = backgroundNormalVolume;
             backgroundAudio.Play(); 
+            // sentenceAudio.Play();
+            // keyframeAudio.Play();
         }
+        else
+        {
+            Debug.Log("Background audio not set.");
+        }
+
+        Debug.Log("Sentence: " + sentence);
+        Debug.Log("Sentence2: " + sentence2);
     }
 
     /// <summary>
@@ -63,14 +77,38 @@ public class GameAudioManager : MonoBehaviour
         // Play sentence audio
         if (sentenceAudio != null)
         {
+
+            if (keyframeAudio != null && keyframeAudio.clip != null)
+            {
+                Debug.Log($"Audio clip details - Name: {keyframeAudio.clip.name}");
+                Debug.Log($"Samples: {keyframeAudio.clip.samples}");
+                Debug.Log($"Channels: {keyframeAudio.clip.channels}");
+                Debug.Log($"Frequency: {keyframeAudio.clip.frequency}");
+                Debug.Log($"Length: {keyframeAudio.clip.length}");
+            }
+
+            if (sentenceAudio != null && sentenceAudio.clip != null)
+            {
+                Debug.Log($"Audio clip details - Name: {sentenceAudio.clip.name}");
+                Debug.Log($"Samples: {sentenceAudio.clip.samples}");
+                Debug.Log($"Channels: {sentenceAudio.clip.channels}");
+                Debug.Log($"Frequency: {sentenceAudio.clip.frequency}");
+                Debug.Log($"Length: {sentenceAudio.clip.length}");
+            }
+
+
             Debug.Log("Playing sentence audio..."); // Optional: Log the event for debugging
             DimBackgroundAudio();
             sentenceAudio.volume = backgroundNormalVolume;
             sentenceAudio.Play();
 
-            // Dynamically create the text object
-            currentTextObject = Instantiate(textObjectPrefab, textParent);
-            Text textMesh = currentTextObject.GetComponent<Text>();
+            // if (currentTextObject == null)
+            // {
+            //     currentTextObject = Instantiate(textObjectPrefab, textParent);
+            // }
+            // // Dynamically create the text object
+            // currentTextObject = Instantiate(textObjectPrefab, textParent);
+            Text textMesh = DisplayTextField;
 
             // Start displaying the sentence word by word
             StartCoroutine(DisplayTextWithAudio(sentence, textMesh));
@@ -88,6 +126,11 @@ public class GameAudioManager : MonoBehaviour
             }
 
             RestoreBackgroundAudio(); // Restore background audio after sentence audio
+
+            // Wait for a short duration before changing the first cutscene
+            yield return new WaitForSeconds(3.0f);
+            sceneChanger.SwitchScene(); // Change to the next scene
+
         }
     }
 
@@ -99,7 +142,8 @@ public class GameAudioManager : MonoBehaviour
         foreach (string word in words)
         {
             textMesh.text += word + " "; // Display one word at a time
-            yield return new WaitForSeconds(0.5f); // Adjust the delay between words as needed
+            textMesh.text = HindiCorrector.Correct(textMesh.text);
+            yield return new WaitForSeconds(0.3f); // Adjust the delay between words as needed
         }
     }
 
