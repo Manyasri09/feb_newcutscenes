@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 974a3fea09b54ca4db5280152347b33e, type: 3}
-  m_Name: Learning!am
+  m_Name: SubLevel_Learning!am
   m_EditorClassIdentifier: 
   questionNo: 2
   questionInfo: 
