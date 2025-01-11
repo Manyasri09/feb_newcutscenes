@@ -732,7 +732,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -25.2, y: 0.0000019073486}
-  m_SizeDelta: {x: 0, y: 170}
+  m_SizeDelta: {x: 25.2, y: 170}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &614931342
 MonoBehaviour:
@@ -988,6 +988,7 @@ MonoBehaviour:
   gameLevels:
   - {fileID: 11400000, guid: 69b82324351a7ad4a92a3f8ca485605b, type: 2}
   - {fileID: 11400000, guid: 7e1c4da8bc3013545aa9ed2af762c96c, type: 2}
+  - {fileID: 11400000, guid: 361c4fcf4e6668e4d8cc6f3f42e5641c, type: 2}
   ProgressBar: {fileID: 1213579228}
   CurrentLevelNumber: 0
   animationManager: {fileID: 1149923478}
@@ -1116,7 +1117,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 6
   m_WholeNumbers: 1
-  m_Value: 2
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1632,8 +1633,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -181.5, y: 0}
-  m_SizeDelta: {x: 537, y: 50}
+  m_AnchoredPosition: {x: -197.41, y: 0}
+  m_SizeDelta: {x: 505.18, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1810945964
 MonoBehaviour:
