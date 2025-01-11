@@ -132,18 +132,7 @@ public class UIManager : MonoBehaviour
             { OptionType.TwoWordOpt, TwoWordPrefab },
             { OptionType.LineQuestion, ThreeWordLineDrag }
         };
-
-        ////// Show tutorial and prevent loading the line question UI
-        //if (question.optionType == OptionType.LineQuestion && !isTutorialShown)
-        //{
-            
-        //    ShowTutorialPopUp();
-        //    isTutorialShown = true;
-        //    //currentPrefab = null; // Do not assign a prefab yet
-        //    return;
-        //}
-
-
+        
         // Try to get the prefab from the dictionary based on content type
         if (prefabMapping.TryGetValue(question.optionType, out var prefab))
         {

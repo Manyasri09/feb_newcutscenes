@@ -20,13 +20,17 @@ public class MyCustomRewardStateService : IRewardStateService
 
     #region Level Rewards
 
+    // Check if the level reward has been claimed
     public bool IsLevelRewardClaimed(int level)
     {
+        // Return true if the level reward has been claimed, otherwise return false
         return playerProgressManager.HasLevelRewardClaimed(level);
     }
 
+    // Mark the level reward as claimed
     public void MarkLevelRewardClaimed(int level)
     {
+        // Set the level reward as claimed
         playerProgressManager.SetLevelRewardClaimed(level);
     }
 
@@ -34,6 +38,11 @@ public class MyCustomRewardStateService : IRewardStateService
 
     #region Daily Reward
 
+    /// <summary>
+    /// Checks if the daily reward is available for the player based on the required delay.
+    /// </summary>
+    /// <param name="requiredDelay">The required delay in seconds before the daily reward can be claimed again.</param>
+    /// <returns>True if the daily reward is available, false otherwise.</returns>
     public bool IsDailyRewardAvailable(double requiredDelay)
     {
         string lastClaimDate = playerProgressManager.GetLastRewardClaimedDateTime();
@@ -59,10 +68,20 @@ public class MyCustomRewardStateService : IRewardStateService
         }
         return false;
     }
+    /// <summary>
+    /// Gets the current index of the daily reward.
+    /// </summary>
+    /// <returns>The current index of the daily reward.</returns>
     public int GetDailyRewardIndex()
     {
         return playerProgressManager.GetDailyRewardIndex();
     }
+    /// <summary>
+    /// Advances the index of the daily reward.
+    /// </summary>
+    /// <remarks>
+    /// This method retrieves the current daily reward index, increments it, and then updates the daily reward index in the player progress manager.
+    /// </remarks>
     public void AdvanceDailyRewardIndex()
     {
         int index = GetDailyRewardIndex();

@@ -113,7 +113,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        // playerProgressManager.DeleteAllRecords();
 
         CurrentIndex = 0;
 
@@ -322,7 +321,7 @@ public class GameManager : MonoBehaviour
     {
         //playerProgressManager.DeleteAllRecords();
         Debug.Log("Game Ended");
-        SceneManager.LoadScene("Scene 3");
+        SceneManager.LoadScene("NewAnimationScene_3");
     }
 
     /// <summary>

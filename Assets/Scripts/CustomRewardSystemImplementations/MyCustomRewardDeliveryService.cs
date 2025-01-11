@@ -13,6 +13,10 @@ public class MyCustomRewardDeliveryService : IRewardDeliveryService
         this.progressManager = progressManager;
     }
 
+    /// <summary>
+    /// Delivers the specified reward to the player's progress manager.
+    /// </summary>
+    /// <param name="reward">The reward to be delivered.</param>
     public void DeliverReward(IReward reward)
     {
 
