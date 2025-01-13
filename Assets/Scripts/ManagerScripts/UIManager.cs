@@ -82,11 +82,52 @@ public class UIManager : MonoBehaviour
     private void UpdateUI(QuestionBaseSO questionData)
     {
         LoadDropsUI();
-        var dragDropUI = dropsUIInstance.GetComponent<PrefabUIManager>();
-        dragDropUI.LoadQuestionData(questionData);
+        PrefabUIManager dragDropUI = null;
+        PrefabUIManager topPanelPrefabUIMannager = null;
+        PrefabUIManager bottomPanelPrefabUIMannager = null;
+        var masterPanel = dropsUIInstance.GetComponent<LineDragMasterPanelManager>();
+        
+        if (masterPanel != null)
+        {
+            // Initialize the master panel first
+            if (!masterPanel.Initialize())
+            {
+                Debug.LogError("Failed to initialize LineDragMasterPanelManager");
+                return;
+            }
+            
+            topPanelPrefabUIMannager = masterPanel.GetTopPanelPrefabUIManager();
+            if (topPanelPrefabUIMannager == null)
+            {
+                Debug.LogError("Failed to get PrefabUIManager from master panel");
+                return;
+            }
+
+            bottomPanelPrefabUIMannager = masterPanel.GetBottomPanelPrefabUIManager();
+            if (bottomPanelPrefabUIMannager == null)
+            {
+                Debug.LogError("Failed to get PrefabUIManager from master panel");
+                return;
+            }
+
+            topPanelPrefabUIMannager.LoadQuestionData(questionData);
+            bottomPanelPrefabUIMannager.LoadQuestionData(questionData);
+        }
+        else
+        {
+            
+            // Try getting PrefabUIManager directly if it's not a master panel
+            dragDropUI = dropsUIInstance.GetComponent<PrefabUIManager>();
+            if (dragDropUI == null)
+            {
+                Debug.LogError("No PrefabUIManager or LineDragMasterPanelManager found on UI instance");
+                return;
+            }
+            dragDropUI.LoadQuestionData(questionData);
+        }
         if (questionData.optionType == OptionType.LineQuestion && PlayerPrefs.GetInt("TutorialShown") == 0)
         {
-            ShowTutorialPopUp(dragDropUI);
+            ShowTutorialPopUp(masterPanel);
             
         }
 
@@ -245,15 +286,15 @@ public class UIManager : MonoBehaviour
     }
 
     // This method shows a tutorial pop-up window and hides the dragDropUI
-    private void ShowTutorialPopUp(PrefabUIManager dragDropUI)
+    private void ShowTutorialPopUp(LineDragMasterPanelManager masterPanel)
     {
         // Instantiate the tutorial pop-up window and inject it into the container
         var tutorialPopUpInstance = Instantiate(TutorialPopUpWindow, transform);
         container.InjectGameObject(tutorialPopUpInstance);
 
         // Log the dragDropUI to the console
-        Debug.Log($"<color=yellow>{dragDropUI}</color>");
-        dragDropUI.gameObject.SetActive(false); // Hide the dragDropUI
+        Debug.Log($"<color=yellow>{masterPanel}</color>");
+        masterPanel.gameObject.SetActive(false); // Hide the dragDropUI
 
         // Get the close button from the tutorial pop-up window
         var closeButton = tutorialPopUpInstance.GetComponentInChildren<Button>();
@@ -262,7 +303,7 @@ public class UIManager : MonoBehaviour
         {
             // Destroy the tutorial pop-up window
             Destroy(tutorialPopUpInstance);
-            dragDropUI.gameObject.SetActive(true); // Show the dragDropUI
+            masterPanel.gameObject.SetActive(true); // Show the dragDropUI
         });
     }
 

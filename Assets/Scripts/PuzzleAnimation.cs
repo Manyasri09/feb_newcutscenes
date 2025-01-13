@@ -21,9 +21,9 @@ public class PuzzleAnimation : MonoBehaviour
 
     [Header("Acknowledgement References")]
     // GameObject for the correct acknowledgement
-    [SerializeField] private GameObject correctAcknowledgement;
+    // [SerializeField] private GameObject correctAcknowledgement;
     // GameObject for the mistake acknowledgement
-    [SerializeField] private GameObject mistakeAcknowledgement;
+    // [SerializeField] private GameObject mistakeAcknowledgement;
 
     [Space(10)]
 
@@ -104,8 +104,8 @@ public class PuzzleAnimation : MonoBehaviour
         idleDoodle.SetActive(true);
         sadDoodle.SetActive(false);
         happyDoodle.SetActive(false);
-        correctAcknowledgement.SetActive(false);
-        mistakeAcknowledgement.SetActive(false);
+        // correctAcknowledgement.SetActive(false);
+        // mistakeAcknowledgement.SetActive(false);
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ public class PuzzleAnimation : MonoBehaviour
         float delayBeforeSadDoodle = wordAnimationSettings.moveDuration + 
                       wordAnimationSettings.moveDelay + 
                       wordAnimationSettings.delay + 
-                      (wordAnimationSettings.staggerDelay);
+                      wordAnimationSettings.staggerDelay;
 
 
         StartCoroutine(ShowSadDoodleCoroutine(delayBeforeSadDoodle));
@@ -130,8 +130,8 @@ public class PuzzleAnimation : MonoBehaviour
         questionDoodle.SetActive(false);
         sadDoodle.SetActive(true);
         happyDoodle.SetActive(false);
-        correctAcknowledgement.SetActive(false);
-        mistakeAcknowledgement.SetActive(true);
+        // correctAcknowledgement.SetActive(false);
+        // mistakeAcknowledgement.SetActive(true);
     }
 
 
@@ -148,8 +148,8 @@ public class PuzzleAnimation : MonoBehaviour
         sadDoodle.SetActive(false);
         questionDoodle.SetActive(false);
         happyDoodle.SetActive(true);
-        correctAcknowledgement.SetActive(true);
-        mistakeAcknowledgement.SetActive(false);
+        // correctAcknowledgement.SetActive(true);
+        // mistakeAcknowledgement.SetActive(false);
 
         PlayHappyDoodleSound();
     }
@@ -163,7 +163,7 @@ public class PuzzleAnimation : MonoBehaviour
         float delayBeforeHappyDoodle = wordAnimationSettings.moveDuration + 
                       wordAnimationSettings.moveDelay + 
                       wordAnimationSettings.delay + 
-                      (wordAnimationSettings.staggerDelay);
+                      wordAnimationSettings.staggerDelay;
 
 
         StartCoroutine(ShowHappyDoodleCoroutine(delayBeforeHappyDoodle));

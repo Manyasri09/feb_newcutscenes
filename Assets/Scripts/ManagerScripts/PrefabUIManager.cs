@@ -135,12 +135,15 @@ public class PrefabUIManager : MonoBehaviour
             QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
         }
 
-        for (int i = 0; i < questionData.options.Count; i++)
+        if (nodeContainers.Count != 0 && questionData.options.Count != 0)
         {
-            if (nodeContainers[i].GetComponentInChildren<Text>() != null && questionData.options[i] != null)
+            for (int i = 0; i < questionData.options.Count; i++)
             {
-                nodeContainers[i].GetComponent<LineDrawNode>().nodeValue = questionData.options[i].text;
-                QuestionUIHelper.SetText(nodeContainers[i].GetComponentInChildren<Text>(), questionData.options[i].text);
+                if (nodeContainers[i].GetComponentInChildren<Text>() != null && questionData.options[i] != null)
+                {
+                    nodeContainers[i].GetComponent<LineDrawNode>().nodeValue = questionData.options[i].text;
+                    QuestionUIHelper.SetText(nodeContainers[i].GetComponentInChildren<Text>(), questionData.options[i].text);
+                }
             }
         }
         QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
