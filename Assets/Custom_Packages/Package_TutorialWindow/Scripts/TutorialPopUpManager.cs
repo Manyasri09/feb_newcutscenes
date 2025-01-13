@@ -51,10 +51,17 @@ public class TutorialPopUpManager : MonoBehaviour
         {
             videoPlayer.clip = popUpData.tutorialVideo;
             videoPlayer.isLooping = true;
-            videoPlayer.Play();
+            // videoPlayer.Play();
         }
+        videoPlayer.Prepare();
+        videoPlayer.prepareCompleted += (source) =>
+        {
+            videoPlayer.Play();
+            gameObject.SetActive(true); // Show the popup only after the video is ready
+        };
 
-        gameObject.SetActive(true);
+
+        // gameObject.SetActive(true);
     }
 
     /// <summary>
