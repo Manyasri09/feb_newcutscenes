@@ -849,7 +849,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1923588802}
-  - component: {fileID: 1923588801}
   m_Layer: 0
   m_Name: GameStartManager
   m_TagString: Untagged
@@ -857,21 +856,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1923588801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923588800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ce94e55e8fdeb449b9dd5f649e8b9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  introSceneName: Intro_CutScene_1
-  introSceneNameTwo: Intro_CutScene_2
-  gameSceneName: GameScene
 --- !u!4 &1923588802
 Transform:
   m_ObjectHideFlags: 0

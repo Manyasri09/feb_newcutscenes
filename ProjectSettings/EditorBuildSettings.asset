@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Custom_Packages/Package_AnimationCutScene/Animation_CutScenes/NewAnimationScene_1.unity
     guid: f54f09f9b05154547924ad3d4bde66af
-  - enabled: 1
+  - enabled: 0
     path: Assets/Custom_Packages/Package_AnimationCutScene/Animation_CutScenes/NewAnimationScene_2.unity
     guid: 042da3246f73eb14289f8d3036ac8a71
   - enabled: 0
@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scene 3.unity
     guid: 5c96e40715c61cc4c910ae11467d2111
-  - enabled: 1
+  - enabled: 0
     path: Assets/Custom_Packages/Package_AnimationCutScene/Animation_CutScenes/NewAnimationScene_3.unity
     guid: 5fe63414583393f45b22a575eac9f51c
   m_configObjects: {}

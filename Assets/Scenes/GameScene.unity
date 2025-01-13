@@ -1593,7 +1593,7 @@ MonoBehaviour:
   TwoImagePrefab: {fileID: 4841250932979668625, guid: 42be42c9fab07bb4590c23532f6c8f21, type: 3}
   FourImagePrefab: {fileID: 4841250932979668625, guid: 7ce58820f7cfd6e4fbf4926e4ed025a6, type: 3}
   TwoWordPrefab: {fileID: 4841250932979668625, guid: f24ea16377409af4e87393e12a9656f9, type: 3}
-  ThreeWordLineDrag: {fileID: 695483322419301462, guid: 765832c540111f34eadad1d4ce8de09f, type: 3}
+  ThreeWordLineDrag: {fileID: 6669789191335622166, guid: 0b053c26e11f5534c8387900a7add5ef, type: 3}
   TutorialPopUpWindow: {fileID: 6534379325066624326, guid: dd6a5a057ebc1274ea4a2d281baaa8af, type: 3}
   dailyRewardsPanel: {fileID: 4927496772172467197, guid: 8bd650b8bf3935b4cb9603fe20cc393d, type: 3}
   playButtonPanel: {fileID: 6452674537366484393, guid: 9503bf951874ae648a1f635c70fc4d06, type: 3}

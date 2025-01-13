@@ -1145,20 +1145,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 6940149794060946762, guid: a32965014436c9a4da0a0f0a540e9fca, type: 3}
   m_PrefabInstance: {fileID: 5023783916331040575}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1722318764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722318762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c9040c0ffed2e4aab3118e62a7b809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SceneName: GameScene
-  currentSceneName: Intro_CutScene_2
 --- !u!1 &2062353839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,10 +1498,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3389782478442237061, guid: a32965014436c9a4da0a0f0a540e9fca, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1722318764}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a32965014436c9a4da0a0f0a540e9fca, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
