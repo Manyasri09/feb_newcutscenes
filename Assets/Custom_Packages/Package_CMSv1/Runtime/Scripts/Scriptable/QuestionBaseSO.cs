@@ -26,6 +26,9 @@ namespace ezygamers.cmsv1
         public OptionType optionType;
         public DifficultyLevel difficultyLevel;
 
+        [Header("Question Animation Name")]
+        public string questionAnimationName; //animation name for question
+
     }
 
     public enum OptionType

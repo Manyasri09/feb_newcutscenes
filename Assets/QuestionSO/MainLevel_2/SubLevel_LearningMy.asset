@@ -26,3 +26,4 @@ MonoBehaviour:
   correctOptionID: 0
   optionType: 0
   difficultyLevel: 0
+  questionAnimationName: 

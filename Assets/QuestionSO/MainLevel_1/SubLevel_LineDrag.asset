@@ -40,3 +40,4 @@ MonoBehaviour:
   correctOptionID: 
   optionType: 6
   difficultyLevel: 0
+  questionAnimationName: NamasteAnimation

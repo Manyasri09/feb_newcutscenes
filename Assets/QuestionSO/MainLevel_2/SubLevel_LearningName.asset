@@ -19,10 +19,11 @@ MonoBehaviour:
   hindiText:
     text: "\u0928\u093E\u092E "
   learningImage:
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: f1d91962699ef10478750893de511330, type: 3}
   questionAudio:
     audioClip: {fileID: 8300000, guid: aed6848239489914999ca517f374eabe, type: 3}
   options: []
   correctOptionID: 0
   optionType: 0
   difficultyLevel: 0
+  questionAnimationName: 
