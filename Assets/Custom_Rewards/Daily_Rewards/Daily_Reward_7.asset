@@ -15,7 +15,7 @@ MonoBehaviour:
   rewardID: 6
   description: 
   quantity: 1000
-  icon: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+  icon: {fileID: 21300000, guid: 980e6c04281b9fa49ad55f5029382d4b, type: 3}
   type: 0
   rewardDelivery: 0
   customData: 

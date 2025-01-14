@@ -756,7 +756,7 @@ PrefabInstance:
     - target: {fileID: 6755076365440443971, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1136330797, guid: a5e645d0b2507ac42807ef8e886f7d45, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 7794907492078750865, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_Name
       value: Coins
