@@ -83,8 +83,6 @@ public class UIManager : MonoBehaviour
     {
         LoadDropsUI();
         PrefabUIManager dragDropUI = null;
-        PrefabUIManager topPanelPrefabUIMannager = null;
-        PrefabUIManager bottomPanelPrefabUIMannager = null;
         var masterPanel = dropsUIInstance.GetComponent<LineDragMasterPanelManager>();
         
         if (masterPanel != null)
@@ -95,23 +93,8 @@ public class UIManager : MonoBehaviour
                 Debug.LogError("Failed to initialize LineDragMasterPanelManager");
                 return;
             }
-            
-            topPanelPrefabUIMannager = masterPanel.GetTopPanelPrefabUIManager();
-            if (topPanelPrefabUIMannager == null)
-            {
-                Debug.LogError("Failed to get PrefabUIManager from master panel");
-                return;
-            }
 
-            bottomPanelPrefabUIMannager = masterPanel.GetBottomPanelPrefabUIManager();
-            if (bottomPanelPrefabUIMannager == null)
-            {
-                Debug.LogError("Failed to get PrefabUIManager from master panel");
-                return;
-            }
-
-            topPanelPrefabUIMannager.LoadQuestionData(questionData);
-            bottomPanelPrefabUIMannager.LoadQuestionData(questionData);
+            masterPanel.LoadQuestionData(questionData);
         }
         else
         {
@@ -260,7 +243,7 @@ public class UIManager : MonoBehaviour
     }
     private IEnumerator AnimateCoins(int startAmount, int targetAmount)
     {
-        float animationDuration = 1f; // Animation duration in seconds
+        float animationDuration = 3f; // Animation duration in seconds
         float elapsedTime = 0f;
         
         while (elapsedTime < animationDuration)
