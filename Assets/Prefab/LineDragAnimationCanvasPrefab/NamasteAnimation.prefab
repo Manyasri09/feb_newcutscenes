@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 761420003516585617}
   - component: {fileID: 219146584573315896}
   m_Layer: 0
-  m_Name: AnimationSpace
+  m_Name: NamasteAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
