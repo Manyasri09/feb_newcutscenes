@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator WaitAndReload()
     {
         Debug.Log("Waiting to reload the sublevel");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
 
         //called LoadNextLevelQuestion without incrementing the index...hence we reload the same level
         eventManager.LoadNextQuestion(levelDictionary[CurrentLevelNumber].question[CurrentIndex]);

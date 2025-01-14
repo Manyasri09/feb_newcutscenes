@@ -206,7 +206,7 @@ public class PuzzleAnimation : MonoBehaviour
     private IEnumerator ResetPuzzleCoroutine()
     {
         ShowSadDoodle();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         isCorrectAnswerTriggered = false;
         ReloadPuzzle();
     }
