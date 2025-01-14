@@ -337,19 +337,19 @@ PrefabInstance:
     - target: {fileID: 282796796239922553, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 739615734585999210, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 1121179237442892818, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 2244346881106119791, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 2454984253940201311, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -433,19 +433,19 @@ PrefabInstance:
     - target: {fileID: 2713597491077861256, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 3959057449205272979, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 6201190816066747902, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 6370284997925331401, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 6712870751050275515, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Name
       value: Coin_Pile
@@ -453,11 +453,11 @@ PrefabInstance:
     - target: {fileID: 6964049525856240216, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 8868843309758834450, guid: dde7754695dca684a9286ef502edf41e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1411241462, guid: fe26c5f82360bec43ad2cb101890dfac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -876,6 +876,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coins_Amoint
       objectReference: {fileID: 0}
+    - target: {fileID: 6755076365440443971, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
     - target: {fileID: 7794907492078750865, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_Name
       value: Coins
@@ -987,8 +991,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameLevels:
   - {fileID: 11400000, guid: 69b82324351a7ad4a92a3f8ca485605b, type: 2}
-  - {fileID: 11400000, guid: 7e1c4da8bc3013545aa9ed2af762c96c, type: 2}
   - {fileID: 11400000, guid: 361c4fcf4e6668e4d8cc6f3f42e5641c, type: 2}
+  - {fileID: 11400000, guid: 7e1c4da8bc3013545aa9ed2af762c96c, type: 2}
   ProgressBar: {fileID: 1213579228}
   CurrentLevelNumber: 0
   animationManager: {fileID: 1149923478}

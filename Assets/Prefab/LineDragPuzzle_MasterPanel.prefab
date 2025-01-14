@@ -88,8 +88,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TopPanel: {fileID: 5582118348694740674}
   BottomPanel: {fileID: 1904006816320416861}
-  TopPanelPrefab: {fileID: 3921190885332329873, guid: 3629ec1f7b171984297da217d9dbec14, type: 3}
-  BottomPanelPrefab: {fileID: 7022803725614497942, guid: 7e0761222abd8ec48bf940ce36dd80fb, type: 3}
+  TopPanelPrefabs:
+  - animationName: NamasteAnimation
+    prefab: {fileID: 3921190885332329873, guid: 3629ec1f7b171984297da217d9dbec14, type: 3}
+  - animationName: BoulderAnimation
+    prefab: {fileID: 3921190885332329873, guid: 8a96bf9655cd54b4ea66962de8b23d13, type: 3}
+  BottomPanelPrefabs:
+  - optionCount: 3
+    prefab: {fileID: 7022803725614497942, guid: 7e0761222abd8ec48bf940ce36dd80fb, type: 3}
+  - optionCount: 4
+    prefab: {fileID: 7022803725614497942, guid: cc1580aa727456748b56823215e1bc7e, type: 3}
 --- !u!1 &8654623647445773681
 GameObject:
   m_ObjectHideFlags: 0

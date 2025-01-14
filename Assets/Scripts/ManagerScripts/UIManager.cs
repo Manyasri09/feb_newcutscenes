@@ -79,21 +79,18 @@ public class UIManager : MonoBehaviour
     }
 
     //Update the UI at every question Change -rohan37kumar
+    // This method updates the UI with the given question data
     private void UpdateUI(QuestionBaseSO questionData)
     {
+        // Load the drop-down UI
         LoadDropsUI();
         PrefabUIManager dragDropUI = null;
+        // Get the master panel from the dropsUIInstance
         var masterPanel = dropsUIInstance.GetComponent<LineDragMasterPanelManager>();
         
         if (masterPanel != null)
         {
-            // Initialize the master panel first
-            if (!masterPanel.Initialize())
-            {
-                Debug.LogError("Failed to initialize LineDragMasterPanelManager");
-                return;
-            }
-
+            // If it's a master panel, call LoadQuestionData on it
             masterPanel.LoadQuestionData(questionData);
         }
         else
@@ -108,6 +105,7 @@ public class UIManager : MonoBehaviour
             }
             dragDropUI.LoadQuestionData(questionData);
         }
+        // If the question type is a line question and the tutorial has not been shown, show the tutorial pop-up
         if (questionData.optionType == OptionType.LineQuestion && PlayerPrefs.GetInt("TutorialShown") == 0)
         {
             ShowTutorialPopUp(masterPanel);
