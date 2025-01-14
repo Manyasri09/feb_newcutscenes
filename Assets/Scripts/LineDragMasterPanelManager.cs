@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ezygamers.cmsv1;
 using UnityEngine;
 
 public class LineDragMasterPanelManager : MonoBehaviour
@@ -69,21 +70,9 @@ public class LineDragMasterPanelManager : MonoBehaviour
         return true;
     }
 
-    public PrefabUIManager GetBottomPanelPrefabUIManager()
+    public void LoadQuestionData(QuestionBaseSO questionData)
     {
-        if (bottomPanelPrefabUIManager == null)
-        {
-            Debug.LogError("PrefabUIManager not initialized in LineDragMasterPanelManager");
-        }
-        return bottomPanelPrefabUIManager;
-    }
-
-    public PrefabUIManager GetTopPanelPrefabUIManager()
-    {
-        if (topPanelPrefabUIManager == null)
-        {
-            Debug.LogError("PrefabUIManager not initialized in LineDragMasterPanelManager");
-        }
-        return topPanelPrefabUIManager;    
+        topPanelPrefabUIManager.LoadQuestionData(questionData);
+        bottomPanelPrefabUIManager.LoadQuestionData(questionData);
     }
 }
