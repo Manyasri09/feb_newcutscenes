@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PuzzleAnimation : MonoBehaviour
 {
@@ -19,11 +20,11 @@ public class PuzzleAnimation : MonoBehaviour
 
     [Space(10)]
 
-    [Header("Acknowledgement References")]
+    [Header("Dialouge Box References")]
     // GameObject for the correct acknowledgement
-    // [SerializeField] private GameObject correctAcknowledgement;
-    // GameObject for the mistake acknowledgement
-    // [SerializeField] private GameObject mistakeAcknowledgement;
+    [SerializeField] private Image dialougeBox;
+    [SerializeField] private GameObject dialougeText;
+    
 
     [Space(10)]
 
@@ -206,7 +207,7 @@ public class PuzzleAnimation : MonoBehaviour
     private IEnumerator ResetPuzzleCoroutine()
     {
         ShowSadDoodle();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         isCorrectAnswerTriggered = false;
         ReloadPuzzle();
     }
@@ -228,6 +229,7 @@ public class PuzzleAnimation : MonoBehaviour
         sadDoodle.SetActive(false);
         happyDoodle.SetActive(false);
         questionDoodle.SetActive(true);
+
     }
 
     private void PlayHappyDoodleSound()
