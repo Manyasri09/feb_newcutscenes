@@ -5,8 +5,17 @@ using UnityEngine.UI;
 
 public class WordAnimationManager : MonoBehaviour, IWordAnimationEvents
 {
+
+    [Header("Object References")]
     [SerializeField] private List<GameObject> words; // List of word to be animated
     [SerializeField] private List<GameObject> targets; // Target object where words will move to
+    [SerializeField] private List<GameObject> nodeHighlightImages; // List of node highlight images
+
+    
+    [Header("Color Settings")]
+
+    public Color nodeHighlightColor; // Color of the node highlight
+    public Color wordHighlightColor; // Color of the word highlight
     
     public WordAnimationSettings wordAnimationSettings; // ScriptableObject containing animation settings
 
@@ -201,10 +210,17 @@ public class WordAnimationManager : MonoBehaviour, IWordAnimationEvents
     {
         if (index < targets.Count)
         {
+            // Highlight the node
+            Image highlightImage = nodeHighlightImages[index].GetComponent<Image>();
+            highlightImage.color = nodeHighlightColor;
+            
             // Create a copy of the word
             GameObject wordCopy = Instantiate(words[index], words[index].transform.position, Quaternion.identity);
             wordCopy.transform.SetParent(words[index].transform.parent); // Keep same parent as original
             wordCopy.transform.localScale = words[index].transform.localScale; // Set the same scale as original
+
+            Text wordText = words[index].GetComponentInChildren<Text>();
+            wordText.color = wordHighlightColor;
         
             // Animate the copy instead of the original
             Animate(wordCopy);
