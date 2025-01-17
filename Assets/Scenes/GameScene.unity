@@ -284,9 +284,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1784148471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 1001.2}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -278.8}
   m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239517146
@@ -1318,11 +1318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee6075e30631c04ba0f973aab9bb737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctClip: {fileID: 8300000, guid: 80745a7717ac6144a91a3f249357e248, type: 3}
-  wrongClip: {fileID: 8300000, guid: 4b624310e2421c14e99f20a798349281, type: 3}
-  bkgClip: {fileID: 0}
-  audioSource: {fileID: 1425696914}
-  musicSource: {fileID: 1425696916}
 --- !u!82 &1425696916
 AudioSource:
   m_ObjectHideFlags: 0
