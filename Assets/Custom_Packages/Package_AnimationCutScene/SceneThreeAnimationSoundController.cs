@@ -1,9 +1,12 @@
 using UnityEngine;
+using GlobalAudioManagerPackage;
 
-public class AnimationSoundController : MonoBehaviour
+public class SceneThreeAnimationSoundController : MonoBehaviour
 {
     [Tooltip("The AudioSource component to play the sound.")]
-    public AudioSource audioSource;
+    // public AudioSource audioSource;
+
+    public AudioClip soundClip;
 
     /// <summary>
     /// Play the sound.
@@ -11,9 +14,10 @@ public class AnimationSoundController : MonoBehaviour
     /// </summary>
     public void PlaySound()
     {
-        if (audioSource != null && audioSource.clip != null)
+        if (soundClip != null)
         {
-            audioSource.Play();
+            // audioSource.Play();
+            GlobalAudioManager.Instance.PlaySFX(soundClip); // Use the GlobalAudioManager to play the sound
         }
         else
         {

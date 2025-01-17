@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using GlobalAudioManagerPackage;
 
-public class Scene3AnimControl : MonoBehaviour
+public class SceneThreeAnimationControl : MonoBehaviour
 {
     [System.Serializable]
     public class AnimationObject
@@ -16,6 +18,15 @@ public class Scene3AnimControl : MonoBehaviour
 
     [Tooltip("Additional delay (in seconds) between animations.")]
     public float additionalDelay = 2f;
+
+    private void Start()
+    {
+        GlobalAudioManager.Instance.PlayMusic(GlobalAudioManager.Instance.AudioConfig.cutSceneThree.BackgroundMusic); // Play the background music
+        GlobalAudioManager.Instance.PlayAmbient(GlobalAudioManager.Instance.AudioConfig.cutSceneThree.AmbientSounds); // Play the ambient sounds
+        
+    }
+
+
 
     /// <summary>
     /// Start the animation sequence.
