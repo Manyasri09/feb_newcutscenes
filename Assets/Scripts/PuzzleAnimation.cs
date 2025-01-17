@@ -1,4 +1,5 @@
 using System.Collections;
+using GlobalAudioManagerPackage;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,7 @@ public class PuzzleAnimation : MonoBehaviour
 
     [Header("Audio References")]
     // AudioSource for the happy doodle
-    [SerializeField] private AudioSource happyDoodleAudioSource;
+    // [SerializeField] private AudioSource happyDoodleAudioSource;
     // AudioClip for the happy sound
     [SerializeField] private AudioClip happySoundClip;
 
@@ -234,10 +235,11 @@ public class PuzzleAnimation : MonoBehaviour
 
     private void PlayHappyDoodleSound()
     {
-        if (happyDoodleAudioSource != null && happySoundClip != null)
+        if (happySoundClip != null)
         {
-            happyDoodleAudioSource.clip = happySoundClip;
-            happyDoodleAudioSource.Play();
+            // happyDoodleAudioSource.clip = happySoundClip;
+            // happyDoodleAudioSource.Play();
+            GlobalAudioManager.Instance.PlayVoiceOver(happySoundClip);
             Debug.Log("Happy doodle sound played!");
         }
         else

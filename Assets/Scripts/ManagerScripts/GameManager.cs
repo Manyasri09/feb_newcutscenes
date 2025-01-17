@@ -10,6 +10,7 @@ using PlayerProgressSystem;
 using RewardSystem;
 using CoinAnimationPackage;
 using System.Collections.Generic;
+using GlobalAudioManagerPackage;
 
 
 public class GameManager : MonoBehaviour
@@ -34,12 +35,14 @@ public class GameManager : MonoBehaviour
     private GameObject playButtonPanel;
     private GameObject dailyRewardsInstance;
 
+    // private GameObject settingsPanelInstance;
+
     private Button playButton;
     private Button claimButton;
 
     [SerializeField] private AnimationManager animationManager;
 
-    public Button settingsButton;
+    // public Button settingsButton;
 
 
     public static event Action<bool> OnQuestionResult;
@@ -68,6 +71,8 @@ public class GameManager : MonoBehaviour
         LineActions.OnLineEnded += DraggingLine_OnLineEnded;
         defaultRewardManager.OnLevelRewardClaimed += DefaultRewardManager_OnLevelRewardClaimed;
         defaultRewardManager.OnDailyRewardClaimed += DefaultRewardManager_OnDailyRewardClaimed;
+        
+        
     }
 
     private void DefaultRewardManager_OnDailyRewardClaimed(int Day, IReward reward)
@@ -84,6 +89,8 @@ public class GameManager : MonoBehaviour
         //uiManager.SetCoinsAmount(reward.Quantity, playerProgressManager.GetCoins());
         uiManager.SetCoinsAmount(reward.Quantity);
     }
+
+    
 
 
     private void OnDisable()
@@ -148,7 +155,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        audioManager.PlayBkgMusic();
+        // audioManager.PlayBkgMusic();
+        
+        
+        GlobalAudioManager.Instance.PlayMusic(GlobalAudioManager.Instance.AudioConfig.levelBackgroundMusic);
+        
         Debug.Log(uiManager);
         Debug.Log("Game Started");
        
@@ -222,12 +233,14 @@ public class GameManager : MonoBehaviour
             playerProgressManager.CompleteSubLevel(currentQuestion.questionNo.ToString());
             playerProgressManager.SubLevelCompletedType(currentQuestion.optionType.ToString());
             defaultRewardManager.ClaimLevelReward(currentQuestion.questionNo);
-            audioManager.PlayCorrectAudio(); 
+            // audioManager.PlayCorrectAudio(); 
+            GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.correctAnswerSFX);
             StartCoroutine(WaitAndMoveToNext());   
         }
         else
         {
-            audioManager.PlayWrongAudio();
+            GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.incorrectAnswerSFX);
+            // audioManager.PlayWrongAudio();
             StartCoroutine(WaitAndReload());
         }
     }
@@ -241,7 +254,8 @@ public class GameManager : MonoBehaviour
         if (isProcessing) return;
         isProcessing = true;
         //nudge or red logic
-        audioManager.PlayWrongAudio();
+        // audioManager.PlayWrongAudio();
+        GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.incorrectAnswerSFX);
         uiManager.LoadWrongUI(selectedOption);
         Debug.Log("Wrong Answer");
         StartCoroutine(WaitAndReload());
@@ -256,7 +270,8 @@ public class GameManager : MonoBehaviour
         if (isProcessing) return;
         isProcessing = true;
         //acknowledge the user
-        audioManager.PlayCorrectAudio();
+        // audioManager.PlayCorrectAudio();
+        GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.correctAnswerSFX);
         uiManager.LoadCorrectUI(questionData);
         Debug.Log("Correct Answer");
         StartCoroutine(WaitAndMoveToNext());

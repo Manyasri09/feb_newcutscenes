@@ -5,6 +5,7 @@ using VContainer;
 using ezygamers.cmsv1;
 using System.Collections.Generic;
 using ezygamers.dragndropv1;
+using GlobalAudioManagerPackage;
 
 /// <summary>
 /// Manages UI prefabs for different types of questions in a learning/quiz system.
@@ -106,8 +107,9 @@ public class PrefabUIManager : MonoBehaviour
         QuestionUIHelper.SetImage(LearningImageData.image, questionData.learningImage.image);
         QuestionUIHelper.SetText(LearningImageData.optionText, questionData.questionText.text);
         QuestionUIHelper.SetText(SubLevelText, questionData.hindiText.text);
-        QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
-        QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
+        // QuestionUIHelper.SetAudio(correctAudio, questionData.questionAudio.audioClip);
+        // QuestionUIHelper.SetAudio(SubLevelAudioSource, questionData.questionAudio.audioClip);
+        GlobalAudioManager.Instance.SetVoiceOverClip(questionData.questionAudio.audioClip);
     }
 
     /// <summary>

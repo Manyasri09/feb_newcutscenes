@@ -1,10 +1,8 @@
 using ezygamers.cmsv1;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
+using GlobalAudioManagerPackage;
 
 /// <summary>
 /// Manages the display of correct answer UI elements and animations in a quiz/learning game.
@@ -112,6 +110,7 @@ public class CorrectDisplayHelper : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         // Play the audio feedback attached to the acknowledge panel
-        acknowledgePanel.GetComponent<AudioSource>().Play();
+        // acknowledgePanel.GetComponent<AudioSource>().Play();
+        GlobalAudioManager.Instance.PlayVoiceOver();
     }
 }
