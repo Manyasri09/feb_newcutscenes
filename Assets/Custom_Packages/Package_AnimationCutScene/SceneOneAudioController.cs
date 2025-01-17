@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using GlobalAudioManagerPackage;
 
-public class GameAudioManager : MonoBehaviour
+public class SceneOneAudioController : MonoBehaviour
 {
+
+    
+
     [Header("Audio Sources")]
     public AudioSource backgroundAudio;  // Background music AudioSource
     public AudioSource sentenceAudio;    // AudioSource for the sentence audio
@@ -13,13 +16,13 @@ public class GameAudioManager : MonoBehaviour
     [Header("Volume Settings")]
     [Range(0f, 1f)] public float backgroundDimVolume = 0.2f;  // Volume when dimmed
     [Range(0f, 1f)] public float backgroundNormalVolume = 1f;  // Normal background volume
+    [Range(0f, 1f)] public float ambientVolume = 1f;  // Normal background volume
+    [Range(0f, 1f)] public float sfxVolume = 1f;  // Normal background volume
 
     [Header("Text Display")]
     public Text DisplayTextField;  // Prefab for the text object
     public Transform textParent;         // Parent transform for the text object
     private string sentence = "गाँव की खामोशी में चलते हुए, रानी ने एक रहस्यमयी आवाज़ सुनी ....";  // The sentence to display
-
-    public string  sentence2 = "रानी की यात्रा में अंग्रेजी में सवाल और चुनौतियां शामिल होंगी। उसे आगे बढ़ने में मदद करें।";  // The sentence to display
 
     [Header("Scene Management")]
     public SceneChanger sceneChanger;  // Reference to the SceneManager
@@ -33,21 +36,31 @@ public class GameAudioManager : MonoBehaviour
     private void Start()
     {
         // Play background music on loop
-        if (backgroundAudio != null)
-        {
-            backgroundAudio.loop = true;
-            backgroundAudio.volume = backgroundNormalVolume;
-            backgroundAudio.Play(); 
-            // sentenceAudio.Play();
-            // keyframeAudio.Play();
-        }
-        else
-        {
-            Debug.Log("Background audio not set.");
-        }
+        // if (backgroundAudio != null)
+        // {
+        //     backgroundAudio.loop = true;
+        //     backgroundAudio.volume = backgroundNormalVolume;         //TODO: Remove extra code
+        //     backgroundAudio.Play(); 
+        //     // sentenceAudio.Play();
+        //     // keyframeAudio.Play();
+        // }
+        // else
+        // {
+        //     Debug.Log("Background audio not set.");
+        // }
 
-        Debug.Log("Sentence: " + sentence);
-        Debug.Log("Sentence2: " + sentence2);
+        // Debug.Log("Sentence: " + sentence);
+
+        GlobalAudioManager.Instance.PlayAmbient(
+            GlobalAudioManager.Instance.AudioConfig.cutSceneOne.AmbientSounds,
+            true,
+            ambientVolume);
+
+        GlobalAudioManager.Instance.PlayMusic(
+            GlobalAudioManager.Instance.AudioConfig.cutSceneOne.BackgroundMusic, 
+            true, 
+            backgroundNormalVolume); // Play the background music
+        
     }
 
     /// <summary>
@@ -55,12 +68,14 @@ public class GameAudioManager : MonoBehaviour
     /// </summary>
     public void PlayKeyframeAudio()
     {
-        if (keyframeAudio != null)
-        {
-            Debug.Log("Playing keyframe audio..."); // Optional: Log the event for debugging
-            DimBackgroundAudio();
-            keyframeAudio.Play();
-        }
+        // if (keyframeAudio != null)
+        // {
+        //     Debug.Log("Playing keyframe audio..."); // Optional: Log the event for debugging   //TODO: Remove extra code
+        //     DimBackgroundAudio();
+        //     keyframeAudio.Play();
+        // }
+        GlobalAudioManager.Instance.SetMusicVolume(backgroundDimVolume);
+        GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.cutSceneOne.extras, sfxVolume);
     }
 
     /// <summary>
@@ -78,29 +93,32 @@ public class GameAudioManager : MonoBehaviour
         if (sentenceAudio != null)
         {
 
-            if (keyframeAudio != null && keyframeAudio.clip != null)
-            {
-                Debug.Log($"Audio clip details - Name: {keyframeAudio.clip.name}");
-                Debug.Log($"Samples: {keyframeAudio.clip.samples}");
-                Debug.Log($"Channels: {keyframeAudio.clip.channels}");
-                Debug.Log($"Frequency: {keyframeAudio.clip.frequency}");
-                Debug.Log($"Length: {keyframeAudio.clip.length}");
-            }
+            // if (keyframeAudio != null && keyframeAudio.clip != null)
+            // {
+            //     Debug.Log($"Audio clip details - Name: {keyframeAudio.clip.name}");
+            //     Debug.Log($"Samples: {keyframeAudio.clip.samples}");
+            //     Debug.Log($"Channels: {keyframeAudio.clip.channels}");
+            //     Debug.Log($"Frequency: {keyframeAudio.clip.frequency}");
+            //     Debug.Log($"Length: {keyframeAudio.clip.length}");
+            // }
 
-            if (sentenceAudio != null && sentenceAudio.clip != null)
-            {
-                Debug.Log($"Audio clip details - Name: {sentenceAudio.clip.name}");
-                Debug.Log($"Samples: {sentenceAudio.clip.samples}");
-                Debug.Log($"Channels: {sentenceAudio.clip.channels}");
-                Debug.Log($"Frequency: {sentenceAudio.clip.frequency}");
-                Debug.Log($"Length: {sentenceAudio.clip.length}");
-            }
+            // if (sentenceAudio != null && sentenceAudio.clip != null)
+            // {
+            //     Debug.Log($"Audio clip details - Name: {sentenceAudio.clip.name}");  //TODO: Remove extra code
+            //     Debug.Log($"Samples: {sentenceAudio.clip.samples}");
+            //     Debug.Log($"Channels: {sentenceAudio.clip.channels}");
+            //     Debug.Log($"Frequency: {sentenceAudio.clip.frequency}");
+            //     Debug.Log($"Length: {sentenceAudio.clip.length}");
+            // }
 
 
-            Debug.Log("Playing sentence audio..."); // Optional: Log the event for debugging
-            DimBackgroundAudio();
-            sentenceAudio.volume = backgroundNormalVolume;
-            sentenceAudio.Play();
+            // Debug.Log("Playing sentence audio..."); // Optional: Log the event for debugging
+            // DimBackgroundAudio();
+            // sentenceAudio.volume = backgroundNormalVolume;
+            // sentenceAudio.Play();
+
+            GlobalAudioManager.Instance.SetMusicVolume(backgroundDimVolume);
+            GlobalAudioManager.Instance.PlayVoiceOver(GlobalAudioManager.Instance.AudioConfig.cutSceneOne.CutsceneVO);
 
             // if (currentTextObject == null)
             // {
@@ -108,27 +126,31 @@ public class GameAudioManager : MonoBehaviour
             // }
             // // Dynamically create the text object
             // currentTextObject = Instantiate(textObjectPrefab, textParent);
+
+
             Text textMesh = DisplayTextField;
 
             // Start displaying the sentence word by word
             StartCoroutine(DisplayTextWithAudio(sentence, textMesh));
 
-            float waitTime = 0f;
+            // float waitTime = 0f;
             // Wait until the sentence audio finishes
-            while (sentenceAudio.isPlaying)
+            while (GlobalAudioManager.Instance.IsVoiceOverPlaying())
             {
-                waitTime += Time.deltaTime;
-                if (waitTime % 1f < Time.deltaTime) // Log every second
-                {
-                    Debug.Log($"Still waiting... Time: {waitTime:F1}s, Audio playing: {sentenceAudio.isPlaying}, Time position: {sentenceAudio.time}/{sentenceAudio.clip.length}");
-                }
+                // waitTime += Time.deltaTime;
+                // if (waitTime % 1f < Time.deltaTime) // Log every second
+                // {
+                //     Debug.Log($"Still waiting... Time: {waitTime:F1}s, Audio playing: {sentenceAudio.isPlaying}, Time position: {sentenceAudio.time}/{sentenceAudio.clip.length}");
+                // }
                 yield return null;
             }
 
-            RestoreBackgroundAudio(); // Restore background audio after sentence audio
+            GlobalAudioManager.Instance.SetMusicVolume(backgroundNormalVolume); // RestoreBackgroundAudio(); // Restore background audio after sentence audio
 
             // Wait for a short duration before changing the first cutscene
             yield return new WaitForSeconds(3.0f);
+            GlobalAudioManager.Instance.StopMusic();
+            GlobalAudioManager.Instance.StopAmbient();
             sceneChanger.SwitchScene(); // Change to the next scene
 
         }
