@@ -18,7 +18,6 @@ public class GameLifetimeScope : LifetimeScope
 
         // Register other components or managers as needed
         builder.RegisterComponentInHierarchy<UIManager>();
-        builder.RegisterComponentInHierarchy<AudioManager>();
 
         // adding Player Progress Manager
         builder.Register<IPlayerProgressStorage, PlayerPrefsStorage>(Lifetime.Singleton);

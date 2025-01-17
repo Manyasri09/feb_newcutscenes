@@ -16,8 +16,7 @@ using GlobalAudioManagerPackage;
 public class GameManager : MonoBehaviour
 {
     private CMSGameEventManager eventManager;  // Reference to CMSGameEventManager
-    private UIManager uiManager;               // Reference to UIManager
-    private AudioManager audioManager;          //Reference to AudioManager
+    private UIManager uiManager;               // Reference to UIManager         //Reference to AudioManager
     private PlayerProgressManager playerProgressManager; // Reference to PlayerProgressManager
     private IRewardManager defaultRewardManager;  // Reference to Reward Manager
 
@@ -51,15 +50,13 @@ public class GameManager : MonoBehaviour
     [Inject]
     public void Construct(
         CMSGameEventManager eventManager, 
-        UIManager uiManager, 
-        AudioManager audioManager, 
+        UIManager uiManager,  
         PlayerProgressManager playerProgressManager,
         IRewardManager defaultRewardManager
         )
     {
         this.eventManager = eventManager;
         this.uiManager = uiManager;
-        this.audioManager = audioManager;
         this.playerProgressManager = playerProgressManager;
         this.defaultRewardManager = defaultRewardManager;
     }

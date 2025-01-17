@@ -45,14 +45,6 @@ public class SettingsPanelUI : MonoBehaviour
 
     private ISettingsButPanelAudioController audioController;  // Reference to the audio controller interface
 
-    private AudioManager audioManager;  // Reference to the audio manager
-
-    [Inject]
-    public void Construct(AudioManager audioManager)
-    {
-        this.audioManager = audioManager;
-    }
-
     // Initialize all UI elements and their listeners
     void Start()
     {
