@@ -161,8 +161,7 @@ public class GameManager : MonoBehaviour
 
         // audioManager.PlayBkgMusic();
         
-        
-        GlobalAudioManager.Instance.PlayMusic(GlobalAudioManager.Instance.AudioConfig.levelBackgroundMusic);
+        GlobalAudioManager.Instance.PlayMusic(GlobalAudioManager.Instance.AudioConfig.levelBackgroundMusic, true, 0.1f);
         
         Debug.Log(uiManager);
         Debug.Log("Game Started");

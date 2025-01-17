@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuMusic: {fileID: 0}
   settingsMenuMusic: {fileID: 0}
-  levelBackgroundMusic: {fileID: 0}
+  levelBackgroundMusic: {fileID: 8300000, guid: bb8e263b71c7e27429af7ae95edf7ffa, type: 3}
   bossBattleMusic: {fileID: 0}
   CoinAudio: {fileID: 0}
   buttonClickSFX: {fileID: 0}

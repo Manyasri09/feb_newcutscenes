@@ -1704,8 +1704,8 @@ MonoBehaviour:
   keyframeAudio: {fileID: 1693554808}
   backgroundDimVolume: 0.2
   backgroundNormalVolume: 1
-  ambientVolume: 0.7
-  sfxVolume: 0.3
+  ambientVolume: 0.4
+  sfxVolume: 0.05
   DisplayTextField: {fileID: 460664552}
   textParent: {fileID: 2053709932}
   sceneChanger: {fileID: 1147362702}
