@@ -416,12 +416,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144668285}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.67, y: 0.03, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.6834, y: 0.02, z: 0}
   m_LocalScale: {x: 0.26478952, y: 0.2888, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1667192549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &242615094
 GameObject:
@@ -1776,11 +1776,11 @@ Transform:
   m_GameObject: {fileID: 1325945832}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.30069304, w: 0.953721}
-  m_LocalPosition: {x: 1.0134, y: 0.01, z: 0}
-  m_LocalScale: {x: 0.29050907, y: 0.2656, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.29050907, y: 0.26560003, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1667192549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 34.998}
 --- !u!1 &1401539088
 GameObject:
@@ -1882,11 +1882,11 @@ Transform:
   m_GameObject: {fileID: 1401539088}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.32205105, w: 0.9467224}
-  m_LocalPosition: {x: 0.58, y: 3.42, z: 0}
+  m_LocalPosition: {x: -0.43339998, y: 3.41, z: 0}
   m_LocalScale: {x: 0.2462, y: 0.2516, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1667192549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 37.574}
 --- !u!1 &1505390052
 GameObject:
@@ -2202,6 +2202,8 @@ MonoBehaviour:
     \u0915\u0930\u0947\u0902\u0964"
   wordDisplayDelay: 0.25
   dimVolumeLevel: 0.2
+  normalVolume: 1
+  sceneChanger: {fileID: 1586630202}
 --- !u!82 &1586630201
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2209,7 +2211,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586630194}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cbdba9f9707f51e42a338540a2847af7, type: 3}
@@ -2356,7 +2358,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596875558}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bde92dd17614ac14e84df51ce1f0e7c2, type: 3}
@@ -2452,7 +2454,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1596875558}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: deff20b9290e304499be01f9939397f3, type: 3}
@@ -2541,6 +2543,40 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1667192548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1667192549}
+  m_Layer: 0
+  m_Name: Bats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1667192549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667192548}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0134, y: 0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1325945835}
+  - {fileID: 1401539091}
+  - {fileID: 144668288}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669136742
 GameObject:
   m_ObjectHideFlags: 0
@@ -3099,9 +3135,7 @@ SceneRoots:
   - {fileID: 1586630197}
   - {fileID: 242615096}
   - {fileID: 1836562532}
-  - {fileID: 1325945835}
-  - {fileID: 1401539091}
-  - {fileID: 144668288}
+  - {fileID: 1667192549}
   - {fileID: 1053024274}
   - {fileID: 1596875560}
   - {fileID: 734078130}
