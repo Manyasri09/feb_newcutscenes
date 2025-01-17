@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     public GameObject ThreeWordLineDrag;
     public GameObject TutorialPopUpWindow;
 
+    
+
     private LevelConfiggSO levelSO;     //private LevelSO to hold data -rohan37kumar
     private GameObject currentPrefab;
     private GameObject dropsUIInstance;
@@ -35,10 +37,12 @@ public class UIManager : MonoBehaviour
     private GameObject dailyRewardsPanel; // Reference to DailyRewardsPanel prefab
     [SerializeField]
     private GameObject playButtonPanel; // Reference to PlayButtonPanel prefab
-    [SerializeField] private GameObject optionPanel;
+    [SerializeField] private GameObject settingsUIPanel;
+    public Button settingsButton;
+    private Button settingsCloseButton;
     private GameObject dailyRewardsInstance;
     private GameObject playButtonInstance;
-    private GameObject optionsInstance;
+    private GameObject settingsUIInstance;
 
     public Text coinsAmount;
 
@@ -48,12 +52,14 @@ public class UIManager : MonoBehaviour
     {
         CMSGameEventManager.OnLoadQuestionData += UpdateUI;
         GameManager.OnQuestionResult += HandleTutorialPopup;
+        settingsButton.onClick.AddListener(LoadSettingsUIPanel); // Add listener for settings button click
     }
 
     private void OnDisable()
     {
         CMSGameEventManager.OnLoadQuestionData -= UpdateUI;
     }
+
 
     // New method to load a level and its questions at the start of the game -rohan37kumar
     public void LoadLevel(LevelConfiggSO levelData)
@@ -203,14 +209,23 @@ public class UIManager : MonoBehaviour
         }
         return dailyRewardsInstance;
     }
-    public GameObject LoadOptionsPanel()
+    public void LoadSettingsUIPanel()
     {
-        if (optionsInstance == null)
+        if (settingsUIInstance == null)
         {
-            optionsInstance = Instantiate(optionPanel, transform);
-            container.InjectGameObject(optionsInstance);
+            dropsUIInstance.SetActive(false);
+            settingsUIInstance = Instantiate(settingsUIPanel, transform);
+            container.InjectGameObject(settingsUIInstance);
+            var settingsPanel = settingsUIInstance.GetComponentInChildren<SettingsPanelUI>();
+            settingsPanel.settingsCloseButton.onClick.AddListener(CloseSettingsPanel);
         }
-        return optionsInstance;
+        
+    }
+
+    public void CloseSettingsPanel()
+    {
+        Destroy(settingsUIInstance);
+        dropsUIInstance.SetActive(true);
     }
 
     
