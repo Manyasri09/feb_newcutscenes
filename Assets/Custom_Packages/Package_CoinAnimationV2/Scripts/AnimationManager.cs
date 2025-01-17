@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
+using GlobalAudioManagerPackage;
 using UnityEngine;
 
 namespace CoinAnimationPackage
@@ -22,7 +22,7 @@ namespace CoinAnimationPackage
         [SerializeField] private float staggerDelay = 0.1f; // Delay between animations of each coin
 
         [Header("Audio")]
-        [SerializeField] private AudioSource audioSource;
+        // [SerializeField] private AudioSource audioSource;
 
         private List<Vector3> initialPositions = new List<Vector3>();
         private List<Quaternion> initialRotations = new List<Quaternion>();
@@ -94,7 +94,8 @@ namespace CoinAnimationPackage
 
             Vector3 targetWorldPosition = GetTargetWorldPosition();
 
-            audioSource.Play();
+            // audioSource.Play();
+            GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.coinPickupSFX);
 
             for (int i = 0; i < coinPile.transform.childCount; i++)
             {
@@ -125,10 +126,11 @@ namespace CoinAnimationPackage
 
         private void StopAudio()
         {
-            if (audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
+            // if (audioSource.isPlaying)
+            // {
+            //     audioSource.Stop();
+            // }
+            GlobalAudioManager.Instance.StopSFX();
         }
     }
 }
