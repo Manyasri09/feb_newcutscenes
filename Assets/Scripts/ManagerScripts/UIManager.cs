@@ -213,13 +213,19 @@ public class UIManager : MonoBehaviour
     {
         if (settingsUIInstance == null)
         {
+            // Make sure any existing animations are properly stopped
+            var helper = dropsUIInstance.GetComponentInChildren<ObjectMovementHelper>();
+            if (helper != null)
+            {
+                helper.StopPromptAnimation();
+            }
+            
             dropsUIInstance.SetActive(false);
             settingsUIInstance = Instantiate(settingsUIPanel, transform);
             container.InjectGameObject(settingsUIInstance);
             var settingsPanel = settingsUIInstance.GetComponentInChildren<SettingsPanelUI>();
             settingsPanel.settingsCloseButton.onClick.AddListener(CloseSettingsPanel);
         }
-        
     }
 
     public void CloseSettingsPanel()

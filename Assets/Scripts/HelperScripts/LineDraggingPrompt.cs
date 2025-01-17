@@ -64,6 +64,24 @@ public class HandDraggingPrompt : MonoBehaviour
         InitializePrompt();
     }
 
+    private void OnDisable()
+    {
+        // Force stop all animations and reset state
+        StopAllCoroutines();
+        InitializePrompt();
+        isAnimating = false;
+        // totalAnimationDuration = 0f;
+        
+        if (handPromptImage != null)
+        {
+            handPromptImage.enabled = false;
+            handPromptImage.color = new Color(1f, 1f, 1f, 1f); // Reset color
+        }
+        
+        idleCheckCoroutine = null;
+        animationCoroutine = null;
+    }
+
     /// <summary>
     /// Sets up event listeners and starts the auto-prompt system if enabled.
     /// </summary>

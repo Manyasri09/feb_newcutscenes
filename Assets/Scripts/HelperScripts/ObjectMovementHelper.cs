@@ -49,6 +49,24 @@ public class ObjectMovementHelper : MonoBehaviour
         InitializePrompt();
     }
 
+    private void OnDisable()
+    {
+        // Force stop all animations and reset state
+        StopAllCoroutines();
+        InitializePrompt();
+        isAnimating = false;
+        currentAnimationTime = 0f;
+        
+        if (handPromptImage != null)
+        {
+            handPromptImage.enabled = false;
+            handPromptImage.color = new Color(1f, 1f, 1f, 1f); // Reset color
+        }
+        
+        idleCheckCoroutine = null;
+        animationCoroutine = null;
+    }
+
     /// <summary>
     /// Start automatic prompt if enabled and level hasn't been played before
     /// </summary>
@@ -57,10 +75,20 @@ public class ObjectMovementHelper : MonoBehaviour
         // Only show the prompt if:
         // 1. Auto prompt is enabled
         // 2. Player hasn't completed this level type before
+        CheckToStartAnimation();
+    }
+
+    public void CheckToStartAnimation()
+    {
+        // First, ensure we're in a clean state
+        StopAnimation();
+        
+        // Then check if we should start the animation
         if (enableAutoPrompt && !HasPlayerCompletedLevelType())
         {
             ScheduleAnimation();
         }
+
     }
 
     /// <summary>
@@ -198,6 +226,9 @@ public class ObjectMovementHelper : MonoBehaviour
     /// </summary>
     private void StartAnimation()
     {
+        // Ensure we're in a valid state to start animation
+        if (!gameObject.activeInHierarchy) return;
+        
         isAnimating = true;
         handPromptImage.enabled = true;
         currentAnimationTime = 0f;
