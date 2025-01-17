@@ -115,6 +115,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
+    private void OnApplicationQuit()
+    {
+        // Reset the screen timeout to the default value
+        Screen.sleepTimeout = SleepTimeout.SystemSetting;
+    }
+
     public void StartGame()
     {
 

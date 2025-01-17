@@ -20,10 +20,7 @@ public class GameLaunchManager : MonoBehaviour
             // If clicked, load the main game scene directly
             SceneManager.LoadScene(gameSceneName); 
         }
-        // else 
-        // {
-        //     // If not clicked, load the first intro scene
-        //     SceneManager.LoadScene(introSceneName); 
-        // }
+        
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 }
