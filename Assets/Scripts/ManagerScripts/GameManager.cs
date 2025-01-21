@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     private ChapterDayController controller;
 
     [SerializeField]
-    private List<LevelConfiggSO> gameLevels;  // ScriptableObject containing level data
-    public static Dictionary<int, LevelConfiggSO> levelDictionary; // Map LevelNumber to LevelConfigSO
+    private List<LevelConfigSO> gameLevels;  // ScriptableObject containing level data
+    public static Dictionary<int, LevelConfigSO> levelDictionary; // Map LevelNumber to LevelConfigSO
 
 
     [SerializeField]
@@ -109,9 +109,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Initializes the levelDictionary by iterating through the gameLevels array and adding each level to the dictionary, using the level number as the key.
     /// </summary>
-    private void InitializeLevelDictionary()
+    private void InitializeLevelDictionary() //TODO: Remove this replace with lists
     {
-        levelDictionary = new Dictionary<int, LevelConfiggSO>();
+        levelDictionary = new Dictionary<int, LevelConfigSO>();
         foreach (var level in gameLevels)
         {
             levelDictionary[level.LevelNumber] = level;
@@ -181,6 +181,10 @@ public class GameManager : MonoBehaviour
             Debug.LogError("UIManager not injected!");
             return;
         }
+        if (levelDictionary.ContainsKey(CurrentLevelNumber))
+        {
+            playerProgressManager.SubLevelStarted(levelDictionary[CurrentLevelNumber][CurrentQuestionIndex].questionNo.ToString());
+        }
 
         // audioManager.PlayBkgMusic();
         if(GlobalAudioManager.Instance != null)
@@ -222,7 +226,7 @@ public class GameManager : MonoBehaviour
     private void OnAnswerSelected(GameObject selectedOption)
     {
         var currentLevel = levelDictionary[CurrentLevelNumber];
-        var currentQuestion = currentLevel.question[CurrentQuestionIndex];
+        var currentQuestion = currentLevel[CurrentQuestionIndex];
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentQuestion, selectedOption.GetComponent<DropHandler>().OptionID);
 
@@ -250,7 +254,7 @@ public class GameManager : MonoBehaviour
         }
 
         var currentLevel = levelDictionary[CurrentLevelNumber];
-        var currentQuestion = currentLevel.question[CurrentQuestionIndex];
+        var currentQuestion = currentLevel[CurrentQuestionIndex];
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentQuestion, outputText);
         OnQuestionResult?.Invoke(isCorrect);
@@ -317,7 +321,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
         //called LoadNextLevelQuestion without incrementing the index...hence we reload the same level
-        eventManager.LoadNextQuestion(levelDictionary[CurrentLevelNumber].question[CurrentQuestionIndex]);
+        eventManager.LoadNextQuestion(levelDictionary[CurrentLevelNumber][CurrentQuestionIndex]);
         isProcessing = false;
     }
 
@@ -335,9 +339,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (CurrentQuestionIndex < currentLevel.question.Count)
+        if (CurrentQuestionIndex < currentLevel.Questions.Count)
         {
-            eventManager.LoadNextQuestion(currentLevel.question[CurrentQuestionIndex]);
+            playerProgressManager.SubLevelStarted(currentLevel[CurrentQuestionIndex].questionNo.ToString());
+            controller.LoadChapters();
+            eventManager.LoadNextQuestion(currentLevel[CurrentQuestionIndex]);
         }
         else
         {
@@ -354,7 +360,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        ProgressBar.maxValue = currentLevel.question.Count + 1;
+        ProgressBar.maxValue = currentLevel.Questions.Count + 1;
         ProgressBar.value = 1;
     }
 
@@ -378,6 +384,8 @@ public class GameManager : MonoBehaviour
             Destroy(playButtonPanel);
             if (levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
             {
+                playerProgressManager.MainLevelStarted(CurrentLevelNumber.ToString());
+                controller.LoadChapters();
                 uiManager.LoadLevel(currentLevel);
             }
         }
@@ -424,6 +432,8 @@ public class GameManager : MonoBehaviour
         Destroy(dailyRewardsInstance);
         if (levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
         {
+            playerProgressManager.MainLevelStarted(CurrentLevelNumber.ToString());
+            controller.LoadChapters();
             uiManager.LoadLevel(currentLevel);
         }
     }
@@ -447,6 +457,12 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Starting Level {CurrentLevelNumber}");
             CurrentQuestionIndex = 0; // Reset the sublevel index
             ProgressBarSet(); // Reset progress bar for the new level
+            playerProgressManager.MainLevelStarted(CurrentLevelNumber.ToString());
+            if (levelDictionary.ContainsKey(CurrentLevelNumber))
+            {
+                playerProgressManager.SubLevelStarted(levelDictionary[CurrentLevelNumber][CurrentQuestionIndex].questionNo.ToString());
+            }
+            controller.LoadChapters();
             uiManager.LoadLevel(levelDictionary[CurrentLevelNumber]); // Load the new level UI
         }
         else
