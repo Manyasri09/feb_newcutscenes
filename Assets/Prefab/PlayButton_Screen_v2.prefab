@@ -753,13 +753,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4884430982062186036, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_EffectColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620694377184993192, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6755076365440443971, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5966c6b918f89d14dae1c87fb3083928, type: 3}
+    - target: {fileID: 6755076365440443971, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7794907492078750865, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
       propertyPath: m_Name
       value: Coins
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794907492078750865, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351070618214707646, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927655202768744108, guid: a4b8b23eb347231429e1385289d0882c, type: 3}
+      propertyPath: m_EffectColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

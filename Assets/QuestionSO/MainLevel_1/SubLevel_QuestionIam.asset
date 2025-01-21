@@ -34,3 +34,4 @@ MonoBehaviour:
   correctOptionID: 0
   optionType: 1
   difficultyLevel: 0
+  questionAnimationName: 
