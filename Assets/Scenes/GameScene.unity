@@ -2025,7 +2025,7 @@ MonoBehaviour:
   dailyRewardsPanel: {fileID: 4927496772172467197, guid: 8bd650b8bf3935b4cb9603fe20cc393d, type: 3}
   playButtonPanel: {fileID: 6452674537366484393, guid: 9503bf951874ae648a1f635c70fc4d06, type: 3}
   settingsUIPanel: {fileID: 6514638740154462532, guid: 301400ce6376ce547a132ee5de6277c0, type: 3}
-  settingsButton: {fileID: 239517148}
+  settingsButton: {fileID: 239517144}
   coinsAmount: {fileID: 459924929}
   chapterSelectionPanel: {fileID: 5662871470316104520, guid: f2a188be6ce18444c86a7f32972d8de8, type: 3}
   chapterSelectionButtonPrefab: {fileID: -2328669188212195082, guid: 532deec2c0b1f4f4a9879c398aab12e8, type: 3}

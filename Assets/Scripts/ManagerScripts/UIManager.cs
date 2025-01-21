@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
     [SerializeField]
     private GameObject playButtonPanel; // Reference to PlayButtonPanel prefab
     [SerializeField] private GameObject settingsUIPanel;
-    public Button settingsButton;
+    public GameObject settingsButton;
     private Button settingsCloseButton;
     private GameObject dailyRewardsInstance;
     private GameObject playButtonInstance;
@@ -75,8 +75,8 @@ public class UIManager : MonoBehaviour, IChapterDayView
     {
         CMSGameEventManager.OnLoadQuestionData += UpdateUI;
         GameManager.OnQuestionResult += HandleTutorialPopup;
-        settingsButton.onClick.AddListener(LoadSettingsUIPanel); // Add listener for settings button click
-        // BackButton.GetComponent<Button>().onClick.AddListener(OnBackButtonClicked);
+        settingsButton.GetComponent<Button>().onClick.AddListener(LoadSettingsUIPanel); // Add listener for settings button click
+        BackButton.GetComponent<Button>().onClick.AddListener(OnBackButtonClicked);
     }
 
     private void OnDisable()
@@ -84,24 +84,24 @@ public class UIManager : MonoBehaviour, IChapterDayView
         CMSGameEventManager.OnLoadQuestionData -= UpdateUI;
     }
 
-    // private void OnBackButtonClicked()
-    // {
-    //     // Destroy chapter/day selection panels if they exist
-    //     if (chapterSelectionPanelInstance != null)
-    //         Destroy(chapterSelectionPanelInstance);
-    //     if (daySelectionPanelInstance != null)
-    //         Destroy(daySelectionPanelInstance);
+    private void OnBackButtonClicked()
+    {
+        // Destroy chapter/day selection panels if they exist
+        if (chapterSelectionPanelInstance != null)
+            Destroy(chapterSelectionPanelInstance);
+        if (daySelectionPanelInstance != null)
+            Destroy(daySelectionPanelInstance);
 
-    //     // Re-enable settings button and hide back button
-    //     settingsButton.gameObject.SetActive(true);
-    //     BackButton.gameObject.SetActive(false);
+        // Re-enable settings button and hide back button
+        settingsButton.gameObject.SetActive(true);
+        BackButton.gameObject.SetActive(false);
 
-    //     // Recreate the game UI
-    //     if (levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
-    //     {
-    //         LoadLevel(currentLevel);
-    //     }
-    // }
+        // Recreate the game UI
+        if (GameManager.levelDictionary.TryGetValue(GameManager.CurrentLevelNumber, out LevelConfigSO currentLevel))
+        {
+            UpdateUI(currentLevel[GameManager.CurrentQuestionIndex]);
+        }
+    }
 
 
     // New method to load a level and its questions at the start of the game -rohan37kumar
@@ -389,6 +389,8 @@ public class UIManager : MonoBehaviour, IChapterDayView
 
     public void DisplayChapters(List<ChapterModel> chapters)
     {
+        settingsButton.SetActive(false);
+        BackButton.SetActive(true);
         Destroy(dropsUIInstance);
         print("Destroyed dropsUIInstance");
         Destroy(chapterSelectionPanelInstance);
@@ -411,8 +413,6 @@ public class UIManager : MonoBehaviour, IChapterDayView
     public void LoadDayContent(DayModel day)
     {
         Destroy(daySelectionPanelInstance);
-        // settingsButton.SetActive(false);
-        BackButton.SetActive(true);
         Debug.Log($"<color=yellow>Loading day content for day: {day.dayName}</color>");
         if (day == null)
         {
