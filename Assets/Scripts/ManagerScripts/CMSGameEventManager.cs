@@ -3,8 +3,8 @@ using UnityEngine;
 using ezygamers.cmsv1;
 public class CMSGameEventManager
 {
-    // Event for loading level data (passing LevelConfiggSO)
-    public static Action<LevelConfiggSO> OnLoadLevelData;
+    // Event for loading level data (passing LevelConfigSO)
+    public static Action<LevelConfigSO> OnLoadLevelData;
 
     // Event for loading question data (passing QuestionBaseSO)
     public static Action<QuestionBaseSO> OnLoadQuestionData;
@@ -13,7 +13,7 @@ public class CMSGameEventManager
     public static Action<String> OnAnswerSelected;
 
     // Method to trigger the loading of a level
-    public void LoadLevel(LevelConfiggSO levelData)
+    public void LoadLevel(LevelConfigSO levelData)
     {
         Debug.Log("Loading level data...");
         OnLoadLevelData?.Invoke(levelData);
