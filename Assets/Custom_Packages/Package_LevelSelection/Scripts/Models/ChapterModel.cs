@@ -18,6 +18,8 @@ namespace LevelSelectionPackage.Models
         /// </summary>
         public string chapterName;
 
+        public int chapterNumber;
+
         /// <summary>
         /// Collection of days contained within this chapter
         /// Each day represents a discrete content unit or level
@@ -29,5 +31,8 @@ namespace LevelSelectionPackage.Models
         /// Used to control access to chapter content
         /// </summary>
         public bool isLocked;
+
+        
+
     }
 }

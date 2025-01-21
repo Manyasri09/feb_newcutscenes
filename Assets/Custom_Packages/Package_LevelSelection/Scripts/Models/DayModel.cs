@@ -20,6 +20,11 @@ namespace LevelSelectionPackage.Models
         public string dayName;
 
         /// <summary>
+        /// The display number of the day
+        /// </summary>
+        public int dayNumber;
+
+        /// <summary>
         /// Indicates whether this day is currently locked
         /// Used to control access to day content
         /// </summary>
@@ -27,6 +32,6 @@ namespace LevelSelectionPackage.Models
         /// <summary>
         /// Name of the chapter this day belongs to
         /// </summary>
-        public string chapterName;  
+        public int chapterNumber;  
     }
 }
