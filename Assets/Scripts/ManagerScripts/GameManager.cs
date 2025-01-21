@@ -11,37 +11,41 @@ using RewardSystem;
 using CoinAnimationPackage;
 using System.Collections.Generic;
 using GlobalAudioManagerPackage;
+using LevelSelectionPackage.Models;
+using LevelSelectionPackage.Controllers;
 
 
-public class GameManager : MonoBehaviour
+
+public class GameManager : MonoBehaviour  
 {
     private CMSGameEventManager eventManager;  // Reference to CMSGameEventManager
-    private UIManager uiManager;               // Reference to UIManager         //Reference to AudioManager
+    private UIManager uiManager;               // Reference to UIManager         
     private PlayerProgressManager playerProgressManager; // Reference to PlayerProgressManager
     private IRewardManager defaultRewardManager;  // Reference to Reward Manager
 
+    private ChapterDayController controller;
+
     [SerializeField]
     private List<LevelConfiggSO> gameLevels;  // ScriptableObject containing level data
-    private Dictionary<int, LevelConfiggSO> levelDictionary; // Map LevelNumber to LevelConfigSO
+    public static Dictionary<int, LevelConfiggSO> levelDictionary; // Map LevelNumber to LevelConfigSO
 
 
     [SerializeField]
     private Slider ProgressBar; //ProgressBar for each level -rohan37kumar
     private bool isProcessing = false;
-    public static int CurrentIndex; //value for the Current Index of Question Loaded.
-    public int CurrentLevelNumber;
+    public static int CurrentQuestionIndex; //value for the Current Index of Question Loaded.
+    public static int CurrentLevelNumber;
     
     private GameObject playButtonPanel;
     private GameObject dailyRewardsInstance;
 
-    // private GameObject settingsPanelInstance;
+    
 
     private Button playButton;
     private Button claimButton;
 
     [SerializeField] private AnimationManager animationManager;
-
-    // public Button settingsButton;
+    [SerializeField] private Button dayButton;
 
 
     public static event Action<bool> OnQuestionResult;
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour
         LineActions.OnLineEnded += DraggingLine_OnLineEnded;
         defaultRewardManager.OnLevelRewardClaimed += DefaultRewardManager_OnLevelRewardClaimed;
         defaultRewardManager.OnDailyRewardClaimed += DefaultRewardManager_OnDailyRewardClaimed;
-        
+        dayButton.onClick.AddListener(OnDayButtonClick);
         
     }
 
@@ -87,19 +91,18 @@ public class GameManager : MonoBehaviour
         uiManager.SetCoinsAmount(reward.Quantity);
     }
 
-    
-
-
     private void OnDisable()
     {
         //CMSGameEventManager.OnAnswerSelected -= OnAnswerSelected;
         Actions.onItemDropped -= OnAnswerSelected;
         LineActions.OnLineEnded -= DraggingLine_OnLineEnded;
+        dayButton.onClick.RemoveAllListeners();
     }
 
     private void Start()
     {
         InitializeLevelDictionary();
+        SetupLevelSelection();
         StartGame();
     }
 
@@ -115,6 +118,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetupLevelSelection()
+    {
+
+        // Create and set up the system components
+        ChapterDayDataProvider dataProvider = new ChapterDayDataProvider();
+        dataProvider.SetDatatoDataProvider(levelDictionary, playerProgressManager);
+        controller = new ChapterDayController(dataProvider, uiManager);
+        
+        // Initialize the view manager
+        uiManager.SetChapterDayController(controller);
+        controller.LoadChapters();
+
+        Debug.Log("Chapter-Day system initialized successfully!");
+    }
+
+    private void OnDayButtonClick()
+    {
+        controller.sendChaptersToView();
+    }
+
     
     private void OnApplicationQuit()
     {
@@ -125,7 +148,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
 
-        CurrentIndex = 0;
+        CurrentQuestionIndex = 0;
 
         // Retrieve the last completed main level
         string lastCompletedMainLevel = playerProgressManager.GetLastCompletedMainLevel();
@@ -160,8 +183,8 @@ public class GameManager : MonoBehaviour
         }
 
         // audioManager.PlayBkgMusic();
-        
-        GlobalAudioManager.Instance.PlayMusic(GlobalAudioManager.Instance.AudioConfig.levelBackgroundMusic, true, 0.1f);
+        if(GlobalAudioManager.Instance != null)
+            GlobalAudioManager.Instance.PlayMusic(GlobalAudioManager.Instance.AudioConfig.levelBackgroundMusic, true, 0.1f);
         
         Debug.Log(uiManager);
         Debug.Log("Game Started");
@@ -199,7 +222,7 @@ public class GameManager : MonoBehaviour
     private void OnAnswerSelected(GameObject selectedOption)
     {
         var currentLevel = levelDictionary[CurrentLevelNumber];
-        var currentQuestion = currentLevel.question[CurrentIndex];
+        var currentQuestion = currentLevel.question[CurrentQuestionIndex];
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentQuestion, selectedOption.GetComponent<DropHandler>().OptionID);
 
@@ -227,7 +250,7 @@ public class GameManager : MonoBehaviour
         }
 
         var currentLevel = levelDictionary[CurrentLevelNumber];
-        var currentQuestion = currentLevel.question[CurrentIndex];
+        var currentQuestion = currentLevel.question[CurrentQuestionIndex];
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentQuestion, outputText);
         OnQuestionResult?.Invoke(isCorrect);
@@ -294,7 +317,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
 
         //called LoadNextLevelQuestion without incrementing the index...hence we reload the same level
-        eventManager.LoadNextQuestion(levelDictionary[CurrentLevelNumber].question[CurrentIndex]);
+        eventManager.LoadNextQuestion(levelDictionary[CurrentLevelNumber].question[CurrentQuestionIndex]);
         isProcessing = false;
     }
 
@@ -303,7 +326,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void MoveToNextQuestion()
     {
-        CurrentIndex++;
+        CurrentQuestionIndex++;
         ProgressBar.value++;
 
         if (!levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
@@ -312,9 +335,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (CurrentIndex < currentLevel.question.Count)
+        if (CurrentQuestionIndex < currentLevel.question.Count)
         {
-            eventManager.LoadNextQuestion(currentLevel.question[CurrentIndex]);
+            eventManager.LoadNextQuestion(currentLevel.question[CurrentQuestionIndex]);
         }
         else
         {
@@ -422,7 +445,7 @@ public class GameManager : MonoBehaviour
         if (levelDictionary.ContainsKey(CurrentLevelNumber))
         {
             Debug.Log($"Starting Level {CurrentLevelNumber}");
-            CurrentIndex = 0; // Reset the sublevel index
+            CurrentQuestionIndex = 0; // Reset the sublevel index
             ProgressBarSet(); // Reset progress bar for the new level
             uiManager.LoadLevel(levelDictionary[CurrentLevelNumber]); // Load the new level UI
         }
