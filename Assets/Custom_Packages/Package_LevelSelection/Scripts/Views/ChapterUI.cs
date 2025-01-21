@@ -26,6 +26,10 @@ namespace LevelSelectionPackage.Views
         /// </summary>
         [SerializeField] private Button chapterButton;
 
+        [SerializeField] private Image chapterButtonBackgroundImage;
+        [SerializeField] private Color DefaultColor;
+        [SerializeField] private Color ActiveColor;
+
         // Reference to the chapter's data model
         private ChapterModel chapterData;
         // Reference to the controller for handling chapter interactions
@@ -53,6 +57,8 @@ namespace LevelSelectionPackage.Views
                 chapterNameText.gameObject.SetActive(!chapter.isLocked);
                 lockIcon.SetActive(chapter.isLocked);
             }
+
+            
 
             // Adjust button interactability if locked
             if (chapterButton != null)
