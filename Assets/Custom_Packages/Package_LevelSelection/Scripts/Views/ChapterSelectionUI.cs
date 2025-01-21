@@ -55,34 +55,5 @@ namespace LevelSelectionPackage.Views
 
         }
 
-        // public void DisplayChaptersSelectionUI(List<ChapterModel> chapters, ChapterUI chapterPrefab, ChapterDayController controller)
-        // {
-        //     // First debug statement to check initial state
-        //     Debug.Log($"Chapter container has {chapterContainer.childCount} children before cleanup.");
-
-        //     // Cleanup using traditional for loop
-        //     // We must loop backwards when destroying children to avoid index shifting
-        //     for (int i = chapterContainer.childCount - 1; i >= 0; i--)
-        //     {
-        //         Transform child = chapterContainer.GetChild(i);
-        //         Debug.Log($"Destroying child object: {child.gameObject.name}");
-        //         Destroy(child.gameObject);
-        //     }
-
-        //     Debug.Log($"Chapter container has {chapterContainer.childCount} children after cleanup.");
-
-        //     // Create new UI elements using traditional for loop
-        //     Debug.Log($"Creating {chapters.Count} chapter UI elements.");
-        //     for (int i = 0; i < chapters.Count; i++)
-        //     {
-        //         var chapterData = chapters[i];
-        //         var chapterObj = Instantiate(chapterPrefab, chapterContainer);
-        //         chapterObj.Initialize(chapterData, controller);
-        //         Debug.Log($"Initialized chapter UI element for chapter: {chapterData.chapterName}");
-        //     }
-        // }
-
-        
-        
     }
 }
