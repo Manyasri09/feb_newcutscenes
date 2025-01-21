@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
 
     
 
-    private LevelConfiggSO levelSO;     //private LevelSO to hold data -rohan37kumar
+    private LevelConfigSO levelSO;     //private LevelSO to hold data -rohan37kumar
     private GameObject currentPrefab;
     private GameObject dropsUIInstance;
 
@@ -62,9 +62,11 @@ public class UIManager : MonoBehaviour, IChapterDayView
     public ChapterUI chapterSelectionButtonPrefab;
     public GameObject daySelectionPanel;
     public DayUI daySelectionButtonPrefab;
+    public GameObject BackButton;
     private GameObject chapterSelectionPanelInstance;
     private GameObject daySelectionPanelInstance;
     private ChapterDayController chapterDayController;
+
     
 
     
@@ -74,6 +76,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
         CMSGameEventManager.OnLoadQuestionData += UpdateUI;
         GameManager.OnQuestionResult += HandleTutorialPopup;
         settingsButton.onClick.AddListener(LoadSettingsUIPanel); // Add listener for settings button click
+        // BackButton.GetComponent<Button>().onClick.AddListener(OnBackButtonClicked);
     }
 
     private void OnDisable()
@@ -81,18 +84,37 @@ public class UIManager : MonoBehaviour, IChapterDayView
         CMSGameEventManager.OnLoadQuestionData -= UpdateUI;
     }
 
+    // private void OnBackButtonClicked()
+    // {
+    //     // Destroy chapter/day selection panels if they exist
+    //     if (chapterSelectionPanelInstance != null)
+    //         Destroy(chapterSelectionPanelInstance);
+    //     if (daySelectionPanelInstance != null)
+    //         Destroy(daySelectionPanelInstance);
+
+    //     // Re-enable settings button and hide back button
+    //     settingsButton.gameObject.SetActive(true);
+    //     BackButton.gameObject.SetActive(false);
+
+    //     // Recreate the game UI
+    //     if (levelDictionary.TryGetValue(CurrentLevelNumber, out var currentLevel))
+    //     {
+    //         LoadLevel(currentLevel);
+    //     }
+    // }
+
 
     // New method to load a level and its questions at the start of the game -rohan37kumar
-    public void LoadLevel(LevelConfiggSO levelData)
+    public void LoadLevel(LevelConfigSO levelData)
     {
         levelSO = levelData;
         CreateUI();
 
         //Trigger the loading of the first question in the level
-        if (levelData.question != null && levelData.noOfSubLevel > 0)
+        if (levelData.Questions != null && levelData.noOfSubLevel > 0)
         {
             CMSGameEventManager eventManager = container.Resolve<CMSGameEventManager>();
-            eventManager.LoadNextQuestion(levelData.question[0]);  // Load the first question, can change index to preview particular question 
+            eventManager.LoadNextQuestion(levelData[0]);  // Load the first question, can change index to preview particular question 
         }
     }
 
@@ -100,7 +122,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
     private void CreateUI()
     {
         DestroyCurrentInstance();
-        ChoosePrefab(levelSO.question[0]);
+        ChoosePrefab(levelSO[0]);
         dropsUIInstance = Instantiate(currentPrefab, transform);
         container.InjectGameObject(dropsUIInstance);
     }
@@ -388,6 +410,9 @@ public class UIManager : MonoBehaviour, IChapterDayView
 
     public void LoadDayContent(DayModel day)
     {
+        Destroy(daySelectionPanelInstance);
+        // settingsButton.SetActive(false);
+        BackButton.SetActive(true);
         Debug.Log($"<color=yellow>Loading day content for day: {day.dayName}</color>");
         if (day == null)
         {
@@ -396,31 +421,32 @@ public class UIManager : MonoBehaviour, IChapterDayView
         }
 
         // Parse the chapterName and dayName from the DayModel
-        int questionIndex = int.Parse(day.dayName);
-        int levelNumber = int.Parse(day.chapterName);
+        int questionNumber = day.dayNumber;
+        int levelNumber = day.chapterNumber;
         // Update the GameManager's current level and question index
-        GameManager.CurrentQuestionIndex = questionIndex;
+        GameManager.CurrentQuestionIndex = questionNumber;
         GameManager.CurrentLevelNumber = levelNumber;
 
         // Check if the specified level exists in the dictionary
-        if (!GameManager.levelDictionary.TryGetValue(levelNumber, out var levelConfig))
+        if (!GameManager.levelDictionary.TryGetValue(levelNumber, out LevelConfigSO levelConfig))
         {
             Debug.LogError($"Level {levelNumber} not found in the level dictionary.");
             return;
         }
-        var question = levelConfig.question[questionIndex];
-        
+        QuestionBaseSO question = levelConfig[questionNumber]; 
+        if (questionNumber > 0 && levelConfig[questionNumber - 1].optionType == OptionType.Learning)
+        {
+            GameManager.CurrentQuestionIndex = questionNumber - 1;
+            UpdateUI(levelConfig[questionNumber - 1]);
+
+        }
+        else
+            UpdateUI(question);
+
         Destroy(daySelectionPanelInstance);
-        // DestroyCurrentInstance();
+        // UpdateUIByDay(question);
 
-        // // Set up UI for just this question
-        // ChoosePrefab(question);
-        // dropsUIInstance = Instantiate(currentPrefab, transform);
-        // container.InjectGameObject(dropsUIInstance);
-        // Debug.Log($"<color=yellow>(From LoadDayContent)Drop UI Instance: {dropsUIInstance.name}</color>");
-        UpdateUIByDay(question);
-
-        Debug.Log($"Loaded Level {levelNumber}, Question {questionIndex}.");
+        Debug.Log($"Loaded Level {levelNumber}, Question {questionNumber}.");
     }
 
     public void ShowChapterLockedMessage(ChapterModel chapter)
