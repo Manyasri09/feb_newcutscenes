@@ -5,11 +5,23 @@ using ezygamers.cmsv1;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
-using System.Runtime.CompilerServices;
-using RewardSystem;
-using Unity.VisualScripting;
+using LevelSelectionPackage.Views;
+using LevelSelectionPackage.Models;
+using LevelSelectionPackage.Controllers;
 
-public class UIManager : MonoBehaviour
+
+// TODO: Refactor UIManager.cs to follow Single Responsibility Principle by:
+// 1. Extract UI prefab management into PrefabManager class
+// 2. Create separate ChapterDayUIManager for chapter/day selection logic
+// 3. Move coin/rewards UI handling to dedicated RewardsUIManager
+// 4. Create TutorialUIManager for tutorial popup logic
+// 5. Extract settings panel logic to SettingsUIManager
+// 6. Create QuestionUIManager for question display and updates
+// 7. Move animation logic to dedicated AnimationUIManager
+
+
+
+public class UIManager : MonoBehaviour, IChapterDayView 
 {
     private IObjectResolver container;
 
@@ -43,8 +55,17 @@ public class UIManager : MonoBehaviour
     private GameObject dailyRewardsInstance;
     private GameObject playButtonInstance;
     private GameObject settingsUIInstance;
-
     public Text coinsAmount;
+
+    [Header("Chapter Selection")]
+    public GameObject chapterSelectionPanel;
+    public ChapterUI chapterSelectionButtonPrefab;
+    public GameObject daySelectionPanel;
+    public DayUI daySelectionButtonPrefab;
+    private GameObject chapterSelectionPanelInstance;
+    private GameObject daySelectionPanelInstance;
+    private ChapterDayController chapterDayController;
+    
 
     
     //implemented all the logic for Question progression  -rohan37kumar
@@ -89,7 +110,7 @@ public class UIManager : MonoBehaviour
     private void UpdateUI(QuestionBaseSO questionData)
     {
         // Load the drop-down UI
-        LoadDropsUI();
+        LoadDropsUI(questionData);
         PrefabUIManager dragDropUI = null;
         // Get the master panel from the dropsUIInstance
         var masterPanel = dropsUIInstance.GetComponent<LineDragMasterPanelManager>();
@@ -120,6 +141,20 @@ public class UIManager : MonoBehaviour
 
     }
 
+    private void UpdateUIByDay(QuestionBaseSO questionData)
+    {
+        LoadDropsUIByDay(questionData);
+        PrefabUIManager dragDropUI = null;
+
+        dragDropUI = dropsUIInstance.GetComponent<PrefabUIManager>();
+        if (dragDropUI == null)
+        {
+            Debug.LogError("No PrefabUIManager or LineDragMasterPanelManager found on UI instance");
+            return;
+        }
+        dragDropUI.LoadQuestionData(questionData);
+    }
+
     //If the answer is correct, set Tutorial pop as 1 (as shown)
     private void HandleTutorialPopup(bool isCorrect)
     {
@@ -130,12 +165,24 @@ public class UIManager : MonoBehaviour
     }
 
     // Method to load DropsUI dynamically and inject dependencies
-    public void LoadDropsUI()
+    public void LoadDropsUI(QuestionBaseSO questionData)
     {
+        Debug.Log($"<color=yellow>LoadDropsUI called</color>");
         DestroyCurrentInstance();
-        ChoosePrefab(levelSO.question[GameManager.CurrentIndex]);
+        ChoosePrefab(questionData);
         dropsUIInstance = Instantiate(currentPrefab, transform);
         container.InjectGameObject(dropsUIInstance);
+        Debug.Log($"<color=yellow>(From LoadDropsUI)Drop UI Instance: {dropsUIInstance.name}</color>");
+    }
+
+    public void LoadDropsUIByDay(QuestionBaseSO questionData)
+    {
+        Debug.Log($"<color=yellow>LoadDropsUIByDay called</color>");
+        DestroyCurrentInstance();
+        ChoosePrefab(questionData);
+        dropsUIInstance = Instantiate(currentPrefab, transform);
+        container.InjectGameObject(dropsUIInstance);
+        Debug.Log($"<color=yellow>(From LoadDropsUIByDay)Drop UI Instance: {dropsUIInstance.name}</color>");
     }
 
     //method to destroy previously loaded Prefab instance -rohan37kumar
@@ -151,6 +198,7 @@ public class UIManager : MonoBehaviour
     //simple function to choose which prefab to instantiate (learning or question)  -rohan37kumar
     private void ChoosePrefab(QuestionBaseSO question)
     {
+        Debug.Log($"<color=yellow>(From ChoosePrefab)Question type: {question.optionType}</color>");
         // Dictionary to map content type to the respective prefab
         var prefabMapping = new Dictionary<OptionType, GameObject>
         {
@@ -171,6 +219,7 @@ public class UIManager : MonoBehaviour
             // Fallback to a default prefab if no match found
             currentPrefab = LearningUIPrefab;
         }
+        Debug.Log($"<color=yellow>(From ChoosePrefab)Current Prefab: {currentPrefab.name}</color>");
     }
 
     public void LoadWrongUI(GameObject selectedOption)
@@ -308,5 +357,93 @@ public class UIManager : MonoBehaviour
             masterPanel.gameObject.SetActive(true); // Show the dragDropUI
         });
     }
+
+    public void SetChapterDayController(ChapterDayController controller)
+    {
+        chapterDayController = controller;
+    }
+
+    #region IChapterDayView Implementation
+
+    public void DisplayChapters(List<ChapterModel> chapters)
+    {
+        Destroy(dropsUIInstance);
+        print("Destroyed dropsUIInstance");
+        Destroy(chapterSelectionPanelInstance);
+        print("Destroyed chapterSelectionPanelInstance");
+        chapterSelectionPanelInstance = Instantiate(chapterSelectionPanel, transform);
+        print("Instantiated chapterSelectionPanelInstance");
+        container.InjectGameObject(chapterSelectionPanelInstance);
+        print("Injected chapterSelectionPanelInstance into container");
+        var chapterSelectionUI = chapterSelectionPanelInstance.GetComponent<ChapterSelectionUI>();
+        print("Retrieved ChapterSelectionUI component");
+        chapterSelectionUI.DisplayChaptersSelectionUI(chapters, chapterSelectionButtonPrefab, chapterDayController);
+        print("Called DisplayChaptersSelectionUI on ChapterSelectionUI");
+    }
+
+    public void ShowDayLockedMessage(DayModel day)
+    {
+
+    }
+
+    public void LoadDayContent(DayModel day)
+    {
+        Debug.Log($"<color=yellow>Loading day content for day: {day.dayName}</color>");
+        if (day == null)
+        {
+            Debug.LogError("DayModel is null. Cannot load content.");
+            return;
+        }
+
+        // Parse the chapterName and dayName from the DayModel
+        int questionIndex = int.Parse(day.dayName);
+        int levelNumber = int.Parse(day.chapterName);
+        // Update the GameManager's current level and question index
+        GameManager.CurrentQuestionIndex = questionIndex;
+        GameManager.CurrentLevelNumber = levelNumber;
+
+        // Check if the specified level exists in the dictionary
+        if (!GameManager.levelDictionary.TryGetValue(levelNumber, out var levelConfig))
+        {
+            Debug.LogError($"Level {levelNumber} not found in the level dictionary.");
+            return;
+        }
+        var question = levelConfig.question[questionIndex];
+        
+        Destroy(daySelectionPanelInstance);
+        // DestroyCurrentInstance();
+
+        // // Set up UI for just this question
+        // ChoosePrefab(question);
+        // dropsUIInstance = Instantiate(currentPrefab, transform);
+        // container.InjectGameObject(dropsUIInstance);
+        // Debug.Log($"<color=yellow>(From LoadDayContent)Drop UI Instance: {dropsUIInstance.name}</color>");
+        UpdateUIByDay(question);
+
+        Debug.Log($"Loaded Level {levelNumber}, Question {questionIndex}.");
+    }
+
+    public void ShowChapterLockedMessage(ChapterModel chapter)
+    {
+
+    }
+
+    public void LoadChapterContent(ChapterModel chapter)
+    {
+        // Debug.Log($"<color=yellow>Load Chapter Content Called from UIManager</color>");
+
+        // chapterSelectionPanelInstance.SetActive(false);
+        Destroy(chapterSelectionPanelInstance);
+        daySelectionPanelInstance = Instantiate(daySelectionPanel, transform);
+        container.InjectGameObject(chapterSelectionPanelInstance);
+        var daySelectionUI = daySelectionPanelInstance.GetComponent<DaySelectionUI>();
+        daySelectionUI.Populate(chapter, daySelectionButtonPrefab, chapterDayController);
+
+    }
+
+
+
+
+    #endregion
 
 }
