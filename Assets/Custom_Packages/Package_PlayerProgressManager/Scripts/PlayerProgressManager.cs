@@ -10,13 +10,15 @@ namespace PlayerProgressSystem
     {
         //private const string TotalLevelsCompletedKey = "MainLevelsCompleted";
         //private const string TotalSubLevelsCompletedKey = "SubLevelsCompleted";
-        private const string MainLevelKeyPrefix = "MainLevel_";
+        private const string MainLevelStartedKeyPrefix = "MainLevelStarted_";
+        private const string MainLevelCompletedKeyPrefix = "MainLevelCompleted_";
         private const string MainLevelRetryKey = "MainLevelRetry";
         private const string MainLevelTypePrefix = "MainLevelType_";
         private const string LastCompletedMainLevel = "LastCompletedMainLevel";
 
 
-        private const string SubLevelKeyPrefix = "SubLevel_";
+        private const string SubLevelStartedKeyPrefix = "SubLevelStarted_";
+        private const string SubLevelCompletedKeyPrefix = "SubLevelCompleted_";
         private const string SubLevelRetryKey = "SubLevelRetry";
         private const string SubLevelTypePrefix = "SubLevelType_";
         private const string LastSubLevelCompleted= "LastCompletedSubLevel";
@@ -75,13 +77,34 @@ namespace PlayerProgressSystem
 
         #region MainLevel
 
+
+        // This method is called when the main level is started
+        public void MainLevelStarted(string mainLevelID)
+        {
+            // Create a key for the main level
+            string mainLevelKey = MainLevelStartedKeyPrefix + mainLevelID;
+            // Set the value of the key to 1
+            _storage.SetInt(mainLevelKey, 1);
+            // Save the changes
+            _storage.Save();
+        }
+
+        // Check if the main level has started
+        public bool HasMainLevelStarted(string mainLevelID)
+        {
+            // Create a key for the main level
+            string mainLevelKey = MainLevelStartedKeyPrefix + mainLevelID;
+            // Return true if the value of the key is 1, otherwise return false
+            return _storage.GetInt(mainLevelKey, 0) == 1;
+        }
+
         /// <summary>
         /// Call this method when a main level is completed.
         /// </summary>
         public void MainLevelCompleted(string mainLevelID)
         {
             // Create a key for the main level
-            string mainLevelKey = MainLevelKeyPrefix + mainLevelID;
+            string mainLevelKey = MainLevelCompletedKeyPrefix + mainLevelID;
             // Set the value of the key to 1
             _storage.SetInt(mainLevelKey, 1);
             // Set the last completed main level to the current main level
@@ -95,7 +118,7 @@ namespace PlayerProgressSystem
         public bool HasCompletedMainLevel(string mainLevelID)
         {
             // Create a key for the main level
-            string mainLevelKey = MainLevelKeyPrefix + mainLevelID;
+            string mainLevelKey = MainLevelCompletedKeyPrefix + mainLevelID;
             // Return true if the value of the key is 1, otherwise return false
             return _storage.GetInt(mainLevelKey, 0) == 1;
         }
@@ -121,18 +144,35 @@ namespace PlayerProgressSystem
         {
             // Return the last completed main level
             return _storage.GetString(LastCompletedMainLevel, "0");
-        }
+        }
+
 
         #endregion
 
         #region Sub Levels
+
+        public void SubLevelStarted(string subLevelID)
+        {
+            // Create a key for the sub-level
+            string subLevelKey = SubLevelStartedKeyPrefix + subLevelID;
+            // Set the value of the key to 1
+            _storage.SetInt(subLevelKey, 1);
+            // Save the changes
+            _storage.Save();
+        }
+
+        public bool HasStartedSubLevel(string subLevelID)
+        {
+            string subLevelKey = SubLevelStartedKeyPrefix + subLevelID;
+            return _storage.GetInt(subLevelKey, 0) == 1;
+        }
 
         /// <summary>
         /// Call this method when a sub-level is completed.
         /// </summary>
         public void CompleteSubLevel(string subLevelID)
         {
-            string subLevelKey = SubLevelKeyPrefix + subLevelID;
+            string subLevelKey = SubLevelCompletedKeyPrefix + subLevelID;
             _storage.SetInt(subLevelKey, 1);
             _storage.SetString(LastSubLevelCompleted, subLevelID);
             _storage.Save();
@@ -142,7 +182,7 @@ namespace PlayerProgressSystem
         /// </summary>
         public bool HasCompletedSubLevel(string subLevelID)
         {
-            string subLevelKey = SubLevelKeyPrefix + subLevelID;
+            string subLevelKey = SubLevelCompletedKeyPrefix + subLevelID;
             return _storage.GetInt(subLevelKey, 0) == 1;
         }
 
