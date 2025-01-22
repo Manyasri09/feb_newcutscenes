@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
 
     public static event Action<bool> OnQuestionResult;
+    
 
 
     [Inject]
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
 
         // Create and set up the system components
         ChapterDayDataProvider dataProvider = new ChapterDayDataProvider();
-        dataProvider.SetDatatoDataProvider(levelDictionary, playerProgressManager);
+        dataProvider.SetDataToDataProvider(levelDictionary, playerProgressManager);
         controller = new ChapterDayController(dataProvider, uiManager);
         
         // Initialize the view manager
@@ -236,6 +237,7 @@ public class GameManager : MonoBehaviour
             playerProgressManager.CompleteSubLevel(currentQuestion.questionNo.ToString());
             playerProgressManager.SubLevelCompletedType(currentQuestion.optionType.ToString());
             defaultRewardManager.ClaimLevelReward(currentQuestion.questionNo);
+
             return;
         }
         WrongAnswerSelected(selectedOption);
@@ -253,8 +255,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        var currentLevel = levelDictionary[CurrentLevelNumber];
-        var currentQuestion = currentLevel[CurrentQuestionIndex];
+        LevelConfigSO currentLevel = levelDictionary[CurrentLevelNumber];
+        QuestionBaseSO currentQuestion = currentLevel[CurrentQuestionIndex];
 
         bool isCorrect = AnswerChecker.CheckAnswer(currentQuestion, outputText);
         OnQuestionResult?.Invoke(isCorrect);
@@ -263,14 +265,12 @@ public class GameManager : MonoBehaviour
             playerProgressManager.CompleteSubLevel(currentQuestion.questionNo.ToString());
             playerProgressManager.SubLevelCompletedType(currentQuestion.optionType.ToString());
             defaultRewardManager.ClaimLevelReward(currentQuestion.questionNo);
-            // audioManager.PlayCorrectAudio(); 
             GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.correctAnswerSFX);
-            StartCoroutine(WaitAndMoveToNext());   
+            StartCoroutine(WaitAndMoveToNext(currentQuestion));   
         }
         else
         {
             GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.incorrectAnswerSFX);
-            // audioManager.PlayWrongAudio();
             StartCoroutine(WaitAndReload());
         }
     }
@@ -304,14 +304,16 @@ public class GameManager : MonoBehaviour
         GlobalAudioManager.Instance.PlaySFX(GlobalAudioManager.Instance.AudioConfig.correctAnswerSFX);
         uiManager.LoadCorrectUI(questionData);
         Debug.Log("Correct Answer");
-        StartCoroutine(WaitAndMoveToNext());
+        StartCoroutine(WaitAndMoveToNext(questionData));
     }
 
-    private IEnumerator WaitAndMoveToNext()
+    private IEnumerator WaitAndMoveToNext(QuestionBaseSO questionData)
     {
+        yield return new WaitForSeconds(2);
+        uiManager.ShowDayCompletionUI(questionData);
         Debug.Log("Waiting before moving to next question...");
         yield return new WaitForSeconds(3);
-
+        uiManager.DestroyDayCompletionUI();
         MoveToNextQuestion();
         isProcessing = false;
     }
@@ -372,7 +374,8 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles the logic when the play button is clicked in the game. It checks if a daily reward is available, and if so, it loads the daily rewards panel. Otherwise, it loads the current level.
+    /// Handles the logic when the play button is clicked in the game. 
+    /// It checks if a daily reward is available, and if so, it loads the daily rewards panel. Otherwise, it loads the current level.
     /// </summary>
     public void OnPlayButtonClicked()
     {
