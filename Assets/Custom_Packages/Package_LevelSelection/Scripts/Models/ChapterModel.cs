@@ -11,28 +11,32 @@ namespace LevelSelectionPackage.Models
     /// saving/loading and inspector visibility.
     /// </summary>
     [System.Serializable]
+    /// <summary>
+    /// Represents a chapter containing multiple days of content or levels.
+    /// </summary>
     public class ChapterModel
     {
         /// <summary>
-        /// The display name of the chapter
+        /// Gets or sets the display name of the chapter.
         /// </summary>
-        public string chapterName;
-
-        public int chapterNumber;
+        public string StrChapterName { get; set; }
 
         /// <summary>
-        /// Collection of days contained within this chapter
-        /// Each day represents a discrete content unit or level
+        /// Gets or sets the numerical identifier for the chapter.
         /// </summary>
-        public List<DayModel> days;
+        public int ChapterNumber { get; set; }
 
         /// <summary>
-        /// Indicates whether this chapter is currently locked
-        /// Used to control access to chapter content
+        /// Gets or sets the collection of days contained within this chapter.
+        /// Each day represents a discrete content unit or level.
         /// </summary>
-        public bool isLocked;
+        public List<DayModel> DaysObj { get; set; }
 
-        
-
+        /// <summary>
+        /// Gets or sets a value indicating whether this chapter is currently locked.
+        /// Used to control access to chapter content.
+        /// </summary>
+        public bool IsLocked { get; set; }
     }
+
 }

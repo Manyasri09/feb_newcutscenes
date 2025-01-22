@@ -50,7 +50,7 @@ namespace LevelSelectionPackage.Views
             {
                 var chapterObj = Instantiate(chapterPrefab, chapterContainer);
                 chapterObj.Initialize(chapterData, controller);
-                Debug.Log($"Initialized chapter UI element for chapter: {chapterData.chapterName}");
+                Debug.Log($"Initialized chapter UI element for chapter: {chapterData.StrChapterName}");
             }
 
         }

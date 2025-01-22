@@ -17,21 +17,21 @@ namespace LevelSelectionPackage.Models
         /// <summary>
         /// The display name of the day
         /// </summary>
-        public string dayName;
+        public string StrDayName { get; set; }
 
         /// <summary>
         /// The display number of the day
         /// </summary>
-        public int dayNumber;
+        public int DayNumber { get; set; }
 
         /// <summary>
         /// Indicates whether this day is currently locked
         /// Used to control access to day content
         /// </summary>
-        public bool isLocked;
+        public bool IsLocked { get; set; }
         /// <summary>
         /// Name of the chapter this day belongs to
         /// </summary>
-        public int chapterNumber;  
+        public int ChapterNumber { get; set; }
     }
 }

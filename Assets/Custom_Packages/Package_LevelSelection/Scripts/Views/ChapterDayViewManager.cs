@@ -86,7 +86,7 @@ namespace LevelSelectionPackage.Views
         /// <param name="day">The locked day model</param>
         public void ShowDayLockedMessage(DayModel day)
         {
-            Debug.Log($"Day {day.dayName} is locked!");
+            Debug.Log($"Day {day.StrDayName} is locked!");
             // TODO: Implement UI notification system for locked content
         }
 
@@ -97,7 +97,7 @@ namespace LevelSelectionPackage.Views
         /// <param name="day">The day model to load</param>
         public void LoadDayContent(DayModel day)
         {
-            Debug.Log($"Loading Day {day.dayName} content...");
+            Debug.Log($"Loading Day {day.StrDayName} content...");
             // TODO: Implement actual content loading logic
         }
 
@@ -108,7 +108,7 @@ namespace LevelSelectionPackage.Views
         /// <param name="chapter">The locked chapter model</param>
         public void ShowChapterLockedMessage(ChapterModel chapter)
         {
-            Debug.Log($"Chapter {chapter.chapterName} is locked!");
+            Debug.Log($"Chapter {chapter.StrChapterName} is locked!");
             // TODO: Implement UI notification system for locked content
         }
 
@@ -119,7 +119,7 @@ namespace LevelSelectionPackage.Views
         /// <param name="chapter">The chapter model to load</param>
         public void LoadChapterContent(ChapterModel chapter)
         {
-            Debug.Log($"Loading Chapter {chapter.chapterName} content...");
+            Debug.Log($"Loading Chapter {chapter.StrChapterName} content...");
             var daySelectionUI = daysParentPrefab.GetComponent<DaySelectionUI>();
             daySelectionUI.Populate(chapter, dayUIPrefab, controller);
             chaptersParentPrefab.SetActive(false);

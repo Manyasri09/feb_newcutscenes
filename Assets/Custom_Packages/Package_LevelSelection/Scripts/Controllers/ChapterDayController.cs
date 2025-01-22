@@ -65,16 +65,16 @@ namespace LevelSelectionPackage.Controllers
         /// based on the day's locked status.
         /// </summary>
         /// <param name="day">The day model that was selected by the user</param>
-        public void OnDaySelected(DayModel day)
+        public void OnDaySelected(DayModel dayObj)
         {
             // Check if the day is locked and handle accordingly
-            if (day.isLocked)
+            if (dayObj.IsLocked)
             {
-                view.ShowDayLockedMessage(day);
+                view.ShowDayLockedMessage(dayObj);
             }
             else
             {
-                view.LoadDayContent(day);
+                view.LoadDayContent(dayObj);
             }
         }
 
@@ -84,16 +84,16 @@ namespace LevelSelectionPackage.Controllers
         /// based on the chapter's locked status.
         /// </summary>
         /// <param name="chapter">The chapter model that was selected by the user</param>
-        public void OnChapterSelected(ChapterModel chapter)
+        public void OnChapterSelected(ChapterModel chapterObj)
         {
             // Check if the chapter is locked and handle accordingly
-            if (chapter.isLocked)
+            if (chapterObj.IsLocked)
             {
-                view.ShowChapterLockedMessage(chapter);
+                view.ShowChapterLockedMessage(chapterObj);
             }
             else
             {
-                view.LoadChapterContent(chapter);
+                view.LoadChapterContent(chapterObj);
             }
         }
     }

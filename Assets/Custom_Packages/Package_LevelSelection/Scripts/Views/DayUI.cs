@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using LevelSelectionPackage.Models;
 using LevelSelectionPackage.Controllers;
+using System;
 
 namespace LevelSelectionPackage.Views
 {
@@ -30,7 +31,7 @@ namespace LevelSelectionPackage.Views
         [SerializeField] private Button dayButton;
 
         // Reference to the day's data model
-        private DayModel dayData;
+        private DayModel dayDataObj;
         // Reference to the controller for handling day interactions
         private ChapterDayController controllerRef;
 
@@ -40,28 +41,28 @@ namespace LevelSelectionPackage.Views
         /// </summary>
         /// <param name="day">The data model containing day information</param>
         /// <param name="controller">Reference to the controller for handling day interactions</param>
-        public void Initialize(DayModel day, ChapterDayController controller)
+        public void Initialize(string StrDayName, DayModel dayObj, ChapterDayController controller)
         {
             // Store references for later use
-            dayData = day;
+            dayDataObj = dayObj;
             controllerRef = controller;
 
             // Update day name display if text component exists
             if (dayNameText != null)
-                dayNameText.text = day.dayName;
+                dayNameText.text = StrDayName;
 
             // Toggle lock icon visibility based on day state
             if (lockIcon != null)
             {
-                dayNameText.gameObject.SetActive(!day.isLocked);
-                lockIcon.SetActive(day.isLocked);
+                // dayNameText.gameObject.SetActive(!day.isLocked);
+                lockIcon.SetActive(dayObj.IsLocked);
             }
 
             // Configure button interactivity and click handling
             if (dayButton != null)
             {
                 // Disable button if day is locked
-                dayButton.interactable = !day.isLocked;
+                dayButton.interactable = !dayObj.IsLocked;
                 // Clear any existing listeners to prevent duplicates
                 dayButton.onClick.RemoveAllListeners();
                 // Add click handler
@@ -75,7 +76,7 @@ namespace LevelSelectionPackage.Views
         /// </summary>
         private void OnDayClicked()
         {
-            controllerRef.OnDaySelected(dayData);
+            controllerRef.OnDaySelected(dayDataObj);
         }
     }
 }

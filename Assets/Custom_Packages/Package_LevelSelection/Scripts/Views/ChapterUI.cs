@@ -31,7 +31,7 @@ namespace LevelSelectionPackage.Views
         [SerializeField] private Color ActiveColor;
 
         // Reference to the chapter's data model
-        private ChapterModel chapterData;
+        private ChapterModel chapterDataObj;
         // Reference to the controller for handling chapter interactions
         private ChapterDayController controllerRef;
 
@@ -41,30 +41,28 @@ namespace LevelSelectionPackage.Views
         /// </summary>
         /// <param name="chapter">The data model containing chapter information</param>
         /// <param name="controller">Reference to the controller for handling chapter interactions</param>
-        public void Initialize(ChapterModel chapter, ChapterDayController controller)
+        public void Initialize(ChapterModel chapterObj, ChapterDayController controller)
         {
             // Store references for later use
-            chapterData = chapter;
+            chapterDataObj = chapterObj;
             controllerRef = controller;
 
             
             // Update chapter name display if text component exists
             if (chapterNameText != null)
-                chapterNameText.text = chapter.chapterName;
+                chapterNameText.text = chapterObj.StrChapterName;
             // Toggle lock icon visibility based on chapter state
             if (lockIcon != null)
             {
-                chapterNameText.gameObject.SetActive(!chapter.isLocked);
-                lockIcon.SetActive(chapter.isLocked);
+                // chapterNameText.gameObject.SetActive(!chapter.IsLocked);
+                lockIcon.SetActive(chapterObj.IsLocked);
             }
-
-            
 
             // Adjust button interactability if locked
             if (chapterButton != null)
             {
                 // Disable button if chapter is locked
-                chapterButton.interactable = !chapter.isLocked;
+                chapterButton.interactable = !chapterObj.IsLocked;
                 // Clear any existing listeners to prevent duplicates
                 chapterButton.onClick.RemoveAllListeners();
                 // Add click handler to the button
@@ -79,7 +77,7 @@ namespace LevelSelectionPackage.Views
         private void OnChapterClicked()
         {
             // Forward to the controller
-            controllerRef.OnChapterSelected(chapterData);
+            controllerRef.OnChapterSelected(chapterDataObj);
         }
 
     }

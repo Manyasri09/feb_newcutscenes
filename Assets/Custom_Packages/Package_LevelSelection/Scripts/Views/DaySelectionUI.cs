@@ -34,7 +34,7 @@ namespace LevelSelectionPackage.Views
         {
             // Update chapter title if the text component exists
             if (chapterTitle != null)
-                chapterTitle.text = chapter.chapterName;
+                chapterTitle.text = chapter.StrChapterName;
 
             // Clean up any existing day UI elements to prevent duplicates
             // and memory leaks
@@ -47,7 +47,7 @@ namespace LevelSelectionPackage.Views
             // Each day is instantiated as a child of the container and
             // initialized with its corresponding data
             int dayIndex = 1;
-            foreach (var dayData in chapter.days)
+            foreach (var dayData in chapter.DaysObj)
             {
                 var dayObj = Instantiate(dayUIPrefab, dayContainer);
                 dayObj.Initialize(dayIndex.ToString(),dayData, controller);

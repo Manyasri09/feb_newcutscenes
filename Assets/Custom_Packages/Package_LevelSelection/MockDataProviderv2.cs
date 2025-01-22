@@ -18,14 +18,14 @@ namespace MyChapterDayPackage
             // Chapter 1 - Unlocked with some locked days
             var chapter1 = new ChapterModel
             {
-                chapterName = "Chapter 1: Beginning",
-                isLocked = false,
-                days = new List<DayModel>
+                StrChapterName = "Chapter 1: Beginning",
+                IsLocked = false,
+                DaysObj = new List<DayModel>
                 {
-                    new DayModel { dayName = "1", isLocked = false },
-                    new DayModel { dayName = "2", isLocked = false },
-                    new DayModel { dayName = "3", isLocked = true },
-                    new DayModel { dayName = "4", isLocked = true }
+                    new DayModel { StrDayName = "1", IsLocked = false },
+                    new DayModel { StrDayName = "2", IsLocked = false },
+                    new DayModel { StrDayName = "3", IsLocked = true },
+                    new DayModel { StrDayName = "4", IsLocked = true }
                 }
             };
             chapters.Add(chapter1);
@@ -33,13 +33,13 @@ namespace MyChapterDayPackage
             // Chapter 2 - Unlocked with all days locked
             var chapter2 = new ChapterModel
             {
-                chapterName = "Chapter 2: Intermediate",
-                isLocked = false,
-                days = new List<DayModel>
+                StrChapterName = "Chapter 2: Intermediate",
+                IsLocked = false,
+                DaysObj = new List<DayModel>
                 {
-                    new DayModel { dayName = "1", isLocked = false },
-                    new DayModel { dayName = "2", isLocked = true },
-                    new DayModel { dayName = "3", isLocked = true }
+                    new DayModel { StrDayName = "1", IsLocked = false },
+                    new DayModel { StrDayName = "2", IsLocked = true },
+                    new DayModel { StrDayName = "3", IsLocked = true }
                 }
             };
             chapters.Add(chapter2);
@@ -47,13 +47,13 @@ namespace MyChapterDayPackage
             // Chapter 3 - Locked
             var chapter3 = new ChapterModel
             {
-                chapterName = "Chapter 3: Advanced",
-                isLocked = true,
-                days = new List<DayModel>
+                StrChapterName = "Chapter 3: Advanced",
+                IsLocked = true,
+                DaysObj = new List<DayModel>
                 {
-                    new DayModel { dayName = "1", isLocked = true },
-                    new DayModel { dayName = "2", isLocked = true },
-                    new DayModel { dayName = "3", isLocked = true }
+                    new DayModel { StrDayName = "1", IsLocked = true },
+                    new DayModel { StrDayName = "2", IsLocked = true },
+                    new DayModel { StrDayName = "3", IsLocked = true }
                 }
             };
             chapters.Add(chapter3);

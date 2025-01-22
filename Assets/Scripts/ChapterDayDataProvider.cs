@@ -11,7 +11,7 @@ public class ChapterDayDataProvider : IChapterDayDataProvider
 
     private PlayerProgressManager playerProgressManager;
 
-    public void SetDatatoDataProvider(Dictionary<int, LevelConfigSO> levelDictionary, PlayerProgressManager playerProgressManager) //TODO: Mention that level in this project is same as chapter
+    public void SetDataToDataProvider(Dictionary<int, LevelConfigSO> levelDictionary, PlayerProgressManager playerProgressManager) //TODO: Mention that level in this project is same as chapter
     {
         this.levelDictionary = levelDictionary;
         this.playerProgressManager = playerProgressManager;
@@ -35,13 +35,13 @@ public class ChapterDayDataProvider : IChapterDayDataProvider
             //     days = new List<DayModel>(),
             //     isLocked = !playerProgressManager.HasMainLevelStarted(level.Key.ToString()),
             // };
-            chapter.chapterName = "Chapter " + level.Key.ToString();
-            chapter.chapterNumber = level.Key;
-            chapter.days = new List<DayModel>();
-            chapter.isLocked = !playerProgressManager.HasMainLevelStarted(level.Key.ToString());
+            chapter.StrChapterName = "Chapter " + level.Key.ToString();
+            chapter.ChapterNumber = level.Key;
+            chapter.DaysObj = new List<DayModel>();
+            chapter.IsLocked = !playerProgressManager.HasMainLevelStarted(level.Key.ToString());
 
 
-            SetDayData(chapter.days, level.Value, level.Key);
+            SetDayData(chapter.DaysObj, level.Value, level.Key);
             chapters.Add(chapter);
 
         }
@@ -86,9 +86,9 @@ public class ChapterDayDataProvider : IChapterDayDataProvider
                                 !playerProgressManager.HasCompletedSubLevel(question.questionNo.ToString());
 
                 var dayObj = new DayModel();
-                dayObj.dayNumber = questionIndex;
-                dayObj.isLocked = isLocked;
-                dayObj.chapterNumber = chapterNumber;
+                dayObj.DayNumber = questionIndex;
+                dayObj.IsLocked = isLocked;
+                dayObj.ChapterNumber = chapterNumber;
 
 
                 dayList.Add(dayObj);
