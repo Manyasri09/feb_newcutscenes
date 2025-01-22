@@ -395,6 +395,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
         print("Destroyed dropsUIInstance");
         Destroy(chapterSelectionPanelInstance);
         print("Destroyed chapterSelectionPanelInstance");
+        Destroy(daySelectionPanelInstance);
         chapterSelectionPanelInstance = Instantiate(chapterSelectionPanel, transform);
         print("Instantiated chapterSelectionPanelInstance");
         container.InjectGameObject(chapterSelectionPanelInstance);
