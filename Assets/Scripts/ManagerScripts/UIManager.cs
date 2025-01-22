@@ -4,10 +4,13 @@ using VContainer;
 using ezygamers.cmsv1;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 using UnityEngine.UI;
 using LevelSelectionPackage.Views;
 using LevelSelectionPackage.Models;
 using LevelSelectionPackage.Controllers;
+using TMPro;
+using System.Security.Cryptography;
 
 
 // TODO: Refactor UIManager.cs to follow Single Responsibility Principle by:
@@ -39,7 +42,8 @@ public class UIManager : MonoBehaviour, IChapterDayView
     public GameObject ThreeWordLineDrag;
     public GameObject TutorialPopUpWindow;
 
-    
+    public GameObject dayCompletePanel;
+
 
     private LevelConfigSO levelSO;     //private LevelSO to hold data -rohan37kumar
     private GameObject currentPrefab;
@@ -55,6 +59,8 @@ public class UIManager : MonoBehaviour, IChapterDayView
     private GameObject dailyRewardsInstance;
     private GameObject playButtonInstance;
     private GameObject settingsUIInstance;
+
+    private GameObject dayCompletionUIInstance;
     public Text coinsAmount;
 
     [Header("Chapter Selection")]
@@ -163,19 +169,23 @@ public class UIManager : MonoBehaviour, IChapterDayView
 
     }
 
-    private void UpdateUIByDay(QuestionBaseSO questionData)
+    public void ShowDayCompletionUI(QuestionBaseSO questionData)
     {
-        LoadDropsUIByDay(questionData);
-        PrefabUIManager dragDropUI = null;
-
-        dragDropUI = dropsUIInstance.GetComponent<PrefabUIManager>();
-        if (dragDropUI == null)
+        if (!(questionData.optionType == OptionType.Learning))
         {
-            Debug.LogError("No PrefabUIManager or LineDragMasterPanelManager found on UI instance");
-            return;
+            // Create the day completion UI
+            dayCompletionUIInstance = Instantiate(dayCompletePanel, transform);
+            TMP_Text dayCompletionText = dayCompletionUIInstance.GetComponentInChildren<TMP_Text>();
+            dayCompletionText.text = $"Day {questionData.questionNo - 1} Completed!";
         }
-        dragDropUI.LoadQuestionData(questionData);
+
     }
+
+    public void DestroyDayCompletionUI()
+    {
+        Destroy(dayCompletionUIInstance);
+    }
+
 
     //If the answer is correct, set Tutorial pop as 1 (as shown)
     private void HandleTutorialPopup(bool isCorrect)
@@ -256,6 +266,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
             return;
         }
         dropsUIInstance.GetComponent<CorrectDisplayHelper>().DisplayCorrectUI(questionData);
+        
     }
 
     public GameObject LoadPlayButtonPanel()
@@ -285,7 +296,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
         if (settingsUIInstance == null)
         {
             // Make sure any existing animations are properly stopped
-            var helper = dropsUIInstance.GetComponentInChildren<ObjectMovementHelper>();
+            ObjectMovementHelper helper = dropsUIInstance.GetComponentInChildren<ObjectMovementHelper>();
             if (helper != null)
             {
                 helper.StopPromptAnimation();
@@ -294,7 +305,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
             dropsUIInstance.SetActive(false);
             settingsUIInstance = Instantiate(settingsUIPanel, transform);
             container.InjectGameObject(settingsUIInstance);
-            var settingsPanel = settingsUIInstance.GetComponentInChildren<SettingsPanelUI>();
+            SettingsPanelUI settingsPanel = settingsUIInstance.GetComponentInChildren<SettingsPanelUI>();
             settingsPanel.settingsCloseButton.onClick.AddListener(CloseSettingsPanel);
         }
     }
@@ -387,86 +398,88 @@ public class UIManager : MonoBehaviour, IChapterDayView
 
     #region IChapterDayView Implementation
 
-    public void DisplayChapters(List<ChapterModel> chapters)
-    {
-        settingsButton.SetActive(false);
-        BackButton.SetActive(true);
-        Destroy(dropsUIInstance);
-        print("Destroyed dropsUIInstance");
-        Destroy(chapterSelectionPanelInstance);
-        print("Destroyed chapterSelectionPanelInstance");
-        Destroy(daySelectionPanelInstance);
-        chapterSelectionPanelInstance = Instantiate(chapterSelectionPanel, transform);
-        print("Instantiated chapterSelectionPanelInstance");
-        container.InjectGameObject(chapterSelectionPanelInstance);
-        print("Injected chapterSelectionPanelInstance into container");
-        var chapterSelectionUI = chapterSelectionPanelInstance.GetComponent<ChapterSelectionUI>();
-        print("Retrieved ChapterSelectionUI component");
-        chapterSelectionUI.DisplayChaptersSelectionUI(chapters, chapterSelectionButtonPrefab, chapterDayController);
-        print("Called DisplayChaptersSelectionUI on ChapterSelectionUI");
-    }
-
-    public void ShowDayLockedMessage(DayModel day)
-    {
-
-    }
-
-    public void LoadDayContent(DayModel day)
-    {
-        Destroy(daySelectionPanelInstance);
-        Debug.Log($"<color=yellow>Loading day content for day: {day.dayName}</color>");
-        if (day == null)
+        public void DisplayChapters(List<ChapterModel> chapters)
         {
-            Debug.LogError("DayModel is null. Cannot load content.");
-            return;
+            settingsButton.SetActive(false);
+            BackButton.SetActive(true);
+            Destroy(dropsUIInstance);
+            print("Destroyed dropsUIInstance");
+            Destroy(chapterSelectionPanelInstance);
+            print("Destroyed chapterSelectionPanelInstance");
+            Destroy(daySelectionPanelInstance);
+            chapterSelectionPanelInstance = Instantiate(chapterSelectionPanel, transform);
+            print("Instantiated chapterSelectionPanelInstance");
+            container.InjectGameObject(chapterSelectionPanelInstance);
+            print("Injected chapterSelectionPanelInstance into container");
+            var chapterSelectionUI = chapterSelectionPanelInstance.GetComponent<ChapterSelectionUI>();
+            print("Retrieved ChapterSelectionUI component");
+            chapterSelectionUI.DisplayChaptersSelectionUI(chapters, chapterSelectionButtonPrefab, chapterDayController);
+            print("Called DisplayChaptersSelectionUI on ChapterSelectionUI");
         }
 
-        // Parse the chapterName and dayName from the DayModel
-        int questionNumber = day.dayNumber;
-        int levelNumber = day.chapterNumber;
-        // Update the GameManager's current level and question index
-        GameManager.CurrentQuestionIndex = questionNumber;
-        GameManager.CurrentLevelNumber = levelNumber;
-
-        // Check if the specified level exists in the dictionary
-        if (!GameManager.levelDictionary.TryGetValue(levelNumber, out LevelConfigSO levelConfig))
+        public void ShowDayLockedMessage(DayModel day)
         {
-            Debug.LogError($"Level {levelNumber} not found in the level dictionary.");
-            return;
-        }
-        QuestionBaseSO question = levelConfig[questionNumber]; 
-        if (questionNumber > 0 && levelConfig[questionNumber - 1].optionType == OptionType.Learning)
-        {
-            GameManager.CurrentQuestionIndex = questionNumber - 1;
-            UpdateUI(levelConfig[questionNumber - 1]);
 
         }
-        else
-            UpdateUI(question);
 
-        Destroy(daySelectionPanelInstance);
-        // UpdateUIByDay(question);
+        public void LoadDayContent(DayModel day)
+        {
+            Destroy(daySelectionPanelInstance);
+            settingsButton.SetActive(true);
+            BackButton.SetActive(false);
+            Debug.Log($"<color=yellow>Loading day content for day: {day.StrDayName}</color>");
+            if (day == null)
+            {
+                Debug.LogError("DayModel is null. Cannot load content.");
+                return;
+            }
 
-        Debug.Log($"Loaded Level {levelNumber}, Question {questionNumber}.");
-    }
+            // Parse the chapterName and dayName from the DayModel
+            int questionNumber = day.DayNumber;
+            int levelNumber = day.ChapterNumber;
+            // Update the GameManager's current level and question index
+            GameManager.CurrentQuestionIndex = questionNumber;
+            GameManager.CurrentLevelNumber = levelNumber;
 
-    public void ShowChapterLockedMessage(ChapterModel chapter)
-    {
+            // Check if the specified level exists in the dictionary
+            if (!GameManager.levelDictionary.TryGetValue(levelNumber, out LevelConfigSO levelConfig))
+            {
+                Debug.LogError($"Level {levelNumber} not found in the level dictionary.");
+                return;
+            }
+            QuestionBaseSO question = levelConfig[questionNumber]; 
+            if (questionNumber > 0 && levelConfig[questionNumber - 1].optionType == OptionType.Learning)
+            {
+                GameManager.CurrentQuestionIndex = questionNumber - 1;
+                UpdateUI(levelConfig[questionNumber - 1]);
 
-    }
+            }
+            else
+                UpdateUI(question);
 
-    public void LoadChapterContent(ChapterModel chapter)
-    {
-        // Debug.Log($"<color=yellow>Load Chapter Content Called from UIManager</color>");
+            Destroy(daySelectionPanelInstance);
+            // UpdateUIByDay(question);
 
-        // chapterSelectionPanelInstance.SetActive(false);
-        Destroy(chapterSelectionPanelInstance);
-        daySelectionPanelInstance = Instantiate(daySelectionPanel, transform);
-        container.InjectGameObject(chapterSelectionPanelInstance);
-        var daySelectionUI = daySelectionPanelInstance.GetComponent<DaySelectionUI>();
-        daySelectionUI.Populate(chapter, daySelectionButtonPrefab, chapterDayController);
+            Debug.Log($"Loaded Level {levelNumber}, Question {questionNumber}.");
+        }
 
-    }
+        public void ShowChapterLockedMessage(ChapterModel chapter)
+        {
+
+        }
+
+        public void LoadChapterContent(ChapterModel chapter)
+        {
+            // Debug.Log($"<color=yellow>Load Chapter Content Called from UIManager</color>");
+
+            // chapterSelectionPanelInstance.SetActive(false);
+            Destroy(chapterSelectionPanelInstance);
+            daySelectionPanelInstance = Instantiate(daySelectionPanel, transform);
+            container.InjectGameObject(chapterSelectionPanelInstance);
+            var daySelectionUI = daySelectionPanelInstance.GetComponent<DaySelectionUI>();
+            daySelectionUI.Populate(chapter, daySelectionButtonPrefab, chapterDayController);
+
+        }
 
 
 
