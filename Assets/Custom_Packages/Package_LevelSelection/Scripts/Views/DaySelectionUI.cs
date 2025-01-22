@@ -46,10 +46,12 @@ namespace LevelSelectionPackage.Views
             // Create new UI elements for each day in the chapter
             // Each day is instantiated as a child of the container and
             // initialized with its corresponding data
+            int dayIndex = 1;
             foreach (var dayData in chapter.days)
             {
                 var dayObj = Instantiate(dayUIPrefab, dayContainer);
-                dayObj.Initialize(dayData, controller);
+                dayObj.Initialize(dayIndex.ToString(),dayData, controller);
+                dayIndex++;
             }
         }
     }
