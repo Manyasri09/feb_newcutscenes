@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using GlobalAudioManagerPackage;
+using TMPro;
 
 /// <summary>
 /// Manages the display of correct answer UI elements and animations in a quiz/learning game.
@@ -57,6 +58,9 @@ public class CorrectDisplayHelper : MonoBehaviour
     /// </summary>
     [SerializeField] private Text wordPair;
 
+    [SerializeField] private TMP_Text dayAcknowledgementText;
+    
+
     /// <summary>
     /// Displays the correct answer UI with appropriate visuals and animations.
     /// Handles both learning-type questions and regular questions with options.
@@ -82,6 +86,10 @@ public class CorrectDisplayHelper : MonoBehaviour
                     wordPair.text = questionData.options[i].text + " - " + hindiText.text;
                 }
             }
+
+            dayAcknowledgementText.text = "Day " + (questionData.questionNo - 1).ToString() + " Completed"; 
+
+
         }
 
         Debug.Log("displaying correct UI");

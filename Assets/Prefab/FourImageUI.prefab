@@ -1539,6 +1539,7 @@ MonoBehaviour:
   confettiEffect: {fileID: 6369866390386221902}
   imageHolder: {fileID: 1522496114271407981}
   wordPair: {fileID: 4681288280264926800}
+  dayAcknowledgementText: {fileID: 7228901675768251513}
 --- !u!1 &5202242321473087898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,6 +3193,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5937759171388045227, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
   m_PrefabInstance: {fileID: 720970914527532261}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7228901675768251513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7949786810528944284, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
+  m_PrefabInstance: {fileID: 720970914527532261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8591111324104668958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9023143278741382139, guid: c8387581fa23dc246b8cf0cb1b923b55, type: 3}
