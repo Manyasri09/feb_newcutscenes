@@ -37,5 +37,7 @@ public class GameLifetimeScope : LifetimeScope
 
         builder.Register<DailyRewardsUI>(Lifetime.Singleton);
 
+        builder.Register<ChapterDayDataProvider>(Lifetime.Singleton);
+
     }
 }
