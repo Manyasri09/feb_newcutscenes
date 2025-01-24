@@ -427,7 +427,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
             Destroy(daySelectionPanelInstance);
             settingsButton.SetActive(true);
             BackButton.SetActive(false);
-            Debug.Log($"<color=yellow>Loading day content for day: {day.StrDayName}</color>");
+            Debug.Log($"Loading day content for day: {day.DayNumber}");
             if (day == null)
             {
                 Debug.LogError("DayModel is null. Cannot load content.");
@@ -447,6 +447,7 @@ public class UIManager : MonoBehaviour, IChapterDayView
                 Debug.LogError($"Level {levelNumber} not found in the level dictionary.");
                 return;
             }
+            
             QuestionBaseSO question = levelConfig[questionNumber]; 
             if (questionNumber > 0 && levelConfig[questionNumber - 1].optionType == OptionType.Learning)
             {
