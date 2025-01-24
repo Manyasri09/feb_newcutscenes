@@ -165,6 +165,7 @@ public class GameManager : MonoBehaviour
             // Start from the first level if no valid data is found
             CurrentLevelNumber = 1;
         }
+        
 
         Debug.Log($"Starting from Level Number: {CurrentLevelNumber}");
 
@@ -309,6 +310,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitAndMoveToNext(QuestionBaseSO questionData)
     {
+        dayButton.enabled = false;
         yield return new WaitForSeconds(2);
         uiManager.ShowDayCompletionUI(questionData);
         Debug.Log("Waiting before moving to next question...");
@@ -332,6 +334,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void MoveToNextQuestion()
     {
+        dayButton.enabled = true;
         CurrentQuestionIndex++;
         ProgressBar.value++;
 
