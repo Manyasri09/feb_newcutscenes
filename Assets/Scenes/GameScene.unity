@@ -407,7 +407,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 122, y: -118.875}
-  m_SizeDelta: {x: 130, y: 130}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239517146
 MonoBehaviour:
@@ -1814,7 +1814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2443991793130014017, guid: 4dff0ff6b7495e341ba72eb3c042329f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5048732892006572126, guid: 4dff0ff6b7495e341ba72eb3c042329f, type: 3}
       propertyPath: audioConfig
