@@ -26,9 +26,10 @@ namespace LevelSelectionPackage.Views
         /// </summary>
         [SerializeField] private Button chapterButton;
 
-        [SerializeField] private Image chapterButtonBackgroundImage;
-        [SerializeField] private Color DefaultColor;
-        [SerializeField] private Color ActiveColor;
+        [SerializeField] private Outline activeOutline;
+
+        [SerializeField] private Color inactiveOutlineColor;
+        [SerializeField] private Color activeOutlineColor;
 
         // Reference to the chapter's data model
         private ChapterModel chapterDataObj;
@@ -68,6 +69,8 @@ namespace LevelSelectionPackage.Views
                 // Add click handler to the button
                 chapterButton.onClick.AddListener(OnChapterClicked);
             }
+
+            activeOutline.effectColor = chapterObj.IsActive ? activeOutlineColor : inactiveOutlineColor;
         }
 
         /// <summary>
@@ -79,6 +82,8 @@ namespace LevelSelectionPackage.Views
             // Forward to the controller
             controllerRef.OnChapterSelected(chapterDataObj);
         }
+
+        
 
     }
 }

@@ -22,8 +22,8 @@ namespace MyChapterDayPackage
                 IsLocked = false,
                 DaysObj = new List<DayModel>
                 {
-                    new DayModel { StrDayName = "1", IsLocked = false },
-                    new DayModel { StrDayName = "2", IsLocked = false },
+                    new DayModel { StrDayName = "1", IsLocked = false, IsCompleted = true },
+                    new DayModel { StrDayName = "2", IsLocked = false},
                     new DayModel { StrDayName = "3", IsLocked = true },
                     new DayModel { StrDayName = "4", IsLocked = true }
                 }

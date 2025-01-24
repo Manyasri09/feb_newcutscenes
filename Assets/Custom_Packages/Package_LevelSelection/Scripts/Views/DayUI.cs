@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using LevelSelectionPackage.Models;
 using LevelSelectionPackage.Controllers;
-using System;
 
 namespace LevelSelectionPackage.Views
 {
@@ -23,6 +22,9 @@ namespace LevelSelectionPackage.Views
         /// This GameObject is toggled based on the day's lock status
         /// </summary>
         [SerializeField] private GameObject lockIcon;
+
+        [SerializeField] private GameObject completedIcon;
+        [SerializeField] private GameObject activeIcon;
 
         /// <summary>
         /// Button component that handles user interaction with the day
@@ -57,6 +59,14 @@ namespace LevelSelectionPackage.Views
                 // dayNameText.gameObject.SetActive(!day.isLocked);
                 lockIcon.SetActive(dayObj.IsLocked);
             }
+            if (completedIcon != null)
+            {
+                completedIcon.SetActive(dayObj.IsCompleted);
+            }
+            if (activeIcon != null)
+            {
+                activeIcon.SetActive(dayObj.IsActive);
+            }
 
             // Configure button interactivity and click handling
             if (dayButton != null)
@@ -69,6 +79,7 @@ namespace LevelSelectionPackage.Views
                 dayButton.onClick.AddListener(OnDayClicked);
             }
         }
+
 
         /// <summary>
         /// Handles the day button click event.

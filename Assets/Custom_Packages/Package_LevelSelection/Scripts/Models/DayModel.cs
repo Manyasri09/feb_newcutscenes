@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ezygamers.cmsv1;
 
 namespace LevelSelectionPackage.Models
 {
@@ -33,5 +32,9 @@ namespace LevelSelectionPackage.Models
         /// Name of the chapter this day belongs to
         /// </summary>
         public int ChapterNumber { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public bool IsCompleted { get; set; }
     }
 }

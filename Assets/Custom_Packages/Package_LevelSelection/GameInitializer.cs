@@ -30,6 +30,7 @@ namespace MyChapterDayPackage
             
             // Initialize the view manager
             viewManager.Initialize(controller);
+            controller.sendChaptersToView();
 
             Debug.Log("Chapter-Day system initialized successfully!");
         }

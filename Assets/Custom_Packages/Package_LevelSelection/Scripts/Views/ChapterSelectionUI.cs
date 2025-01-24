@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using LevelSelectionPackage.Models;
 using LevelSelectionPackage.Controllers;
@@ -19,9 +18,6 @@ namespace LevelSelectionPackage.Views
         /// will be instantiated as children of this transform.
         /// </summary>
         [SerializeField] private Transform chapterContainer;
-        // Keep track of instantiated chapter objects
-        
-        
 
         /// <summary>
         /// Creates and initializes UI elements for each chapter in the provided list.
@@ -54,6 +50,5 @@ namespace LevelSelectionPackage.Views
             }
 
         }
-
     }
 }

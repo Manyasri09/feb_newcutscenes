@@ -11,9 +11,6 @@ namespace LevelSelectionPackage.Models
     /// saving/loading and inspector visibility.
     /// </summary>
     [System.Serializable]
-    /// <summary>
-    /// Represents a chapter containing multiple days of content or levels.
-    /// </summary>
     public class ChapterModel
     {
         /// <summary>
@@ -37,6 +34,7 @@ namespace LevelSelectionPackage.Models
         /// Used to control access to chapter content.
         /// </summary>
         public bool IsLocked { get; set; }
-    }
 
+        public bool IsActive { get; set; }
+    }
 }

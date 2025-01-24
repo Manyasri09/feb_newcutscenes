@@ -67,12 +67,12 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 250
-    m_Bottom: 0
+    m_Bottom: 50
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 970, y: 1300}
-  m_Spacing: {x: 0, y: 100}
+  m_CellSize: {x: 820, y: 1300}
+  m_Spacing: {x: 0, y: 300}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!1 &5662871470316104520
@@ -86,6 +86,8 @@ GameObject:
   - component: {fileID: 4775181421968382821}
   - component: {fileID: 8099996560283777626}
   - component: {fileID: 6730702378728917404}
+  - component: {fileID: 2477837001107980003}
+  - component: {fileID: 5312602094991837367}
   - component: {fileID: 8825310090449215054}
   m_Layer: 5
   m_Name: Chapters_Panel
@@ -111,8 +113,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -126.29503}
-  m_SizeDelta: {x: 0, y: -252.59998}
+  m_AnchoredPosition: {x: 0, y: -125.96}
+  m_SizeDelta: {x: 0, y: -251.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8099996560283777626
 CanvasRenderer:
@@ -152,6 +154,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2477837001107980003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662871470316104520}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309cf7dcd16c3384e9aac8b64a507461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaptersParentPrefab: {fileID: 5662871470316104520}
+  daysParentPrefab: {fileID: 0}
+  chapterUIPrefab: {fileID: -2328669188212195082, guid: 532deec2c0b1f4f4a9879c398aab12e8, type: 3}
+  dayUIPrefab: {fileID: 4927383935530161080, guid: 68314cb17510e0b4196e2f106c34b4aa, type: 3}
+  backButton: {fileID: 0}
+--- !u!114 &5312602094991837367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662871470316104520}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b61feafb646804797e047a0de79a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewManager: {fileID: 2477837001107980003}
 --- !u!114 &8825310090449215054
 MonoBehaviour:
   m_ObjectHideFlags: 0

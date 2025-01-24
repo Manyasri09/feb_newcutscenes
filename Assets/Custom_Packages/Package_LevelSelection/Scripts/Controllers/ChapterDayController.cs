@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using LevelSelectionPackage.Models;
 using LevelSelectionPackage.Views;
+using PlayerProgressSystem;
 
 namespace LevelSelectionPackage.Controllers
 {
@@ -11,7 +12,7 @@ namespace LevelSelectionPackage.Controllers
     /// This class ensures separation of concerns by mediating all interactions between
     /// the data provider and view components.
     /// </summary>
-    public class ChapterDayController : IChapterDayController
+    public class ChapterDayController
     {
         /// <summary>
         /// Reference to the data provider interface that handles data operations
@@ -25,6 +26,11 @@ namespace LevelSelectionPackage.Controllers
         /// </summary>
         private IChapterDayView view;
         List<ChapterModel> chapters = new List<ChapterModel>();
+
+        private ChapterModel SelectedChapterObj {get; set;}
+        private DayModel SelectedDayObj {get; set;}
+
+        
 
         
 
@@ -48,16 +54,15 @@ namespace LevelSelectionPackage.Controllers
         {
             // Fetch chapters from the data provider
             chapters = dataProvider.GetChapters();
-            // Update the view with the retrieved chapters
-            
         }
 
+        //This method sends the chapters to the view
         public void sendChaptersToView()
         {
+            //Call the DisplayChapters method in the view class and pass the chapters as a parameter
             view.DisplayChapters(chapters);
 
         }
-
 
         /// <summary>
         /// Handles user selection of a specific day.
@@ -74,6 +79,7 @@ namespace LevelSelectionPackage.Controllers
             }
             else
             {
+                SetDayActive(dayObj);
                 view.LoadDayContent(dayObj);
             }
         }
@@ -93,8 +99,44 @@ namespace LevelSelectionPackage.Controllers
             }
             else
             {
+                
+                SetChapterActive(chapterObj);
                 view.LoadChapterContent(chapterObj);
             }
         }
+
+        public void SetChapterActive(ChapterModel selectedChapterObj)
+        {
+            // Unhighlight previously selected chapter
+            if (SelectedChapterObj != null)
+            {
+                SelectedChapterObj.IsActive = false;
+            }
+
+            // Highlight the newly selected chapter
+            SelectedChapterObj = selectedChapterObj;
+            SelectedChapterObj.IsActive = true;
+
+            // Notify the view manager to refresh the UI
+            view.DisplayChapters(chapters);
+        }
+
+        public void SetDayActive(DayModel selectedDayObj)
+        {
+            // Unhighlight previously selected chapter
+            if (SelectedDayObj != null)
+            {
+                SelectedDayObj.IsActive = false;
+            }
+
+            // Highlight the newly selected chapter
+            SelectedDayObj = selectedDayObj;
+            SelectedDayObj.IsActive = true;
+
+            // Notify the view manager to refresh the UI
+            // view.DisplayChapters(chapters);
+        }
+
+        
     }
 }
